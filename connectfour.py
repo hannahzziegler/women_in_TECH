@@ -1,4 +1,4 @@
-import argparse
+from argparse import ArgumentParser
 
 """A Connect Four game that can be played by two players and involves 
 power-ups"""
