@@ -45,10 +45,62 @@ class PlayerO(PlayerX):
 
 class BoardState:
     """Provides information on the current state of the game. Used in the
-    PlayerX.turn() method."""
+    PlayerX.turn() method.
+    
+    Attributes:
+        board (dict of (int, int):str): a representation of the board, with
+            columns represented as pipes (|s) and empty spots represented with
+            spaces. Positions on the board are represented via coordinates of
+            (int, int), with the bottom left spot as (1,1)
+        
+    """
 
     def __init__(self):
-        """Initializes the board state."""
+        """Sets attributes."""
+        self.board = {
+            (1,1):"",
+            (1,2):"",
+            (1,3):"",
+            (1,4):"",
+            (1,5):"",
+            (1,6):"",
+            (2,1):"",
+            (2,2):"",
+            (2,3):"",
+            (2,4):"",
+            (2,5):"",
+            (2,6):"",
+            (3,1):"",
+            (3,2):"",
+            (3,3):"",
+            (3,4):"",
+            (3,5):"",
+            (3,6):"",
+            (4,1):"",
+            (4,2):"",
+            (4,3):"",
+            (4,4):"",
+            (4,5):"",
+            (4,6):"",
+            (5,1):"",
+            (5,2):"",
+            (5,3):"",
+            (5,4):"",
+            (5,5):"",
+            (5,6):"",
+            (6,1):"",
+            (6,2):"",
+            (6,3):"",
+            (6,4):"",
+            (6,5):"",
+            (6,6):"",
+            (7,1):"",
+            (7,2):"",
+            (7,3):"",
+            (7,4):"",
+            (7,5):"",
+            (7,6):""
+        }
 
     def __str__(self):
         """Returns a string representation of the board."""
