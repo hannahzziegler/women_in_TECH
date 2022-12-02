@@ -1,11 +1,24 @@
 """A Connect Four game that can be played by two players and involves 
 power-ups."""
+#REMINDER GUYS: WRITE A LOT OF COMMENTS
+#Each team member must contribute at least 2 functions or methods
+
+#List of things everyone is doing:
+#CHRISTINA:
+#HANNAH: lambda expression, optional parameter
+#EMILY: with statements (file),
+#TASFIA:
+#PARKER: magic method besides init, argparse
+
+#Potential things for more complexity later:
+#Pandas? Stats for one/multiple games
+#Regex that shit somehow
 
 import argparse
 import sys
 
-class PlayerX:
-    """Represents a turn taken by Player X in the Connect Four game.
+class Player:
+    """Represents a turn taken by a Player in the Connect Four game.
 
     Attributes: 
         piece (str) = a piece on the board
@@ -17,8 +30,9 @@ class PlayerX:
         Args:
             name (str) = the player's name
         """
+        #TASFIA
 
-    def turn(self, state):
+    def turn(self, state, powerup=None):
         """Prompts a player to take their turn and place their piece in a 
         column. Takes a turn.
 
@@ -26,26 +40,16 @@ class PlayerX:
             state (BoardState) = the current state of the game
 
         Returns:
-            (int) the column in which Player X will place a piece
+            (int) the column in which the Player will place a piece
+            #CHECK TO SEE IF THIS IS CLEAR WITH ARIC
         """
-
-
-
-class PlayerO(PlayerX):
-    """Represents a turn taken by Player O in the Connect Four game.
-
-    Args:
-        PlayerX (class): the parent class 
-
-    Returns:
-        (int) the column in which Player O will place a piece
-    """
+        #HANNAH
 
 
 
 class BoardState:
     """Provides information on the current state of the game. Used in the
-    PlayerX.turn() method.
+    Player.turn() method.
     
     Attributes:
         board (dict of (int, int):str): a representation of the board, with
@@ -57,6 +61,9 @@ class BoardState:
 
     def __init__(self):
         """Sets attributes."""
+        #CHRISTINA
+        #This is a dictionary that sets the coordinates for each board position
+        #(x,y): x=column(1-7), y=row(1-6)
         self.board = {
             (1,1):"",
             (1,2):"",
@@ -101,30 +108,61 @@ class BoardState:
             (7,5):"",
             (7,6):""
         }
+        
+        # count = 1 #row count
+        # for range(1-6):
+        #     position = (input, count)
+        #     while self.board[position] is True:
+        #         count +=1
 
     def __str__(self):
         """Returns a string representation of the board."""
+        #PARKER
+        
+    def save_progress(state):
+        """Writes the game progress to a text file. Reopens a text file and
+        resumes a game.
+
+        Args:
+            state (BoardState) = the current state of the game
+
+        Side effects:
+            creates and writes the game progress to a text file
+            reads in a text file and resumes a game
+        """
+        #EMILY
 
 
 
 class Board:
-    """A Connect Four game."""
+    """A Connect Four game.
+    
+    Attributes:
+
+    """
+    #This needs an Attributes section later?
     def __init__(self):
         """Initializes the Board class."""
+        #PARKER
+        #Write more for docstring later!
 
     def generate_board(self):
         """Returns the current state of the Connect Four board as a BoardState
         object."""
+        #TASFIA
+        #Aric said it won't count towards points in the project
+        #If more complexity is needed, we'll add another power up
 
     def turn(self, player):
         """Manages the player's turn.
 
         Args:
-            player (PlayerX, PlayerO): the player whose turn it is
+            player (Player): the player whose turn it is
 
         Side effects:
             prints to stdout
         """
+        #TASFIA
         state = self.state()
         while True:
             column = int(player.turn(state))
@@ -137,13 +175,14 @@ class Board:
                 #user gave a valid column
                 continue
                 
-                
-            
         
         # Alerts the user when they attempt to make an invalid move
             # Column number does not exist
             # Column selected is already full
             # Other nonsense responses
+        
+        #Also account for the player wanting to save progress at any time
+        #Power up is an optional parameter so remember that
 
     def play(self, state):
         """Play Connect Four (group note: while self.check_four is None, 
@@ -155,6 +194,7 @@ class Board:
         Side effects:
             writes to stdout.
         """
+        #EMILY
         while self.check_four(self.state) == None & "" in self.state.values():
             
             
@@ -171,6 +211,7 @@ class Board:
             "win" if a player has won, "tie" if there are no winners/no possible
             moves, None if the game is not over
         """
+        #CHRISTINA
         diag_count = 0
         
         
@@ -181,6 +222,7 @@ class PowerUp:
 
     def __init__(self):
         """initializes a power-up object."""
+        #Write more for docstring later!
 
     def invert(self, state):
         """Transforms all X's on the game board to O's, and vice versa.
@@ -191,6 +233,7 @@ class PowerUp:
         Side effects:
             passes new information to BoardState
         """
+        #EMILY
 
     def randomize(self, state):
         """Randomizes the positions of all pieces on the game board.
@@ -198,9 +241,11 @@ class PowerUp:
         Args:
             state (BoardState): the state of the board
 
-        Side effects: 
+        Returns:
             passes new information to BoardState
         """
+        #HANNAH
+        #potentially lambda expression????
 
 
 def main(name1, name2):
@@ -213,6 +258,7 @@ def main(name1, name2):
     Side effects:
         writes to stdout
     """
+    #PARKER
 
 
 def parse_args(arglist):
@@ -228,6 +274,7 @@ def parse_args(arglist):
     Returns:
         namespace: the parsed arguments, as a namespace.
     """
+    #PARKER
     parser = argparse.ArgumentParser()
     parser.add_argument("name1", help="the name of the first person")
     parser.add_argument("name2", help="the name of the second person")
