@@ -115,7 +115,7 @@ class BoardState:
         """Returns a string representation of the board."""
         #PARKER
         
-    def save_progress(state):
+    def save_progress(self, state):
         """Writes the game progress to a text file. Reopens a text file and
         resumes a game.
 
@@ -191,7 +191,10 @@ class Board:
             writes to stdout.
         """
         #EMILY
-        while self.check_four(self.state) == None & "" in self.state.values():
+        while ((self.check_four(self.state) == None) & 
+               ("" in self.state.values())):
+            return state.board
+            
             
             
             
@@ -280,7 +283,18 @@ class PowerUp:
         Side effects:
             passes new information to BoardState
         """
-        #EMILY
+        for position in state.board:
+        # iterating through each position in the board
+            piece = state.board[position]
+            # each piece is X or O
+            if piece == "X":
+                piece == "O"
+            elif piece == "O":
+                piece == "X"
+            else:
+                piece == ""
+        return state.board
+        #return the state of the board
 
     def randomize(self, state):
         """Randomizes the positions of all pieces on the game board.
