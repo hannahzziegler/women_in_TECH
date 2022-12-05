@@ -109,11 +109,6 @@ class BoardState:
             (7,6):""
         }
         
-        # count = 1 #row count
-        # for range(1-6):
-        #     position = (input, count)
-        #     while self.board[position] is True:
-        #         count +=1
 
     def __str__(self):
         """Returns a string representation of the board."""
@@ -212,7 +207,58 @@ class Board:
             moves, None if the game is not over
         """
         #CHRISTINA
-        diag_count = 0
+        #Initializing some counters for number of pieces in a line
+        vert_count = 1
+        horiz_count = 1
+        pdiag_count = 1
+        ndiag_count = 1
+        
+        #Initializing a counter for calculating if there's a tie
+        played_positions = 0
+        
+        #Iterate through every position in the board
+        for position in state.board:
+            #piece is equivalent to 'x' or 'o'
+            piece = state.board[position]
+            #Isolate out the coordinates of position
+            x, y = position
+            
+            #Skipping over empty spots on the board
+            if piece:
+                #Counting to see if there's a tie
+                played_positions += 1
+                
+                #While loop that will end when we have 4 in a row
+                while (vert_count or horiz_count or
+                    pdiag_count or ndiag_count) < 4:
+                    #Check for a vertical win
+                    while (state.board.get((x, y+vert_count)) or 
+                           state.board.get((x, y-vert_count))) == piece:
+                        vert_count += 1
+                    
+                    #Check for a horizontal win
+                    while (state.board.get((x+horiz_count, y)) or
+                           state.board.get((x-horiz_count, y))) == piece:
+                        horiz_count += 1
+                    
+                    #Check for a diagonal win in the positive direction
+                    while ((state.board.get((x+pdiag_count, y+pdiag_count)) or
+                           state.board.get((x-pdiag_count, y-pdiag_count)))
+                           == piece):
+                        pdiag_count += 1
+                    
+                    #Check for a diagonal win in the negative direction
+                    while ((state.board.get((x+ndiag_count, y-ndiag_count)) or
+                           state.board.get((x-ndiag_count, y+ndiag_count)))
+                           == piece):
+                        ndiag_count += 1
+                        
+            
+        
+                    
+            
+        
+        
         
         
 
