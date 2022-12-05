@@ -149,6 +149,7 @@ class Board:
         #TASFIA
         #Aric said it won't count towards points in the project
         #If more complexity is needed, we'll add another power up
+        return #attribute for board
 
     def turn(self, player):
         """Manages the player's turn.
