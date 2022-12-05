@@ -31,6 +31,7 @@ class Player:
             name (str) = the player's name
         """
         #TASFIA
+        self.name = name
 
     def turn(self, state, powerup=None):
         """Prompts a player to take their turn and place their piece in a 
