@@ -108,7 +108,8 @@ class BoardState:
             (7,5):"",
             (7,6):""
         }
-        
+        #I think i might need another function in here that decides the value
+        #of each key. unsure if that goes under another method
 
     def __str__(self):
         """Returns a string representation of the board."""
@@ -252,15 +253,15 @@ class Board:
                            state.board.get((x-ndiag_count, y+ndiag_count)))
                            == piece):
                         ndiag_count += 1
-                        
-            
         
-                    
-            
-        
-        
-        
-        
+        #Figuring out what to return based on the iterations through the board
+        if (vert_count or horiz_count or pdiag_count or ndiag_count) == 4:
+            return "win"
+        elif played_positions == 42:
+            return "tie"
+        else:
+            return None
+ 
 
 
 class PowerUp:
