@@ -16,6 +16,7 @@ power-ups."""
 
 import argparse
 import sys
+import random
 
 
 class Player:
@@ -26,12 +27,12 @@ class Player:
     """
 
     def __init__(self, name):
+        self.name = name
         """Creates a piece attribute.
 
         Args:
             name (str) = the player's name
         """
-        # TASFIA
 
     def turn(self, state, powerup=None):
         """Prompts a player to take their turn and place their piece in a 
@@ -44,6 +45,16 @@ class Player:
             (int) the column in which the Player will place a piece
             #CHECK TO SEE IF THIS IS CLEAR WITH ARIC
         """
+        state = self.state
+        print(self.state)
+        player_piece = int(input(
+            f"Hello {self.name}! Please enter a valid column to place your piece (valid columns: 1-7) or use a power-up by typing 'power-up':"))
+        if player_piece in range(1-7):
+            return player_piece
+        if player_piece == 'power-up':
+            powerup = random.choice(PowerUp.invert, PowerUp.randomize)
+            return powerup
+
         # HANNAH
 
 
