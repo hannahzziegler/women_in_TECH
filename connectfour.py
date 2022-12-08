@@ -171,6 +171,11 @@ class Board:
                 input("You must choose a number between 1 and 7 OR use your "
                       "power-up. Enter a new column number or type "
                       "\"power-up\": ")
+                
+            elif column == None: 
+                input("Your column does not exist. Enter a new column"
+                      "or type \"power-up\": ")
+                
             else:
                 # user gave a valid column
                 continue
