@@ -4,7 +4,7 @@ power-ups."""
 # Each team member must contribute at least 2 functions or methods
 
 # List of things everyone is doing:
-# CHRISTINA:
+# CHRISTINA: conditional expressions, sequence unpacking (tentative)
 # HANNAH: lambda expression, optional parameter
 # EMILY: with statements (file),
 # TASFIA:
