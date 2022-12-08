@@ -295,15 +295,21 @@ class Board:
             the game's outcome to a text file. 
             
         """
+        # If player_human is true, the winner is the player's name and the 
+        # loser is the computer
         if player_human == True:
             winner = Player.name
             loser = "Computer"
+        # And vice versa for the else statement
         else:
             winner = "Computer"
             loser = Player.name
-        #Here is a demonstration of a with statement   
+        # Here is a demonstration of a with statement   
+        # Open a file for writing to 
         with open("finishedgame.txt", "w") as f:
+            # Write the string representation of the board state to the file
             f.write(str(state.board))
+            # Write an f string of the game's outcome to the file 
             f.write(f"""{loser} suffered a humiliating 
                     defeat at the hands of {winner}. 
                     It took them {turn_counter} turns.""")
