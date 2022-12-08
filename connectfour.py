@@ -127,19 +127,6 @@ class BoardState:
         return f"The board is currently at {self.board}"
         # PARKER
 
-    def save_progress(self, state):
-        """Writes the game progress to a text file. Reopens a text file and
-        resumes a game.
-
-        Args:
-            state (BoardState) = the current state of the game
-
-        Side effects:
-            creates and writes the game progress to a text file
-            reads in a text file and resumes a game
-        """
-        # EMILY
-
 
 class Board:
     """A Connect Four game.
@@ -205,6 +192,22 @@ class Board:
         while ((self.check_four(self.state) == None) &
                ("" in self.state.values())):
             return state.board
+        
+    def save_progress(self, state):
+        """Writes the game progress to a text file. Reopens a text file and
+        resumes a game.
+
+        Args:
+            state (BoardState) = the current state of the game
+
+        Side effects:
+            creates and writes the game progress to a text file
+            reads in a text file and resumes a game
+        """
+        with open("filename", "w") as f:
+            f.write(state.board)
+            f.close()
+        # EMILY
 
     def check_four(self, state):
         """Determines if the game is over, i.e. if a player has four connected
