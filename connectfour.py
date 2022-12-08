@@ -6,7 +6,7 @@ power-ups."""
 # List of things everyone is doing:
 # CHRISTINA: conditional expressions, sequence unpacking (tentative)
 # HANNAH: lambda expression, optional parameter
-# EMILY: with statements (file),
+# EMILY: with statements (file), super
 # TASFIA:
 # PARKER: magic method besides init, argparse
 
@@ -210,29 +210,29 @@ class Board:
         Args:
             state (BoardState) = the current state of the game
 
-        Side effects:
-            writes to stdout.
+        Returns:
+        
+            Passes new information to board state.
         """
         # EMILY
+        #Initializes turn counter
+        turn_counter = 0
+        # Initializes a blank string for player species
+        player_species = ""
+        # Checks to make sure the game hasn't been won yet
         while ((self.check_four(self.state) == None) &
                ("" in self.state.values())):
-            return state.board
+            # Increments the turn counter by one
+            turn_counter = turn_counter + 1
+        # Assuming that the human player always goes first:
+        # If the turn counter is even, the player species is the human player
+        if turn_counter % 2 == 0:
+            player_human = True
+        #If the turn counter is odd, the player species is the computer
+        else:
+            player_human = False
+            return state.board, turn_counter, player_human
 
-    def save_progress(self, state):
-        """Writes the game progress to a text file. Reopens a text file and
-        resumes a game.
-
-        Args:
-            state (BoardState) = the current state of the game
-
-        Side effects:
-            creates and writes the game progress to a text file
-            reads in a text file and resumes a game
-        """
-        with open("filename", "w") as f:
-            f.write(state.board)
-            f.close()
-        # EMILY
 
     def check_four(self, state):
         """Determines if the game is over, i.e. if a player has four connected
@@ -299,6 +299,40 @@ class Board:
             return "tie"
         else:
             return None
+        
+    def game_details(self, state, turn_counter, player_human):
+        """Writes the details of a finished game to a text file. 
+        
+        Args:
+        
+            state (BoardState): the current state of the board
+            turn_counter (int): the value of the turn counter
+            player_human (boolean): whether the winner is a human or a computer
+            
+        Side effects: 
+        
+            Writes a string representation of the board and a string detailing 
+            the game's outcome to a text file. 
+            
+        """
+        # If player_human is true, the winner is the player's name and the 
+        # loser is the computer
+        if player_human == True:
+            winner = Player.name
+            loser = "Computer"
+        # And vice versa for the else statement
+        else:
+            winner = "Computer"
+            loser = Player.name
+        # Here is a demonstration of a with statement   
+        # Open a file for writing to 
+        with open("finishedgame.txt", "w") as f:
+            # Write the string representation of the board state to the file
+            f.write(str(state.board))
+            # Write an f string of the game's outcome to the file 
+            f.write(f"""{loser} suffered a humiliating 
+                    defeat at the hands of {winner}. 
+                    It took them {turn_counter} turns.""")
 
 
 class PowerUp:
@@ -307,6 +341,7 @@ class PowerUp:
     def __init__(self):
         """initializes a power-up object."""
         # Write more for docstring later!
+        # Ask Aric in office hours
 
     def invert(self, state):
         """Transforms all X's on the game board to O's, and vice versa.
@@ -321,12 +356,12 @@ class PowerUp:
             # iterating through each position in the board
             piece = state.board[position]
             # each piece is X or O
-            if piece == "X":
-                piece == "O"
-            elif piece == "O":
-                piece == "X"
+            if piece == "x":
+                state.board[position] = "o"
+            elif piece == "o":
+                state.board[position] = "x"
             else:
-                piece == ""
+                state.board[position] = ""
         return state.board
         # return the state of the board
         # CHRISTINA: wouldn't the thing within the clause be state.board[position]?
