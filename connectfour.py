@@ -6,8 +6,8 @@ power-ups."""
 # List of things everyone is doing:
 # CHRISTINA: conditional expressions, sequence unpacking (tentative)
 # HANNAH: lambda expression, optional parameter
-# EMILY: with statements (file),
-# TASFIA: fstrings, optional parameters
+# EMILY: with statements (file), super
+# TASFIA:
 # PARKER: magic method besides init, argparse
 
 # Potential things for more complexity later:
@@ -153,7 +153,7 @@ class Board:
         #Aric said it won't count towards points in the project
         #If more complexity is needed, we'll add another power up
 
-    def turn(self, player, powerup=None):
+    def turn(self, player):
         """Manages the player's turn.
 
         Args:
@@ -171,11 +171,6 @@ class Board:
                 input("You must choose a number between 1 and 7 OR use your "
                       "power-up. Enter a new column number or type "
                       "\"power-up\": ")
-                
-            elif column == None: 
-                input("Your column does not exist. Enter a new column"
-                      "or type \"power-up\": ")
-                
             else:
                 # user gave a valid column
                 continue
@@ -199,25 +194,17 @@ class Board:
             writes to stdout.
         """
         # EMILY
+        turn_counter = 0
+        player_species = ""
         while ((self.check_four(self.state) == None) &
                ("" in self.state.values())):
-            return state.board
+            turn_counter = turn_counter + 1
+        if turn_counter % 2 == 0:
+            player_species = Player.name
+        else:
+            player_species = "Computer"
+            return state.board, turn_counter, player_species
 
-    def save_progress(self, state):
-        """Writes the game progress to a text file. Reopens a text file and
-        resumes a game.
-
-        Args:
-            state (BoardState) = the current state of the game
-
-        Side effects:
-            creates and writes the game progress to a text file
-            reads in a text file and resumes a game
-        """
-        with open("filename", "w") as f:
-            f.write(state.board)
-            f.close()
-        # EMILY
 
     def check_four(self, state):
         """Determines if the game is over, i.e. if a player has four connected
@@ -284,6 +271,21 @@ class Board:
             return "tie"
         else:
             return None
+        
+    def game_details(self, state, turn_counter, player_species):
+        if isinstance(player_species, Player):
+            winner = Player.name
+            loser = "Computer"
+        else:
+            winner = "Computer"
+            loser = Player.name
+            
+        with open("finishedgame.txt", "w") as f:
+            # Write in Parker's string representation 
+            f.write()
+            f.write(f"""{loser} suffered a humiliating 
+                    defeat at the hands of {winner}. 
+                    It took them {turn_counter} turns.""")
 
 
 class PowerUp:
@@ -292,6 +294,7 @@ class PowerUp:
     def __init__(self):
         """initializes a power-up object."""
         # Write more for docstring later!
+        # Ask Aric in office hours
 
     def invert(self, state):
         """Transforms all X's on the game board to O's, and vice versa.
@@ -306,12 +309,12 @@ class PowerUp:
             # iterating through each position in the board
             piece = state.board[position]
             # each piece is X or O
-            if piece == "X":
-                piece == "O"
-            elif piece == "O":
-                piece == "X"
+            if piece == "x":
+                state.board[position] = "o"
+            elif piece == "o":
+                state.board[position] = "x"
             else:
-                piece == ""
+                state.board[position] = ""
         return state.board
         # return the state of the board
         # CHRISTINA: wouldn't the thing within the clause be state.board[position]?
