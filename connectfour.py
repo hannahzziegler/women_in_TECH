@@ -158,6 +158,7 @@ class Board:
 
         Args:
             player (Player): the player whose turn it is
+            powerup (string, optional): the potential powerup used
 
         Side effects:
             prints to stdout
@@ -172,9 +173,8 @@ class Board:
                       "power-up. Enter a new column number or type "
                       "\"power-up\": ")
                 
-            elif column == None: 
-                input("Your column does not exist. Enter a new column"
-                      "or type \"power-up\": ")
+            elif powerup != None: 
+                return(f"You have used {powerup}")
                 
             else:
                 # user gave a valid column
