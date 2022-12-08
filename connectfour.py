@@ -279,10 +279,9 @@ class Board:
         else:
             winner = "Computer"
             loser = Player.name
-            
+        #Here is a demonstration of a with statement   
         with open("finishedgame.txt", "w") as f:
-            # Write in Parker's string representation 
-            f.write()
+            f.write(str(state.board))
             f.write(f"""{loser} suffered a humiliating 
                     defeat at the hands of {winner}. 
                     It took them {turn_counter} turns.""")
