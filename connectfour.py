@@ -153,7 +153,7 @@ class Board:
         #Aric said it won't count towards points in the project
         #If more complexity is needed, we'll add another power up
 
-    def turn(self, player, power_up=None):
+    def turn(self, player, powerup=None):
         """Manages the player's turn.
 
         Args:
