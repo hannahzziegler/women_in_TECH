@@ -190,20 +190,28 @@ class Board:
         Args:
             state (BoardState) = the current state of the game
 
-        Side effects:
-            writes to stdout.
+        Returns:
+        
+            Passes new information to board state.
         """
         # EMILY
+        #Initializes turn counter
         turn_counter = 0
+        # Initializes a blank string for player species
         player_species = ""
+        # Checks to make sure the game hasn't been won yet
         while ((self.check_four(self.state) == None) &
                ("" in self.state.values())):
+            # Increments the turn counter by one
             turn_counter = turn_counter + 1
+        # Assuming that the human player always goes first:
+        # If the turn counter is even, the player species is the human player
         if turn_counter % 2 == 0:
-            player_species = Player.name
+            player_human = True
+        #If the turn counter is odd, the player species is the computer
         else:
-            player_species = "Computer"
-            return state.board, turn_counter, player_species
+            player_human = False
+            return state.board, turn_counter, player_human
 
 
     def check_four(self, state):
@@ -272,8 +280,22 @@ class Board:
         else:
             return None
         
-    def game_details(self, state, turn_counter, player_species):
-        if isinstance(player_species, Player):
+    def game_details(self, state, turn_counter, player_human):
+        """Writes the details of a finished game to a text file. 
+        
+        Args:
+        
+            state (BoardState): the current state of the board
+            turn_counter (int): the value of the turn counter
+            player_human (boolean): whether the winner is a human or a computer
+            
+        Side effects: 
+        
+            Writes a string representation of the board and a string detailing 
+            the game's outcome to a text file. 
+            
+        """
+        if isinstance(player_human, Player):
             winner = Player.name
             loser = "Computer"
         else:
