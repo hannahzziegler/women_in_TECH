@@ -56,6 +56,8 @@ class Player:
             return powerup
 
         # HANNAH
+        # CHRISTINA: idk if it's good practice to call a class by name like this
+        # i think it's considered hard coding but we will talk later
 
 
 class BoardState:
@@ -304,6 +306,9 @@ class PowerUp:
                 piece == ""
         return state.board
         # return the state of the board
+        # CHRISTINA: wouldn't the thing within the clause be state.board[position]?
+        # because piece as a variable does not communicate back to GameState in any way
+        # also it wouldn't be double ==
 
     def randomize(self, state):
         """Randomizes the positions of all pieces on the game board.
