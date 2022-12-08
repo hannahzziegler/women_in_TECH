@@ -34,6 +34,8 @@ class Player:
             name (str) = the player's name
         """
         #TASFIA
+        self.piece = None
+        #This is just a placeholder for the piece. I want to see how the piece attribute works in the other methods better before initializing.
 
     def turn(self, state, powerup=None):
         """Prompts a player to take their turn and place their piece in a 
@@ -121,7 +123,7 @@ class BoardState:
             (7, 4): "",
             (7, 5): "",
             (7, 6): ""
-        }
+        } 
         # I think i might need another function in here that decides the value
         # of each key. unsure if that goes under another method
 
