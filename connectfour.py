@@ -192,7 +192,7 @@ class Board:
         while ((self.check_four(self.state) == None) &
                ("" in self.state.values())):
             return state.board
-        
+
     def save_progress(self, state):
         """Writes the game progress to a text file. Reopens a text file and
         resumes a game.
@@ -316,6 +316,20 @@ class PowerUp:
         """
         # HANNAH
         # potentially lambda expression????
+        value_list = ([(v) for v in state.board.values() if v != ""])
+        random.shuffle(value_list)
+        key_list = ([(k) for k, v in state.board.items() if v != ""])
+        dict_with_pieces = {key_list[i]: value_list[i]
+                            for i in range(len(key_list))}
+        board_filtered_dict = {}
+        for (key, value) in state.board.items():
+            if value == "":
+                board_filtered_dict[key] = value
+        union_dicts = dict(dict_with_pieces.items() |
+                           board_filtered_dict.items())
+        sorted_unions = sorted(union_dicts.items(), key=lambda item: item[0])
+        state.board = sorted_unions
+        return state.board
 
 
 def main(name1, name2):
