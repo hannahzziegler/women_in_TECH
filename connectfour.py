@@ -5,9 +5,9 @@ power-ups."""
 
 # List of things everyone is doing:
 # CHRISTINA: conditional expressions, sequence unpacking (tentative)
-# HANNAH: lambda expression, optional parameter
-# EMILY: with statements (file), super
-# TASFIA:
+# HANNAH: lambda expression, set()
+# EMILY: with statements (file), inheritance
+# TASFIA: optional parameter, f-string
 # PARKER: magic method besides init, argparse
 
 # Potential things for more complexity later:
