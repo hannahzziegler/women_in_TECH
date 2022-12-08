@@ -320,20 +320,34 @@ class PowerUp:
             passes new information to BoardState
         """
         # HANNAH
-        # potentially lambda expression????
         value_list = ([(v) for v in state.board.values() if v != ""])
+        # getting a list of all pieces on the board that have an "X" or "O" in them
         random.shuffle(value_list)
+        # shuffling the order of the "X" and "O" values
         key_list = ([(k) for k, v in state.board.items() if v != ""])
+        # gettng a list of all spots on the board where pieces have been placed
         dict_with_pieces = {key_list[i]: value_list[i]
                             for i in range(len(key_list))}
+        # concatenating the lists into a new dictionary
         board_filtered_dict = {}
+        # creating an empty dictionary that will have a list of all the spaces
+        # on the board without pieces
         for (key, value) in state.board.items():
             if value == "":
                 board_filtered_dict[key] = value
+                # loop is basically saying 'if there is not a piece in this spot
+                # on the board, make it a key value pair in the empty dict
         union_dicts = dict(dict_with_pieces.items() |
                            board_filtered_dict.items())
+        # creating a union where all of the shuffled keys/values that have
+        # pieces on them are joined to the ones that remain empty
         sorted_unions = sorted(union_dicts.items(), key=lambda item: item[0])
+        # sorting the union of spots with pieces and spots without them to get
+        # the matrix looking the same as it did before (i.e. (1,1), (1,2), etc.)
         state.board = sorted_unions
+        # reassigning state.board to the new union of pieces/empty spaces
+        # ^^ I don't know if this works but we need to somehow make sorted_unions
+        # the new board object
         return state.board
 
 
