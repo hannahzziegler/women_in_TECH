@@ -33,9 +33,9 @@ class Player:
         Args:
             name (str) = the player's name
         """
-        #TASFIA
+        # TASFIA
         self.piece = None
-        #This is just a placeholder for the piece. I want to see how the piece attribute works in the other methods better before initializing.
+        # This is just a placeholder for the piece. I want to see how the piece attribute works in the other methods better before initializing.
 
     def turn(self, state, powerup=None):
         """Prompts a player to take their turn and place their piece in a 
@@ -123,13 +123,27 @@ class BoardState:
             (7, 4): "",
             (7, 5): "",
             (7, 6): ""
-        } 
+        }
         # I think i might need another function in here that decides the value
         # of each key. unsure if that goes under another method
 
     def __str__(self):
         """Returns a string representation of the board."""
-        return f"The board is currently at {self.board}"
+        return f"The board is currently \
+        (| {self.board[36]}| {self.board[37]} | {self.board[38]} |\
+        {self.board[39]} | {self.board[40]} | {self.board[41]} |)\n \
+        (| {self.board[30]}| {self.board[31]} | {self.board[32]} |\
+        {self.board[33]} | {self.board[34]} | {self.board[35]} |)\n\
+        (| {self.board[24]}| {self.board[25]} | {self.board[26]} \
+        | {self.board[27]} | {self.board[28]} | {self.board[29]} |)\n\
+        (| {self.board[18]}| {self.board[19]} | {self.board[20]} |\
+        {self.board[21]} | {self.board[22]} | {self.board[23]} |)\n\
+        (| {self.board[12]}| {self.board[13]} | {self.board[14]} |\
+        {self.board[15]} | {self.board[16]} | {self.board[17]} |)\n\
+        (| {self.board[6]} | {self.board[7]} | {self.board[8]} |\
+        {self.board[9]} | {self.board[10]} | {self.board[11]} |)\n\
+        (| {self.board[0]} | {self.board[1]} | {self.board[2]} |\
+        {self.board[3]} | {self.board[4]} | {self.board[5]} |)\n"
         # PARKER
 
 
@@ -141,17 +155,23 @@ class Board:
     """
     # This needs an Attributes section later?
 
-    def __init__(self):
-        """Initializes the Board class."""
+    def __init__(self, board):
+        """Initializes the Board class.
+
+        Args:
+            board (str) = represents the board the game is played on
+        """
+        self.board = board
+
         # PARKER
         # Write more for docstring later!
 
     def generate_board(self):
         """Returns the current state of the Connect Four board as a BoardState
         object."""
-        #TASFIA
-        #Aric said it won't count towards points in the project
-        #If more complexity is needed, we'll add another power up
+        # TASFIA
+        # Aric said it won't count towards points in the project
+        # If more complexity is needed, we'll add another power up
 
     def turn(self, player):
         """Manages the player's turn.
@@ -364,6 +384,7 @@ def main(name1, name2):
     Side effects:
         writes to stdout
     """
+
     # PARKER
 
 
@@ -382,8 +403,9 @@ def parse_args(arglist):
     """
     # PARKER
     parser = argparse.ArgumentParser()
-    parser.add_argument("name1", help="the name of the first person")
-    parser.add_argument("name2", help="the name of the second person")
+    parser.add_argument("name1", type=str, help="the name of the first person")
+    parser.add_argument("name2", type=str,
+                        help="the name of the second person")
     return parser.parse_args(arglist)
 
 
