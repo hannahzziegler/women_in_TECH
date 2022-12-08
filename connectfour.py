@@ -295,7 +295,7 @@ class Board:
             the game's outcome to a text file. 
             
         """
-        if isinstance(player_human, Player):
+        if player_human == True:
             winner = Player.name
             loser = "Computer"
         else:
