@@ -28,16 +28,18 @@ class Player:
 
     def __init__(self, name):
         self.name = name
-        """Creates a piece attribute.
+        """Creates a player name attribute.
 
         Args:
             name (str) = the player's name
         """
-        # TASFIA
-        self.piece = None
-        # This is just a placeholder for the piece. I want to see how the piece attribute works in the other methods better before initializing.
 
-    def turn(self, state, powerup=None):
+        def turn(self, state):
+            raise NotImplementedError
+
+
+class HumanPlayer(Player):
+    def turn(self, state):
         """Prompts a player to take their turn and place their piece in a 
         column. Takes a turn.
 
@@ -50,17 +52,22 @@ class Player:
         """
         state = self.state
         print(self.state)
-        player_piece = int(input(
-            f"Hello {self.name}! Please enter a valid column to place your piece (valid columns: 1-7) or use a power-up by typing 'power-up':"))
-        if player_piece in range(1-7):
-            return player_piece
-        if player_piece == 'power-up':
-            powerup = random.choice(PowerUp.invert, PowerUp.randomize)
-            return powerup
+        choice = input(
+            f"Hello {self.name}! Please enter a valid column to place your piece (valid columns: 1-7) or use a power-up by typing 'power-up':")
+        return choice
 
-        # HANNAH
-        # CHRISTINA: idk if it's good practice to call a class by name like this
-        # i think it's considered hard coding but we will talk later
+
+class ComputerPlayer(Player):
+    def turn(self, state):
+        pass
+    # for computer player class
+    # powerup count = 1
+    # column_list = [1, 2, 3, 4, 5, 6, 7]
+    # computer_player_choice = random.choice(column_list)
+    # if pieces in board < 10, randomly choose a letter
+    # if pieces in board > 10, choose a powerup or a random letter
+    # if computer chooses a powerup
+    # powerup count -= 1
 
 
 class BoardState:
@@ -191,10 +198,15 @@ class Board:
                 input("You must choose a number between 1 and 7 OR use your "
                       "power-up. Enter a new column number or type "
                       "\"power-up\": ")
+            elif column == 'power-up':
+                powerup = random.choice(PowerUp.invert, PowerUp.randomize)
+                return powerup
+
             else:
                 # user gave a valid column
                 continue
 
+        # Christina says to fix the way we choose a random power-up – from my previous code on it when it was in my method
         # Alerts the user when they attempt to make an invalid move
             # Column number does not exist
             # Column selected is already full
@@ -211,11 +223,11 @@ class Board:
             state (BoardState) = the current state of the game
 
         Returns:
-        
+
             Passes new information to board state.
         """
         # EMILY
-        #Initializes turn counter
+        # Initializes turn counter
         turn_counter = 0
         # Initializes a blank string for player species
         player_species = ""
@@ -228,11 +240,10 @@ class Board:
         # If the turn counter is even, the player species is the human player
         if turn_counter % 2 == 0:
             player_human = True
-        #If the turn counter is odd, the player species is the computer
+        # If the turn counter is odd, the player species is the computer
         else:
             player_human = False
             return state.board, turn_counter, player_human
-
 
     def check_four(self, state):
         """Determines if the game is over, i.e. if a player has four connected
@@ -299,23 +310,23 @@ class Board:
             return "tie"
         else:
             return None
-        
+
     def game_details(self, state, turn_counter, player_human):
         """Writes the details of a finished game to a text file. 
-        
+
         Args:
-        
+
             state (BoardState): the current state of the board
             turn_counter (int): the value of the turn counter
             player_human (boolean): whether the winner is a human or a computer
-            
+
         Side effects: 
-        
+
             Writes a string representation of the board and a string detailing 
             the game's outcome to a text file. 
-            
+
         """
-        # If player_human is true, the winner is the player's name and the 
+        # If player_human is true, the winner is the player's name and the
         # loser is the computer
         if player_human == True:
             winner = Player.name
@@ -324,12 +335,12 @@ class Board:
         else:
             winner = "Computer"
             loser = Player.name
-        # Here is a demonstration of a with statement   
-        # Open a file for writing to 
+        # Here is a demonstration of a with statement
+        # Open a file for writing to
         with open("finishedgame.txt", "w") as f:
             # Write the string representation of the board state to the file
             f.write(str(state.board))
-            # Write an f string of the game's outcome to the file 
+            # Write an f string of the game's outcome to the file
             f.write(f"""{loser} suffered a humiliating 
                     defeat at the hands of {winner}. 
                     It took them {turn_counter} turns.""")
@@ -407,6 +418,21 @@ class PowerUp:
         # ^^ I don't know if this works but we need to somehow make sorted_unions
         # the new board object
         return state.board
+
+    # Psuedo code for making simpler:
+    # position_set = ()
+    # x_counter = 0
+    # y_counter = 0
+    # for position in self.board.keys():
+    # if self.board[position] is not None:
+    # position_set.append(position)
+    # if self.board[positon] == "x":
+    # x_counter += 1
+    # if self.board[position] == "o":
+    # o_counter += 1
+    # at this point, all of the things left in position should have "x" label.
+    # make sure those all get assigned x while communicating with self.board
+    # at that point, self.board will be updated with information
 
 
 def main(name1, name2):
