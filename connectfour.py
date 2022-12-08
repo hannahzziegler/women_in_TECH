@@ -7,7 +7,7 @@ power-ups."""
 # CHRISTINA: conditional expressions, sequence unpacking (tentative)
 # HANNAH: lambda expression, optional parameter
 # EMILY: with statements (file),
-# TASFIA:
+# TASFIA: fstrings, optional parameters
 # PARKER: magic method besides init, argparse
 
 # Potential things for more complexity later:
