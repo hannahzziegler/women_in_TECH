@@ -204,6 +204,10 @@ class Board:
                 input("Your column does not exist. Enter a new column"
                       "or type \"power-up\": ")
                 
+            elif column == 'power-up':
+                powerup = random.choice(PowerUp.invert, PowerUp.randomize)
+                return powerup
+                
             else:
                 # user gave a valid column
                 continue
