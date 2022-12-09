@@ -5,9 +5,9 @@ power-ups."""
 
 # List of things everyone is doing:
 # CHRISTINA: conditional expressions, sequence unpacking (tentative)
-# HANNAH: lambda expression, optional parameter
-# EMILY: with statements (file),
-# TASFIA: fstrings, optional parameters
+# HANNAH: lambda expression, set()
+# EMILY: with statements (file), inheritance
+# TASFIA: optional parameter, f-string
 # PARKER: magic method besides init, argparse
 
 # Potential things for more complexity later:
@@ -28,16 +28,18 @@ class Player:
 
     def __init__(self, name):
         self.name = name
-        """Creates a piece attribute.
+        """Creates a player name attribute.
 
         Args:
             name (str) = the player's name
         """
-        #TASFIA
-        self.piece = None
-        #This is just a placeholder for the piece. I want to see how the piece attribute works in the other methods better before initializing.
 
-    def turn(self, state, powerup=None):
+        def turn(self, state):
+            raise NotImplementedError
+
+
+class HumanPlayer(Player):
+    def turn(self, state):
         """Prompts a player to take their turn and place their piece in a 
         column. Takes a turn.
 
@@ -50,17 +52,22 @@ class Player:
         """
         state = self.state
         print(self.state)
-        player_piece = int(input(
-            f"Hello {self.name}! Please enter a valid column to place your piece (valid columns: 1-7) or use a power-up by typing 'power-up':"))
-        if player_piece in range(1-7):
-            return player_piece
-        if player_piece == 'power-up':
-            powerup = random.choice(PowerUp.invert, PowerUp.randomize)
-            return powerup
+        choice = input(
+            f"Hello {self.name}! Please enter a valid column to place your piece (valid columns: 1-7) or use a power-up by typing 'power-up':")
+        return choice
 
-        # HANNAH
-        # CHRISTINA: idk if it's good practice to call a class by name like this
-        # i think it's considered hard coding but we will talk later
+
+class ComputerPlayer(Player):
+    def turn(self, state):
+        pass
+    # for computer player class
+    # powerup count = 1
+    # column_list = [1, 2, 3, 4, 5, 6, 7]
+    # computer_player_choice = random.choice(column_list)
+    # if pieces in board < 10, randomly choose a letter
+    # if pieces in board > 10, choose a powerup or a random letter
+    # if computer chooses a powerup
+    # powerup count -= 1
 
 
 class BoardState:
@@ -123,13 +130,27 @@ class BoardState:
             (7, 4): "",
             (7, 5): "",
             (7, 6): ""
-        } 
+        }
         # I think i might need another function in here that decides the value
         # of each key. unsure if that goes under another method
 
     def __str__(self):
         """Returns a string representation of the board."""
-        return f"The board is currently at {self.board}"
+        return f"The board is currently \
+        (| {self.board[36]}| {self.board[37]} | {self.board[38]} |\
+        {self.board[39]} | {self.board[40]} | {self.board[41]} |)\n \
+        (| {self.board[30]}| {self.board[31]} | {self.board[32]} |\
+        {self.board[33]} | {self.board[34]} | {self.board[35]} |)\n\
+        (| {self.board[24]}| {self.board[25]} | {self.board[26]} \
+        | {self.board[27]} | {self.board[28]} | {self.board[29]} |)\n\
+        (| {self.board[18]}| {self.board[19]} | {self.board[20]} |\
+        {self.board[21]} | {self.board[22]} | {self.board[23]} |)\n\
+        (| {self.board[12]}| {self.board[13]} | {self.board[14]} |\
+        {self.board[15]} | {self.board[16]} | {self.board[17]} |)\n\
+        (| {self.board[6]} | {self.board[7]} | {self.board[8]} |\
+        {self.board[9]} | {self.board[10]} | {self.board[11]} |)\n\
+        (| {self.board[0]} | {self.board[1]} | {self.board[2]} |\
+        {self.board[3]} | {self.board[4]} | {self.board[5]} |)\n"
         # PARKER
 
 
@@ -141,19 +162,25 @@ class Board:
     """
     # This needs an Attributes section later?
 
-    def __init__(self):
-        """Initializes the Board class."""
+    def __init__(self, board):
+        """Initializes the Board class.
+
+        Args:
+            board (str) = represents the board the game is played on
+        """
+        self.board = board
+
         # PARKER
         # Write more for docstring later!
 
     def generate_board(self):
         """Returns the current state of the Connect Four board as a BoardState
         object."""
-        #TASFIA
-        #Aric said it won't count towards points in the project
-        #If more complexity is needed, we'll add another power up
+        # TASFIA
+        # Aric said it won't count towards points in the project
+        # If more complexity is needed, we'll add another power up
 
-    def turn(self, player, powerup=None):
+    def turn(self, player):
         """Manages the player's turn.
 
         Args:
@@ -173,13 +200,15 @@ class Board:
                       "power-up. Enter a new column number or type "
                       "\"power-up\": ")
                 
-            elif powerup != None: 
-                return(f"You have used {powerup}")
+            elif column == None: 
+                input("Your column does not exist. Enter a new column"
+                      "or type \"power-up\": ")
                 
             else:
                 # user gave a valid column
                 continue
 
+        # Christina says to fix the way we choose a random power-up – from my previous code on it when it was in my method
         # Alerts the user when they attempt to make an invalid move
             # Column number does not exist
             # Column selected is already full
@@ -195,29 +224,28 @@ class Board:
         Args:
             state (BoardState) = the current state of the game
 
-        Side effects:
-            writes to stdout.
+        Returns:
+
+            Passes new information to board state.
         """
         # EMILY
+        # Initializes turn counter
+        turn_counter = 0
+        # Initializes a blank string for player species
+        player_species = ""
+        # Checks to make sure the game hasn't been won yet
         while ((self.check_four(self.state) == None) &
                ("" in self.state.values())):
-            return state.board
-
-    def save_progress(self, state):
-        """Writes the game progress to a text file. Reopens a text file and
-        resumes a game.
-
-        Args:
-            state (BoardState) = the current state of the game
-
-        Side effects:
-            creates and writes the game progress to a text file
-            reads in a text file and resumes a game
-        """
-        with open("filename", "w") as f:
-            f.write(state.board)
-            f.close()
-        # EMILY
+            # Increments the turn counter by one
+            turn_counter = turn_counter + 1
+        # Assuming that the human player always goes first:
+        # If the turn counter is even, the player species is the human player
+        if turn_counter % 2 == 0:
+            player_human = True
+        # If the turn counter is odd, the player species is the computer
+        else:
+            player_human = False
+            return state.board, turn_counter, player_human
 
     def check_four(self, state):
         """Determines if the game is over, i.e. if a player has four connected
@@ -285,6 +313,40 @@ class Board:
         else:
             return None
 
+    def game_details(self, state, turn_counter, player_human):
+        """Writes the details of a finished game to a text file. 
+
+        Args:
+
+            state (BoardState): the current state of the board
+            turn_counter (int): the value of the turn counter
+            player_human (boolean): whether the winner is a human or a computer
+
+        Side effects: 
+
+            Writes a string representation of the board and a string detailing 
+            the game's outcome to a text file. 
+
+        """
+        # If player_human is true, the winner is the player's name and the
+        # loser is the computer
+        if player_human == True:
+            winner = Player.name
+            loser = "Computer"
+        # And vice versa for the else statement
+        else:
+            winner = "Computer"
+            loser = Player.name
+        # Here is a demonstration of a with statement
+        # Open a file for writing to
+        with open("finishedgame.txt", "w") as f:
+            # Write the string representation of the board state to the file
+            f.write(str(state.board))
+            # Write an f string of the game's outcome to the file
+            f.write(f"""{loser} suffered a humiliating 
+                    defeat at the hands of {winner}. 
+                    It took them {turn_counter} turns.""")
+
 
 class PowerUp:
     """A power-up used by a player during a Connect Four game."""
@@ -292,6 +354,7 @@ class PowerUp:
     def __init__(self):
         """initializes a power-up object."""
         # Write more for docstring later!
+        # Ask Aric in office hours
 
     def invert(self, state):
         """Transforms all X's on the game board to O's, and vice versa.
@@ -306,12 +369,12 @@ class PowerUp:
             # iterating through each position in the board
             piece = state.board[position]
             # each piece is X or O
-            if piece == "X":
-                piece == "O"
-            elif piece == "O":
-                piece == "X"
+            if piece == "x":
+                state.board[position] = "o"
+            elif piece == "o":
+                state.board[position] = "x"
             else:
-                piece == ""
+                state.board[position] = ""
         return state.board
         # return the state of the board
         # CHRISTINA: wouldn't the thing within the clause be state.board[position]?
@@ -358,6 +421,21 @@ class PowerUp:
         # the new board object
         return state.board
 
+    # Psuedo code for making simpler:
+    # position_set = ()
+    # x_counter = 0
+    # y_counter = 0
+    # for position in self.board.keys():
+    # if self.board[position] is not None:
+    # position_set.append(position)
+    # if self.board[positon] == "x":
+    # x_counter += 1
+    # if self.board[position] == "o":
+    # o_counter += 1
+    # at this point, all of the things left in position should have "x" label.
+    # make sure those all get assigned x while communicating with self.board
+    # at that point, self.board will be updated with information
+
 
 def main(name1, name2):
     """Sets up and plays a game of Connect Four.
@@ -369,6 +447,7 @@ def main(name1, name2):
     Side effects:
         writes to stdout
     """
+
     # PARKER
 
 
@@ -387,8 +466,9 @@ def parse_args(arglist):
     """
     # PARKER
     parser = argparse.ArgumentParser()
-    parser.add_argument("name1", help="the name of the first person")
-    parser.add_argument("name2", help="the name of the second person")
+    parser.add_argument("name1", type=str, help="the name of the first person")
+    parser.add_argument("name2", type=str,
+                        help="the name of the second person")
     return parser.parse_args(arglist)
 
 
