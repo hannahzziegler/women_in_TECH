@@ -177,11 +177,12 @@ class Board:
     def generate_board(self):
         """Returns the current state of the Connect Four board as a BoardState
         object."""
+        return BoardState(self.board)
         # TASFIA
         # Aric said it won't count towards points in the project
         # If more complexity is needed, we'll add another power up
 
-    def turn(self, player):
+    def turn(self, player): #optional parameters?
         """Manages the player's turn.
 
         Args:
@@ -201,13 +202,13 @@ class Board:
                       "power-up. Enter a new column number or type "
                       "\"power-up\",: ")
                 
-            elif column == None: 
-                input("")
+            elif column == None: #if the column selected is already full
+                input("") 
                 
             elif column == 'power-up':
                 powerup = random.choice(invert, randomize) #these are the powerups that could be chosen
                 if powerup is invert: 
-                    print(f"You have used invert, {self.name}") #
+                    print(f"You have used invert, {self.name}") #going to account for if we get other powerups
                 elif powerup is randomize: 
                     print(f"You have used randomize, {self.name}") 
                 return powerup
