@@ -68,6 +68,7 @@ class ComputerPlayer(Player):
     # if pieces in board > 10, choose a powerup or a random letter
     # if computer chooses a powerup
     # powerup count -= 1
+    # don't worry about making it too smart
 
 
 class BoardState:
@@ -352,93 +353,85 @@ class Board:
                     It took them {turn_counter} turns.""")
 
 
-class PowerUp:
-    """A power-up used by a player during a Connect Four game."""
+def invert(self, state):
+    """Transforms all X's on the game board to O's, and vice versa.
 
-    def __init__(self):
-        """initializes a power-up object."""
-        # Write more for docstring later!
-        # Ask Aric in office hours
+    Args:
+        state (BoardState): the state of the board
 
-    def invert(self, state):
-        """Transforms all X's on the game board to O's, and vice versa.
+    Side effects:
+        passes new information to BoardState
+    """
+    for position in state.board:
+        # iterating through each position in the board
+        piece = state.board[position]
+        # each piece is X or O
+        if piece == "x":
+            state.board[position] = "o"
+        elif piece == "o":
+            state.board[position] = "x"
+        else:
+            state.board[position] = ""
+    return state.board
+    # return the state of the board
+    # CHRISTINA: wouldn't the thing within the clause be state.board[position]?
+    # because piece as a variable does not communicate back to GameState in any way
+    # also it wouldn't be double ==
 
-        Args:
-            state (BoardState): the state of the board
+def randomize(self, state):
+    """Randomizes the positions of all pieces on the game board.
 
-        Side effects:
-            passes new information to BoardState
-        """
-        for position in state.board:
-            # iterating through each position in the board
-            piece = state.board[position]
-            # each piece is X or O
-            if piece == "x":
-                state.board[position] = "o"
-            elif piece == "o":
-                state.board[position] = "x"
-            else:
-                state.board[position] = ""
-        return state.board
-        # return the state of the board
-        # CHRISTINA: wouldn't the thing within the clause be state.board[position]?
-        # because piece as a variable does not communicate back to GameState in any way
-        # also it wouldn't be double ==
+    Args:
+        state (BoardState): the state of the board
 
-    def randomize(self, state):
-        """Randomizes the positions of all pieces on the game board.
+    Returns:
+        passes new information to BoardState
+    """
+    # HANNAH
+    value_list = ([(v) for v in state.board.values() if v != ""])
+    # getting a list of all pieces on the board that have an "X" or "O" in them
+    random.shuffle(value_list)
+    # shuffling the order of the "X" and "O" values
+    key_list = ([(k) for k, v in state.board.items() if v != ""])
+    # gettng a list of all spots on the board where pieces have been placed
+    dict_with_pieces = {key_list[i]: value_list[i]
+                        for i in range(len(key_list))}
+    # concatenating the lists into a new dictionary
+    board_filtered_dict = {}
+    # creating an empty dictionary that will have a list of all the spaces
+    # on the board without pieces
+    for (key, value) in state.board.items():
+        if value == "":
+            board_filtered_dict[key] = value
+            # loop is basically saying 'if there is not a piece in this spot
+            # on the board, make it a key value pair in the empty dict
+    union_dicts = dict(dict_with_pieces.items() |
+                        board_filtered_dict.items())
+    # creating a union where all of the shuffled keys/values that have
+    # pieces on them are joined to the ones that remain empty
+    sorted_unions = sorted(union_dicts.items(), key=lambda item: item[0])
+    # sorting the union of spots with pieces and spots without them to get
+    # the matrix looking the same as it did before (i.e. (1,1), (1,2), etc.)
+    state.board = sorted_unions
+    # reassigning state.board to the new union of pieces/empty spaces
+    # ^^ I don't know if this works but we need to somehow make sorted_unions
+    # the new board object
+    return state.board
 
-        Args:
-            state (BoardState): the state of the board
-
-        Returns:
-            passes new information to BoardState
-        """
-        # HANNAH
-        value_list = ([(v) for v in state.board.values() if v != ""])
-        # getting a list of all pieces on the board that have an "X" or "O" in them
-        random.shuffle(value_list)
-        # shuffling the order of the "X" and "O" values
-        key_list = ([(k) for k, v in state.board.items() if v != ""])
-        # gettng a list of all spots on the board where pieces have been placed
-        dict_with_pieces = {key_list[i]: value_list[i]
-                            for i in range(len(key_list))}
-        # concatenating the lists into a new dictionary
-        board_filtered_dict = {}
-        # creating an empty dictionary that will have a list of all the spaces
-        # on the board without pieces
-        for (key, value) in state.board.items():
-            if value == "":
-                board_filtered_dict[key] = value
-                # loop is basically saying 'if there is not a piece in this spot
-                # on the board, make it a key value pair in the empty dict
-        union_dicts = dict(dict_with_pieces.items() |
-                           board_filtered_dict.items())
-        # creating a union where all of the shuffled keys/values that have
-        # pieces on them are joined to the ones that remain empty
-        sorted_unions = sorted(union_dicts.items(), key=lambda item: item[0])
-        # sorting the union of spots with pieces and spots without them to get
-        # the matrix looking the same as it did before (i.e. (1,1), (1,2), etc.)
-        state.board = sorted_unions
-        # reassigning state.board to the new union of pieces/empty spaces
-        # ^^ I don't know if this works but we need to somehow make sorted_unions
-        # the new board object
-        return state.board
-
-    # Psuedo code for making simpler:
-    # position_set = ()
-    # x_counter = 0
-    # y_counter = 0
-    # for position in self.board.keys():
-    # if self.board[position] is not None:
-    # position_set.append(position)
-    # if self.board[positon] == "x":
-    # x_counter += 1
-    # if self.board[position] == "o":
-    # o_counter += 1
-    # at this point, all of the things left in position should have "x" label.
-    # make sure those all get assigned x while communicating with self.board
-    # at that point, self.board will be updated with information
+# Psuedo code for making simpler:
+# position_set = ()
+# x_counter = 0
+# y_counter = 0
+# for position in self.board.keys():
+# if self.board[position] is not None:
+# position_set.append(position)
+# if self.board[positon] == "x":
+# x_counter += 1
+# if self.board[position] == "o":
+# o_counter += 1
+# at this point, all of the things left in position should have "x" label.
+# make sure those all get assigned x while communicating with self.board
+# at that point, self.board will be updated with information
 
 
 def main(name1, name2):
