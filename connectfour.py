@@ -203,11 +203,11 @@ class Board:
                       "\"power-up\",: ")
                 
             elif column == None: #if the column selected is already full
-                input("") 
+                input(f"{column} is currently full. Please choose another column.") 
                 
             elif column == 'power-up' and powerup != None: #this is to check if the player actually has powerups
                 powerup = random.choice(invert, randomize) #these are the powerups that could be chosen
-                print(f"You have used {powerup}, {self.name}") #going to account for if we get other powerups
+                print(f"You have used {powerup}") #going to account for if we get other powerups
                 return powerup
                 
             elif column == 'power-up' and powerup == None:
