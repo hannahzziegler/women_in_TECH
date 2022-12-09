@@ -207,10 +207,7 @@ class Board:
                 
             elif column == 'power-up' and powerup != None: #this is to check if the player actually has powerups
                 powerup = random.choice(invert, randomize) #these are the powerups that could be chosen
-                if powerup is invert: 
-                    print(f"You have used invert, {self.name}") #going to account for if we get other powerups
-                elif powerup is randomize: 
-                    print(f"You have used randomize, {self.name}") 
+                print(f"You have used {powerup}, {self.name}") #going to account for if we get other powerups
                 return powerup
                 
             elif column == 'power-up' and powerup == None:
