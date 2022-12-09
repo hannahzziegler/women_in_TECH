@@ -182,7 +182,7 @@ class Board:
         # Aric said it won't count towards points in the project
         # If more complexity is needed, we'll add another power up
 
-    def turn(self, player): #optional parameters?
+    def turn(self, player, powerup=None): #optional parameter, when powerup is available.
         """Manages the player's turn.
 
         Args:
@@ -205,7 +205,7 @@ class Board:
             elif column == None: #if the column selected is already full
                 input("") 
                 
-            elif column == 'power-up':
+            elif column == 'power-up' and powerup != None: #this is to check if the player actually has powerups
                 powerup = random.choice(invert, randomize) #these are the powerups that could be chosen
                 if powerup is invert: 
                     print(f"You have used invert, {self.name}") #going to account for if we get other powerups
@@ -213,6 +213,8 @@ class Board:
                     print(f"You have used randomize, {self.name}") 
                 return powerup
                 
+            elif column == 'power-up' and powerup == None:
+                input("You do not have any powerups. Enter a new column between 1 and 7.")
                 
             else:
                 # user gave a valid column
