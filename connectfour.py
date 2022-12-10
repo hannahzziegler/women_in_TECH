@@ -440,24 +440,8 @@ def randomize(state):
     # pieces on them are joined to the ones that remain empty
     state.board.update(union_dicts)
     return state.board
-    # reassigning state.board to the new union of pieces/empty spaces
-    # ^^ I don't know if this works but we need to somehow make sorted_unions
-    # the new board object
-
-# Psuedo code for making simpler:
-# position_set = ()
-# x_counter = 0
-# y_counter = 0
-# for position in self.board.keys():
-# if self.board[position] is not None:
-# position_set.append(position)
-# if self.board[positon] == "x":
-# x_counter += 1
-# if self.board[position] == "o":
-# o_counter += 1
-# at this point, all of the things left in position should have "x" label.
-# make sure those all get assigned x while communicating with self.board
-# at that point, self.board will be updated with information
+    # updates state.board with each key's corresponding values
+    # returns state.board
 
 
 def main(human_name, computer_player=False):
