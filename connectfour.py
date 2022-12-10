@@ -219,9 +219,9 @@ class Board:
             column = int(player.turn(state))
             if not column.isdigit() or (column < 1 or 7 < column):
                 # user did not give an integer OR user gave invalid integer
-                input("You must choose a number between 1 and 7 OR use your "
-                      "power-up. Enter a new column number or type "
-                      "\"power-up\",: ")
+                print("You must choose a number between 1 and 7 OR use your "
+                      "power-up.")
+                Player.turn()
                 # Hannah: I think that this should be a loop between the player.turn() class and the board.turn() class
                 # because this code just does the same thing as the player turn method, so it's redundant
 
