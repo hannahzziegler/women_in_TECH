@@ -471,8 +471,7 @@ def parse_args(arglist):
     """Parse command-line arguments.
 
     Expects two mandatory arguments: 
-        name1 (str) = name of player X
-        name2 (str) = name of player O
+        name (str) = name of human player
 
     Args:
         arglist (list of str): arguments from the command line.
@@ -482,9 +481,9 @@ def parse_args(arglist):
     """
     # PARKER
     parser = argparse.ArgumentParser()
-    parser.add_argument("name1", type=str, help="the name of the first person")
-    parser.add_argument("name2", type=str,
-                        help="the name of the second person")
+    parser.add_argument("name", type=str, help="the name of the person")
+    parser.add_argument("-c", "--computer_player", action="store_true",
+                        help="add a computer player")
     return parser.parse_args(arglist)
 
 
