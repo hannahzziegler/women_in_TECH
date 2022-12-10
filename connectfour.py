@@ -59,12 +59,13 @@ class HumanPlayer(Player):
 
 class ComputerPlayer(Player):
     """Represents a computer playing connect four. 
-    
+
     attributes:
-    
+
         piece (str): a piece on the board
-        
+
     """
+
     def turn(self, state):
         state = state.board
         powerup_count = 2
@@ -200,7 +201,8 @@ class Board:
         # Aric said it won't count towards points in the project
         # If more complexity is needed, we'll add another power up
 
-    def turn(self, player, powerup=None): #optional parameter, when powerup is available.
+    # optional parameter, when powerup is available.
+    def turn(self, player, powerup=None):
         """Manages the player's turn.
 
         Args:
@@ -219,18 +221,23 @@ class Board:
                 input("You must choose a number between 1 and 7 OR use your "
                       "power-up. Enter a new column number or type "
                       "\"power-up\",: ")
-                
-            elif column == None: #if the column selected is already full
-                input(f"{column} is currently full. Please choose another column.") 
-                
-            elif column == 'power-up' and powerup != None: #this is to check if the player actually has powerups
-                powerup = random.choice(invert, randomize) #these are the powerups that could be chosen
-                print(f"You have used {powerup}") #going to account for if we get other powerups
+                # Hannah: I think that this should be a loop between the player.turn() class and the board.turn() class
+                # because this code just does the same thing as the player turn method, so it's redundant
+
+            elif column == None:  # if the column selected is already full
+                input(f"{column} is currently full. Please choose another column.")
+
+            elif column == 'power-up' and powerup != None:  # this is to check if the player actually has powerups
+                # these are the powerups that could be chosen
+                powerup = random.choice(invert, randomize)
+                # going to account for if we get other powerups
+                print(f"You have used {powerup}")
                 return powerup
-                
+
             elif column == 'power-up' and powerup == None:
-                input("You do not have any powerups. Enter a new column between 1 and 7.")
-                
+                input(
+                    "You do not have any powerups. Enter a new column between 1 and 7.")
+
             else:
                 # user gave a valid column
                 continue
@@ -398,6 +405,7 @@ def invert(self, state):
     # because piece as a variable does not communicate back to GameState in any way
     # also it wouldn't be double ==
 
+
 def randomize(self, state):
     """Randomizes the positions of all pieces on the game board.
 
@@ -426,7 +434,7 @@ def randomize(self, state):
             # loop is basically saying 'if there is not a piece in this spot
             # on the board, make it a key value pair in the empty dict
     union_dicts = dict(dict_with_pieces.items() |
-                        board_filtered_dict.items())
+                       board_filtered_dict.items())
     # creating a union where all of the shuffled keys/values that have
     # pieces on them are joined to the ones that remain empty
     sorted_unions = sorted(union_dicts.items(), key=lambda item: item[0])
