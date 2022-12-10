@@ -50,10 +50,11 @@ class HumanPlayer(Player):
             (int) the column in which the Player will place a piece
             #CHECK TO SEE IF THIS IS CLEAR WITH ARIC
         """
-        state = self.state
-        print(self.state)
+        print(state)
         choice = input(
-            f"Hello {self.name}! Please enter a valid column to place your piece (valid columns: 1-7) or use a power-up by typing 'power-up':")
+            f"Hello {self.name}! Please enter a valid column to place your "
+            "piece (valid columns: 1-7) or use a power-up by typing "
+            "'power-up':")
         return choice
 
 
