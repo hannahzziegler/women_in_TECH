@@ -23,7 +23,7 @@ class Player:
     """Represents a turn taken by a Player in the Connect Four game.
 
     Attributes: 
-        piece (str) = a piece on the board
+        piece (str): a piece on the board
     """
 
     def __init__(self, name):
@@ -58,8 +58,24 @@ class HumanPlayer(Player):
 
 
 class ComputerPlayer(Player):
+    """Represents a computer playing connect four. 
+    
+    attributes:
+    
+        piece (str): a piece on the board
+        
+    """
     def turn(self, state):
-        pass
+        state = self.state
+        powerup_count = 2
+        column_list = [1, 2, 3, 4, 5, 6, 7]
+        if #pieces on the board less than 10:
+            computer_player_choice = random.choice(column_list)
+        elif #pieces on the board greater than 10 and powerup_count > 1:
+            computer_player_choice = random.choice(column_list, "power-up")
+        if computer_player_choice == "power-up":
+            powerup_count = powerup_count - 1
+        return computer_player_choice
     # for computer player class
     # powerup count = 1
     # column_list = [1, 2, 3, 4, 5, 6, 7]
