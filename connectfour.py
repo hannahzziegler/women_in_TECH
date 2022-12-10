@@ -26,8 +26,9 @@ class Player:
         piece (str): a piece on the board
     """
 
-    def __init__(self, name):
+    def __init__(self, name, turn_counter):
         self.name = name
+        self.turn_counter = turn_counter
         """Creates a player name attribute.
 
         Args:
@@ -50,7 +51,6 @@ class HumanPlayer(Player):
             (int) the column in which the Player will place a piece
             #CHECK TO SEE IF THIS IS CLEAR WITH ARIC
         """
-        state = state.board
         print(state)
         powerup_count = 2
         choice = input(
@@ -72,7 +72,7 @@ class ComputerPlayer(Player):
     """
 
     def turn(self, state):
-        state = state.board
+        print(state)
         powerup_count = 2
         column_list = [1, 2, 3, 4, 5, 6, 7]
         if self.turn_counter <= 10:
@@ -246,6 +246,7 @@ class Board:
                 Player.turn()
             else:
                 # user gave a valid column
+                self.turn_counter += 1
                 continue
 
         # Christina says to fix the way we choose a random power-up – from my previous code on it when it was in my method
