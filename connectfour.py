@@ -50,11 +50,15 @@ class HumanPlayer(Player):
             (int) the column in which the Player will place a piece
             #CHECK TO SEE IF THIS IS CLEAR WITH ARIC
         """
+        state = state.board
         print(state)
+        powerup_count = 2
         choice = input(
-            f"Hello {self.name}! Please enter a valid column to place your "
+            f"{self.name}, please enter a valid column to place your "
             "piece (valid columns: 1-7) or use a power-up by typing "
             "'power-up':")
+        if choice == 'power-up':
+            powerup_count = powerup_count - 1
         return choice
 
 
@@ -237,7 +241,8 @@ class Board:
                 return powerup
 
             elif column == 'power-up' and powerup == None:
-                print("You do not have any powerups. Enter a new column between 1 and 7.")
+                print(
+                    "You do not have any powerups. Enter a new column between 1 and 7.")
                 Player.turn()
             else:
                 # user gave a valid column
