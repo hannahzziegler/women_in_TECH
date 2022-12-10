@@ -195,13 +195,12 @@ class Board:
 
         Args:
             board (str) = represents the board the game is played on
+            turn_counter (str) = represents the number of turns played in the game
         """
         self.board = board
         self.turn_counter = turn_counter
 
         # PARKER
-        # Write more for docstring later!
-        # Can we initialize the turn counter here? would make my life a lot easier
 
     def generate_board(self):
         """Returns the current state of the Connect Four board as a BoardState
