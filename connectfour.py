@@ -26,9 +26,9 @@ class Player:
         piece (str): a piece on the board
     """
 
-    def __init__(self, name, turn_counter):
+    def __init__(self, name, piece):
         self.name = name
-        self.turn_counter = turn_counter
+        self.piece = piece
         """Creates a player name attribute.
 
         Args:
@@ -52,6 +52,10 @@ class HumanPlayer(Player):
             #CHECK TO SEE IF THIS IS CLEAR WITH ARIC
         """
         print(state)
+        #self.piece = input(f"Hello {self.name}. Would you like to use 'x' as your token or 'o'? ")
+        # if self.piece == 'x':
+        # Hannah: struggling with assigning diff pieces to players
+
         powerup_count = 2
         choice = input(
             f"{self.name}, please enter a valid column to place your "
@@ -59,7 +63,7 @@ class HumanPlayer(Player):
             "'power-up':")
         if choice == 'power-up':
             powerup_count = powerup_count - 1
-        return choice
+        return choice, human_piece
 
 
 class ComputerPlayer(Player):
@@ -73,6 +77,7 @@ class ComputerPlayer(Player):
 
     def turn(self, state):
         print(state)
+        computer_piece = 'o'
         powerup_count = 2
         column_list = [1, 2, 3, 4, 5, 6, 7]
         if self.turn_counter <= 10:
@@ -81,7 +86,7 @@ class ComputerPlayer(Player):
             computer_player_choice = random.choice(column_list, "power-up")
         if computer_player_choice == "power-up":
             powerup_count = powerup_count - 1
-        return computer_player_choice
+        return computer_player_choice, computer_piece
     # for computer player class
     # powerup count = 1
     # column_list = [1, 2, 3, 4, 5, 6, 7]
