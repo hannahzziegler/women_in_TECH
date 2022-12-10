@@ -226,7 +226,8 @@ class Board:
                 # because this code just does the same thing as the player turn method, so it's redundant
 
             elif column == None:  # if the column selected is already full
-                input(f"{column} is currently full. Please choose another column.")
+                print(f"{column} is currently full. Please choose another column.")
+                Player.turn()
 
             elif column == 'power-up' and powerup != None:  # this is to check if the player actually has powerups
                 # these are the powerups that could be chosen
@@ -236,9 +237,8 @@ class Board:
                 return powerup
 
             elif column == 'power-up' and powerup == None:
-                input(
-                    "You do not have any powerups. Enter a new column between 1 and 7.")
-
+                print("You do not have any powerups. Enter a new column between 1 and 7.")
+                Player.turn()
             else:
                 # user gave a valid column
                 continue
