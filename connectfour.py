@@ -416,30 +416,32 @@ def randomize(state):
     Returns:
         passes new information to BoardState
     """
+    randomize = True
     # HANNAH
-    value_list = ([(v) for v in state.board.values() if v != ""])
+    while True:
+        value_list = ([(v) for v in state.board.values() if v != ""])
     # getting a list of all pieces on the board that have an "X" or "O" in them
-    random.shuffle(value_list)
+        random.shuffle(value_list)
     # shuffling the order of the "X" and "O" values
-    key_list = ([(k) for k, v in state.board.items() if v != ""])
+        key_list = ([(k) for k, v in state.board.items() if v != ""])
     # gettng a list of all spots on the board where pieces have been placed
-    dict_with_pieces = {key_list[i]: value_list[i]
-                        for i in range(len(key_list))}
+        dict_with_pieces = {key_list[i]: value_list[i]
+                            for i in range(len(key_list))}
     # concatenating the lists into a new dictionary
-    board_filtered_dict = {}
+        board_filtered_dict = {}
     # creating an empty dictionary that will have a list of all the spaces
     # on the board without pieces
-    for (key, value) in state.board.items():
-        if value == "":
-            board_filtered_dict[key] = value
+        for (key, value) in state.board.items():
+            if value == "":
+                board_filtered_dict[key] = value
             # loop is basically saying 'if there is not a piece in this spot
             # on the board, make it a key value pair in the empty dict
-    union_dicts = dict(dict_with_pieces.items() |
-                       board_filtered_dict.items())
+        union_dicts = dict(dict_with_pieces.items() |
+                           board_filtered_dict.items())
     # creating a union where all of the shuffled keys/values that have
     # pieces on them are joined to the ones that remain empty
-    state.board.update(union_dicts)
-    return state.board
+        state.board.update(union_dicts)
+        return state.board
     # updates state.board with each key's corresponding values
     # returns state.board
 
