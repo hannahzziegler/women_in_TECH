@@ -463,17 +463,21 @@ def randomize(self, state):
 # at that point, self.board will be updated with information
 
 
-def main(name1, name2):
+def main(human_name, computer_player=False):
     """Sets up and plays a game of Connect Four.
 
     Args:
-        name1 (str) = playerX's name
-        name2 (str) = playerO's name
+        human_name (str) = human player's name
+        name2 (str) = human player's name
 
     Side effects:
         writes to stdout
     """
-
+    players = HumanPlayer(human_name)
+    if computer_player:
+        players.append(ComputerPlayer("Computer"))
+    game = Board(players)
+    game.play()
     # PARKER
 
 
