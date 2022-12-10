@@ -489,4 +489,4 @@ def parse_args(arglist):
 
 if __name__ == "__main__":
     args = parse_args(sys.argv[1:])
-    main(args.name1, args.name2)
+    main(args.name1, args.computer_player)
