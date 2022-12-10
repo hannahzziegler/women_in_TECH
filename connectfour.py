@@ -5,7 +5,7 @@ power-ups."""
 
 # List of things everyone is doing:
 # CHRISTINA: conditional expressions, sequence unpacking (tentative)
-# HANNAH: lambda expression, set()
+# HANNAH: set stuff, list/dict comprehensions
 # EMILY: with statements (file), inheritance
 # TASFIA: optional parameter, f-string
 # PARKER: magic method besides init, argparse
@@ -381,7 +381,7 @@ class Board:
                     It took them {turn_counter} turns.""")
 
 
-def invert(self, state):
+def invert(state):
     """Transforms all X's on the game board to O's, and vice versa.
 
     Args:
@@ -407,7 +407,7 @@ def invert(self, state):
     # also it wouldn't be double ==
 
 
-def randomize(self, state):
+def randomize(state):
     """Randomizes the positions of all pieces on the game board.
 
     Args:
@@ -438,14 +438,11 @@ def randomize(self, state):
                        board_filtered_dict.items())
     # creating a union where all of the shuffled keys/values that have
     # pieces on them are joined to the ones that remain empty
-    sorted_unions = sorted(union_dicts.items(), key=lambda item: item[0])
-    # sorting the union of spots with pieces and spots without them to get
-    # the matrix looking the same as it did before (i.e. (1,1), (1,2), etc.)
-    state.board = sorted_unions
+    state.board.update(union_dicts)
+    return state.board
     # reassigning state.board to the new union of pieces/empty spaces
     # ^^ I don't know if this works but we need to somehow make sorted_unions
     # the new board object
-    return state.board
 
 # Psuedo code for making simpler:
 # position_set = ()
