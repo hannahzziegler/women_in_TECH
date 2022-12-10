@@ -226,8 +226,6 @@ class Board:
                 print("You must choose a number between 1 and 7 OR use your "
                       "power-up.")
                 Player.turn()
-                # Hannah: I think that this should be a loop between the player.turn() class and the board.turn() class
-                # because this code just does the same thing as the player turn method, so it's redundant
 
             elif column == None:  # if the column selected is already full
                 print(f"{column} is currently full. Please choose another column.")
