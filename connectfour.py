@@ -66,12 +66,12 @@ class ComputerPlayer(Player):
         
     """
     def turn(self, state):
-        state = self.state
+        state = state.board
         powerup_count = 2
         column_list = [1, 2, 3, 4, 5, 6, 7]
-        if #pieces on the board less than 10:
+        if self.turn_counter <= 10:
             computer_player_choice = random.choice(column_list)
-        elif #pieces on the board greater than 10 and powerup_count > 1:
+        elif self.turn_counter > 10 and powerup_count > 1:
             computer_player_choice = random.choice(column_list, "power-up")
         if computer_player_choice == "power-up":
             powerup_count = powerup_count - 1
@@ -179,16 +179,18 @@ class Board:
     """
     # This needs an Attributes section later?
 
-    def __init__(self, board):
+    def __init__(self, board, turn_counter):
         """Initializes the Board class.
 
         Args:
             board (str) = represents the board the game is played on
         """
         self.board = board
+        self.turn_counter = turn_counter
 
         # PARKER
         # Write more for docstring later!
+        # Can we initialize the turn counter here? would make my life a lot easier
 
     def generate_board(self):
         """Returns the current state of the Connect Four board as a BoardState
@@ -242,7 +244,7 @@ class Board:
         # Also account for the player wanting to save progress at any time
         # Power up is an optional parameter so remember that
 
-    def play(self, state):
+    def play(self, state, turn_counter):
         """Play Connect Four (group note: while self.check_four is None, 
         play continues)
 
@@ -256,8 +258,6 @@ class Board:
         # EMILY
         # Initializes turn counter
         turn_counter = 0
-        # Initializes a blank string for player species
-        player_species = ""
         # Checks to make sure the game hasn't been won yet
         while ((self.check_four(self.state) == None) &
                ("" in self.state.values())):
