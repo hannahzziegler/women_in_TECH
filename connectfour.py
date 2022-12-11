@@ -119,6 +119,25 @@ class BoardState:
 
     def __init__(self):
         """Sets attributes."""
+        def piece_or_blank(choice, player):
+            """Assigns 'x' or 'o' to a key (determined by choice) in self.board.
+
+            Args:
+                choice (str): the column of choice, validated by Board.turn()
+                player (HumanPlayer, ComputerPlayer): an object of a Player
+                    child class
+            Returns:
+                'x' if the turn was played by a HumanPlayer, 'o' if played by a
+                    ComputerPlayer, '' if no turn was played
+            """
+            counter = 1
+
+            while self.board[(choice, counter)] is not "":
+                counter += 1
+
+            self.board[(choice, counter)] = ("x" if isinstance(player,
+                                                               HumanPlayer)
+                                                else "o")
         # CHRISTINA
         # This is a dictionary that sets the coordinates for each board position
         # (x,y): x=column(1-7), y=row(1-6)
@@ -170,24 +189,7 @@ class BoardState:
         # CHRISTINA: honestly have no idea what i'm doing rn but hopefully this
         # gives me a launch point for tomorrow
 
-    def piece_or_blank(choice, player):
-        """Assigns 'x' or 'o' to a key (determined by choice) in self.board.
-
-        Args:
-            choice (str): the column of choice, validated by Board.turn()
-            player (HumanPlayer, ComputerPlayer): an object of a Player
-                child class
-        Returns:
-            'x' if the turn was played by a HumanPlayer, 'o' if played by a
-                ComputerPlayer, '' if no turn was played
-        """
-        counter = 1
-
-        while self.board[(choice, counter)] is not "":
-            counter += 1
-
-        self.board[(choice, counter)] = ("x" if isinstance(player, HumanPlayer)
-                                             else "o")
+        
 
     def __str__(self):
         """Returns a string representation of the board."""
@@ -217,14 +219,14 @@ class Board:
     """
     # This needs an Attributes section later?
 
-    def __init__(self, players):
+    def __init__(self, players): #CHRISTINA: i changed this but honestly need to think more
         """Initializes the Board class.
 
         Args:
             board (str) = represents the board the game is played on
             turn_counter (str) = represents the number of turns played in the game
         """
-        self.board = BoardState.board
+        self.board = BoardState.board # this as well
         self.turn_counter = 0
 
         # PARKER
@@ -287,6 +289,7 @@ class Board:
                 
             else:
                 # user gave a valid column
+            
                 continue
 
         # Christina says to fix the way we choose a random power-up – from my previous code on it when it was in my method
@@ -326,6 +329,7 @@ class Board:
             else:
                 player = self.player[1]
             self.turn(player)
+            
         outcome = self.check_four(state.board)
         if outcome == "tie":
             print("The game ended in a tie!")
