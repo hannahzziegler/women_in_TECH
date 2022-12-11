@@ -184,7 +184,7 @@ class BoardState:
         
         # CHRISTINA: honestly have no idea what i'm doing rn but hopefully this
         # gives me a launch point for tomorrow
-        self.board = {position: piece_or_blank(player) for position in self.board}
+        #self.board = {position: piece_or_blank(player) for position in self.board}
 
     def __str__(self):
         """Returns a string representation of the board."""
@@ -486,7 +486,7 @@ def randomize(state):
     # returns state.board
 
 
-def main(human_name, computer_player):
+def main(human_name):
     """Sets up and plays a game of Connect Four.
 
     Args:
