@@ -131,7 +131,7 @@ class BoardState:
             """
             counter = 1
 
-            while self.board[(choice, counter)] is not "":
+            while self.board[(choice, counter)] != "":
                 counter += 1
 
             self.board[(choice, counter)] = ("x" if isinstance(player,
