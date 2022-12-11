@@ -265,7 +265,12 @@ class Board:
                 powerup = random.choice(invert, randomize)
                 # going to account for if we get other powerups
                 print(f"You have used {powerup}")
-                return powerup
+                if powerup == invert:
+                    self.board = invert(self.board)
+                elif powerup == randomize:
+                    self.board = randomize(self.board)
+                else:
+                    continue
 
             elif column == 'power-up' and powerup == None:
                 print(
@@ -273,7 +278,6 @@ class Board:
                 player.turn()
             else:
                 # user gave a valid column
-                self.turn_counter += 1
                 continue
 
         # Christina says to fix the way we choose a random power-up – from my previous code on it when it was in my method
