@@ -119,23 +119,6 @@ class BoardState:
 
     def __init__(self):
         """Sets attributes."""
-        def piece_or_blank(player=None):
-            """Return an 'x', 'o', or an empty string, depending on if a piece
-            has been played and by whom.
-
-            Args:
-                player (HumanPlayer, ComputerPlayer): an object of a Player
-                    child class (Default=None)
-            Returns:
-                'x' if the turn was played by a HumanPlayer, 'o' if played by a
-                    ComputerPlayer, '' if no turn was played
-            """
-            if isinstance(player, HumanPlayer):
-                return "x"
-            elif isinstance(player, ComputerPlayer):
-                return "o"
-            else:
-                return ""
         # CHRISTINA
         # This is a dictionary that sets the coordinates for each board position
         # (x,y): x=column(1-7), y=row(1-6)
@@ -186,7 +169,25 @@ class BoardState:
 
         # CHRISTINA: honestly have no idea what i'm doing rn but hopefully this
         # gives me a launch point for tomorrow
-        #self.board = {position: piece_or_blank(player) for position in self.board}
+
+    def piece_or_blank(choice, player):
+        """Assigns 'x' or 'o' to a key (determined by choice) in self.board.
+
+        Args:
+            choice (str): the column of choice, validated by Board.turn()
+            player (HumanPlayer, ComputerPlayer): an object of a Player
+                child class
+        Returns:
+            'x' if the turn was played by a HumanPlayer, 'o' if played by a
+                ComputerPlayer, '' if no turn was played
+        """
+        counter = 1
+
+        while self.board[(choice, counter)] is not "":
+            counter += 1
+
+        self.board[(choice, counter)] = ("x" if isinstance(player, HumanPlayer)
+                                             else "o")
 
     def __str__(self):
         """Returns a string representation of the board."""
