@@ -289,7 +289,7 @@ class Board:
         # Also account for the player wanting to save progress at any time
         # Power up is an optional parameter so remember that
 
-    def play(self):
+    def play(self, state):
         """Play Connect Four (group note: while self.check_four is None, 
         play continues)
 
