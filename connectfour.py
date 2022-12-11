@@ -31,10 +31,17 @@ class Player:
             name (str): the player's name
         """
 
-        def turn(self, state):
-            raise NotImplementedError
-        # CHRISTINA: i'm confused about what this method does and why it's
-        # nested under the init??
+    def turn(self, state):
+        """Take a turn.
+
+        Args:
+            state (BoardState): a snapshot of the current game
+
+        Raises:
+            NotImplementedError: raised if the method is not present in child
+                class(es).
+        """
+        raise NotImplementedError
         
 
 
@@ -51,11 +58,6 @@ class HumanPlayer(Player):
                 their turn (a number (1-7) or 'power-up')
         """
         print(state)
-        #self.piece = input(f"Hello {self.name}. Would you like to use 'x' as your token or 'o'? ")
-        # if self.piece == 'x':
-        # Hannah: struggling with assigning diff pieces to players
-        # CHRISTINA: honestly, i think we can just make the human x every time
-        # coding in a choice is nice but superfluous in terms of functionality
 
         powerup_count = 2
         human_choice = input(
@@ -63,9 +65,8 @@ class HumanPlayer(Player):
             "piece (valid columns: 1-7) or use a power-up by typing "
             "'power-up':")
         if human_choice == 'power-up':
-            powerup_count = powerup_count - 1
-        return human_choice, human_piece #we can erase human_piece if human will be x every time
-
+            powerup_count -= 1
+        return human_choice
 
 class ComputerPlayer(Player):
     """Represents a computer playing connect four. 
@@ -75,19 +76,26 @@ class ComputerPlayer(Player):
     """
 
     def turn(self, state):
+        """_summary_
+
+        Args:
+            state (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         # CHRISTINA: write a docstring for this 
         print(state)
         computer_piece = 'o'
-        powerup_count = 2
+        powerup_count = 1
         column_list = [1, 2, 3, 4, 5, 6, 7]
         if self.turn_counter <= 10:
             computer_player_choice = random.choice(column_list)
-        elif self.turn_counter > 10 and powerup_count > 1:
+        elif self.turn_counter > 10 and powerup_count > 0:
             computer_player_choice = random.choice(column_list, "power-up")
         if computer_player_choice == "power-up":
-            powerup_count = powerup_count - 1
-            # CHRISTINA: where is the code that says, "don't let the computer
-            # play a power-up if it has already used them all up" ?
+            powerup_count -= 1
+
         return computer_player_choice, computer_piece
     # don't worry about making it too smart
 
@@ -256,8 +264,6 @@ class Board:
                 print(
                     "You do not have any powerups. Enter a new column between 1 and 7.")
                 player.turn()
-                # CHRISTINA: changed every Player to player. you don't need to call
-                # the class because player is your Player object
             else:
                 # user gave a valid column
                 self.turn_counter += 1
@@ -286,7 +292,7 @@ class Board:
         # EMILY
         # Initializes turn counter, player
         self.turn_counter = 0
-        player_human = None
+        player = None
         # Checks to make sure the game hasn't been won yet
         while ((self.check_four(self.state) == None) &
                ("" in self.state.values())):
@@ -297,7 +303,11 @@ class Board:
             # If the turn counter is even, the player species is the human player
             # If the turn counter is odd, the player species is the computer
             if self.turn_counter % 2 == 0:
-                player_human = True
+                player = self.player[0]
+            else:
+                player = self.player[1]
+            
+            # note: i took out player_human = False because i initialized it as None
             
             # now that you know which player's turn it is, you should trigger
             # self.turn(player)! there might also be other conditions that must
@@ -469,19 +479,16 @@ def randomize(state):
     # returns state.board
 
 
-def main(human_name, computer_player=False):
+def main(human_name, computer_player):
     """Sets up and plays a game of Connect Four.
 
     Args:
         human_name (str) = human player's name
-        name2 (str) = human player's name
 
     Side effects:
         writes to stdout
     """
-    players = HumanPlayer(human_name)
-    if computer_player:
-        players.append(ComputerPlayer("Computer"))
+    players = [HumanPlayer(human_name), ComputerPlayer("Computer")]
     game = Board(players)
     game.play()
     # PARKER
