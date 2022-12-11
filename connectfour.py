@@ -120,11 +120,14 @@ class BoardState:
 
     def __init__(self):
         """Sets attributes."""
-        def piece_or_blank(player):
+        def piece_or_blank(player=None):
             """Return an 'x', 'o', or an empty string, depending on if a piece
             has been played and by whom.
-
+            
             Args:
+                player (HumanPlayer, ComputerPlayer): an object of a Player
+                    child class (Default=None)
+            Returns:
                 'x' if the turn was played by a HumanPlayer, 'o' if played by a
                     ComputerPlayer, '' if no turn was played
             """
@@ -318,10 +321,10 @@ class Board:
             else:
                 player = self.player[1]
             self.turn(player)
-        self.check_four(state.board)
-        if self.check_four(state) == "tie":
+        outcome = self.check_four(state.board)
+        if outcome == "tie":
             print("The game ended in a tie!")
-        elif self.check_four(state) == "win":
+        elif outcome == "win":
             print(f"{player} won! The game lasted {self.turn_counter} turns.")
             
             
@@ -437,6 +440,7 @@ class Board:
             f.write(f"""{loser} suffered a humiliating 
                     defeat at the hands of {winner}. 
                     The game lasted {turn_counter} turns.""")
+
 
 
 def invert(state):
