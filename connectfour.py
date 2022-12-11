@@ -148,25 +148,28 @@ class BoardState:
 
     def __init__(self):
         """Sets attributes."""
-        def piece_or_blank(choice, player):
-            """Assigns 'x' or 'o' to a key (determined by choice) in self.board.
+        # def piece_or_blank(choice, player):
+        #     """Assigns 'x' or 'o' to a key (determined by choice) in self.board.
 
-            Args:
-                choice (str): the column of choice, validated by Board.turn()
-                player (HumanPlayer, ComputerPlayer): an object of a Player
-                    child class
-            Returns:
-                'x' if the turn was played by a HumanPlayer, 'o' if played by a
-                    ComputerPlayer, '' if no turn was played
-            """
-            counter = 1
+        #     Args:
+        #         choice (str): the column of choice, validated by Board.turn()
+        #         player (HumanPlayer, ComputerPlayer): an object of a Player
+        #             child class
+        #     Returns:
+        #         'x' if the turn was played by a HumanPlayer, 'o' if played by a
+        #             ComputerPlayer, '' if no turn was played
+        #     """
+        #     counter = 1
 
-            while self.board[(choice, counter)] != "":
-                counter += 1
+        #     while self.board[(choice, counter)] != "":
+        #         counter += 1
 
-            self.board[(choice, counter)] = ("x" if isinstance(player,
-                                                               HumanPlayer)
-                                             else "o")
+        #     self.board[(choice, counter)] = ("x" if isinstance(player,
+        #                                                        HumanPlayer)
+        #                                      else "o")
+        
+        
+        
         # CHRISTINA
         # This is a dictionary that sets the coordinates for each board position
         # (x,y): x=column(1-7), y=row(1-6)
@@ -215,8 +218,6 @@ class BoardState:
             (7, 6): ""
         }
 
-        # CHRISTINA: honestly have no idea what i'm doing rn but hopefully this
-        # gives me a launch point for tomorrow
 
     def __str__(self):
         """Returns a string representation of the board."""
@@ -246,22 +247,23 @@ class Board:
     """
     # This needs an Attributes section later?
 
-    def __init__(self, players):  # CHRISTINA: i changed this but honestly need to think more
+    def __init__(self, players):  
         """Initializes the Board class.
 
         Args:
-            board (str) = represents the board the game is played on
-            turn_counter (str) = represents the number of turns played in the game
+            board (str): represents the board the game is played on
+            players (list of HumanPlayer, ComputerPlayer): the players
         """
-        self.board = BoardState.board  # this as well
+        self.players = players
         self.turn_counter = 0
+        self.state = BoardState
 
         # PARKER
 
-    def generate_board(self):
-        """Returns the current state of the Connect Four board as a BoardState
-        object."""
-        return BoardState(self.board)
+    # def generate_board(self):
+    #     """Returns the current state of the Connect Four board as a BoardState
+    #     object."""
+    #     return BoardState
         # TASFIA
         # Aric said it won't count towards points in the project
         # If more complexity is needed, we'll add another power up
@@ -327,12 +329,9 @@ class Board:
             # Column selected is already full
             # Other nonsense responses
 
-    def play(self, state):
+    def play(self):
         """Play Connect Four (group note: while self.check_four is None, 
         play continues)
-
-        Args:
-            state (BoardState) = the current state of the game
 
         Side effects:
             Writes to stdout.
@@ -342,9 +341,9 @@ class Board:
 
         player = None
         # Checks to make sure the game hasn't been won yet
-        while ((self.check_four(self.state) == None) &
-               ("" in self.state.values())):
+        while self.check_four() == None:
             # Increments the turn counter by one
+            print(f"the while loop for play runs")
             self.turn_counter += 1
             # CHRISTINA: what in the while loop is actually causing the back and forth of turns?
             # Assuming that the human player always goes first:
@@ -356,7 +355,7 @@ class Board:
                 player = self.player[1]
             self.turn(player)
 
-        outcome = self.check_four(state.board)
+        outcome = self.check_four(self.state)
         if outcome == "tie":
             print("The game ended in a tie!")
         elif outcome == "win":
@@ -372,7 +371,7 @@ class Board:
             # using the return from check four, print to stdout and declare the winner and loser
             # no need to return anything!! because once play ends, the game is over
 
-    def check_four(self, state):
+    def check_four(self):
         """Determines if the game is over, i.e. if a player has four connected
         four pieces in a row vertically, horizontally, or diagonally.
 
@@ -383,6 +382,8 @@ class Board:
             "win" if a player has won, "tie" if there are no winners/no possible
             moves, None if the game is not over
         """
+        print(f"THIS IS THE STATE: {self.state}")
+        print(f"THIS IS THE BOARD OF STATE: {self.state.board}")
         # CHRISTINA
         # Initializing some counters for number of pieces in a line
         vert_count = 1
