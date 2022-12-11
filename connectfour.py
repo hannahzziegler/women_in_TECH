@@ -22,9 +22,8 @@ class Player:
         piece (str): a piece on the board
     """
 
-    def __init__(self, name, piece):
+    def __init__(self, name):
         self.name = name
-        self.piece = piece
         """Creates a player name attribute.
 
         Args:
@@ -42,7 +41,6 @@ class Player:
                 class(es).
         """
         raise NotImplementedError
-        
 
 
 class HumanPlayer(Player):
@@ -52,7 +50,7 @@ class HumanPlayer(Player):
 
         Args:
             state (BoardState): the current state of the game
-            
+
         Side effects:
             prints to stdout
 
@@ -70,6 +68,7 @@ class HumanPlayer(Player):
         if human_choice == 'power-up':
             powerup_count -= 1
         return human_choice
+
 
 class ComputerPlayer(Player):
     """Represents a computer playing connect four. 
@@ -90,9 +89,9 @@ class ComputerPlayer(Player):
         Returns:
             _type_: _description_
         """
-        # CHRISTINA: write a docstring for this 
+        # CHRISTINA: write a docstring for this
         print(state)
-        
+
         computer_piece = 'o'
         powerup_count = 1
         column_list = [1, 2, 3, 4, 5, 6, 7]
@@ -123,7 +122,7 @@ class BoardState:
         def piece_or_blank(player=None):
             """Return an 'x', 'o', or an empty string, depending on if a piece
             has been played and by whom.
-            
+
             Args:
                 player (HumanPlayer, ComputerPlayer): an object of a Player
                     child class (Default=None)
@@ -184,7 +183,7 @@ class BoardState:
             (7, 5): "",
             (7, 6): ""
         }
-        
+
         # CHRISTINA: honestly have no idea what i'm doing rn but hopefully this
         # gives me a launch point for tomorrow
         #self.board = {position: piece_or_blank(player) for position in self.board}
@@ -326,10 +325,9 @@ class Board:
             print("The game ended in a tie!")
         elif outcome == "win":
             print(f"{player} won! The game lasted {self.turn_counter} turns.")
-            
-            
+
             # note: i took out player_human = False because i initialized it as None
-            
+
             # now that you know which player's turn it is, you should trigger
             # self.turn(player)! there might also be other conditions that must
             # be satisfied before .turn() can be activated, idk
@@ -337,8 +335,6 @@ class Board:
             # also, once you exit the while loop, play() should call check_four()
             # using the return from check four, print to stdout and declare the winner and loser
             # no need to return anything!! because once play ends, the game is over
-            
-
 
     def check_four(self, state):
         """Determines if the game is over, i.e. if a player has four connected
@@ -442,7 +438,6 @@ class Board:
                     The game lasted {turn_counter} turns.""")
 
 
-
 def invert(state):
     """Transforms all X's on the game board to O's, and vice versa.
 
@@ -532,11 +527,9 @@ def parse_args(arglist):
     # PARKER
     parser = argparse.ArgumentParser()
     parser.add_argument("name", type=str, help="the name of the person")
-    parser.add_argument("-c", "--computer_player", action="store_true",
-                        help="add a computer player")
     return parser.parse_args(arglist)
 
 
 if __name__ == "__main__":
     args = parse_args(sys.argv[1:])
-    main(args.name, args.computer_player)
+    main(args.name)
