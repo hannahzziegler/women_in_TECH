@@ -248,6 +248,8 @@ class Board:
 
         Side effects:
             prints to stdout
+            calls player.turn
+            uses self.state attribute 
         """
         # TASFIA
         state = self.state()
