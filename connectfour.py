@@ -16,10 +16,15 @@ import random
 
 
 class Player:
-    """Represents a turn taken by a Player in the Connect Four game.
+    """Represents a player in a Connect Four game.
 
     Attributes: 
         piece (str): a piece on the board
+
+    Citation:
+        https://umd.instructure.com/courses/1330825/pages/hangman hangman.py by
+        Aric Bills
+            Player class is modeled off of the parent player class from hangman.
     """
 
     def __init__(self, name):
@@ -52,14 +57,26 @@ class HumanPlayer(Player):
             state (BoardState): the current state of the game
 
         Side effects:
-            prints to stdout
+            prints the state of the game to stdout
 
         Returns:
             human_choice (str): the human player's choice of what to do with
                 their turn (a number (1-7) or 'power-up')
+
+            human_piece (str): the piece (x or o) that the player will 
+            participate as. Human players are always 'x'.
+
+        Citation:
+        https://umd.instructure.com/courses/1330825/pages/hangman hangman.py by
+        Aric Bills
+            Human player class is modeled off of the parent player class from 
+            hangman. 
+            Deviations: initializing turn and powerup variables. Code is 
+            mirrored off of returning human piece choice, similar to hangman's
+            human letter choice.
         """
         print(state)
-
+        human_piece = 'x'
         powerup_count = 2
         human_choice = input(
             f"{self.name}, please enter a valid column to place your "
@@ -67,7 +84,7 @@ class HumanPlayer(Player):
             "'power-up':")
         if human_choice == 'power-up':
             powerup_count -= 1
-        return human_choice
+        return human_choice, human_piece
 
 
 class ComputerPlayer(Player):
@@ -75,21 +92,35 @@ class ComputerPlayer(Player):
 
     Attributes:
         piece (str): a piece on the board
+
+    Citation:
+        https://umd.instructure.com/courses/1330825/pages/hangman hangman.py by
+        Aric Bills
+            Human player class is modeled off of the parent player class from 
+            hangman. 
+            Deviations: Changing stipulations for when a computer can make
+            choices within the game (when to use a powerup vs. when not to). 
+            Code is mirrored off of returning computer piece choice, similar to 
+            hangman's computer letter choice.
     """
 
     def turn(self, state):
-        """_summary_
+        """Allows the computer player to take a turn 
 
         Args:
-            state (_type_): _description_
+            state (BoardState): the current state of the game
 
         Side effects:
-            prints to stdout
+            prints the state of the game to stdout
 
         Returns:
-            _type_: _description_
+            Returns:
+                computer_choice (str): the computer player's choice of what to do 
+                with their turn (a number (1-7) or 'power-up')
+
+                computer_piece (str): the piece (x or o) that the player will 
+                participate as. Computer players are always 'o'.
         """
-        # CHRISTINA: write a docstring for this
         print(state)
         computer_piece = 'o'
         powerup_count = 2
@@ -102,7 +133,6 @@ class ComputerPlayer(Player):
             powerup_count -= 1
 
         return computer_player_choice, computer_piece
-    # don't worry about making it too smart
 
 
 class BoardState:
@@ -296,9 +326,6 @@ class Board:
             # Column number does not exist
             # Column selected is already full
             # Other nonsense responses
-
-        # Also account for the player wanting to save progress at any time
-        # Power up is an optional parameter so remember that
 
     def play(self, state):
         """Play Connect Four (group note: while self.check_four is None, 
