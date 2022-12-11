@@ -223,8 +223,8 @@ class Board:
             board (str) = represents the board the game is played on
             turn_counter (str) = represents the number of turns played in the game
         """
-        self.board = board
-        self.turn_counter = turn_counter
+        self.board = BoardState.board
+        self.turn_counter = 0
 
         # PARKER
 
@@ -303,8 +303,7 @@ class Board:
             See also turn().
         """
         # EMILY
-        # Initializes turn counter, player
-        self.turn_counter = 0
+
         player = None
         # Checks to make sure the game hasn't been won yet
         while ((self.check_four(self.state) == None) &
