@@ -1,5 +1,5 @@
-"""A Connect Four game that can be played by two players and involves 
-power-ups."""
+"""A Connect Four game (with power-ups!) that can be played against a
+computer."""
 # REMINDER GUYS: WRITE A LOT OF COMMENTS
 # Each team member must contribute at least 2 functions or methods
 
@@ -9,10 +9,6 @@ power-ups."""
 # EMILY: with statements (file), inheritance
 # TASFIA: optional parameter, f-string
 # PARKER: magic method besides init, argparse
-
-# Potential things for more complexity later:
-# Pandas? Stats for one/multiple games
-# Regex that shit somehow
 
 import argparse
 import sys
@@ -37,6 +33,8 @@ class Player:
 
         def turn(self, state):
             raise NotImplementedError
+        # CHRISTINA: i'm confused about what this method does and why it's
+        # nested under the init??
 
 
 class HumanPlayer(Player):
@@ -55,6 +53,8 @@ class HumanPlayer(Player):
         #self.piece = input(f"Hello {self.name}. Would you like to use 'x' as your token or 'o'? ")
         # if self.piece == 'x':
         # Hannah: struggling with assigning diff pieces to players
+        # CHRISTINA: honestly, i think we can just make the human x every time
+        # coding in a choice is nice but superfluous in terms of functionality
 
         powerup_count = 2
         choice = input(
@@ -63,16 +63,14 @@ class HumanPlayer(Player):
             "'power-up':")
         if choice == 'power-up':
             powerup_count = powerup_count - 1
-        return choice, human_piece
+        return choice, human_piece #we can erase human_piece if human will be x every time
 
 
 class ComputerPlayer(Player):
     """Represents a computer playing connect four. 
 
-    attributes:
-
+    Attributes:
         piece (str): a piece on the board
-
     """
 
     def turn(self, state):
@@ -86,15 +84,9 @@ class ComputerPlayer(Player):
             computer_player_choice = random.choice(column_list, "power-up")
         if computer_player_choice == "power-up":
             powerup_count = powerup_count - 1
+            # CHRISTINA: where is the code that says, "don't let the computer
+            # play a power-up if it has already used them all up" ?
         return computer_player_choice, computer_piece
-    # for computer player class
-    # powerup count = 1
-    # column_list = [1, 2, 3, 4, 5, 6, 7]
-    # computer_player_choice = random.choice(column_list)
-    # if pieces in board < 10, randomly choose a letter
-    # if pieces in board > 10, choose a powerup or a random letter
-    # if computer chooses a powerup
-    # powerup count -= 1
     # don't worry about making it too smart
 
 
@@ -107,7 +99,6 @@ class BoardState:
             columns represented as pipes (|s) and empty spots represented with
             spaces. Positions on the board are represented via coordinates of
             (int, int), with the bottom left spot as (1,1)
-
     """
 
     def __init__(self):
@@ -164,7 +155,7 @@ class BoardState:
 
     def __str__(self):
         """Returns a string representation of the board."""
-        return f"The board is currently \
+        return f"The current board:\n\
         (| {self.board[36]}| {self.board[37]} | {self.board[38]} |\
         {self.board[39]} | {self.board[40]} | {self.board[41]} |)\n \
         (| {self.board[30]}| {self.board[31]} | {self.board[32]} |\
@@ -409,10 +400,6 @@ def invert(state):
         else:
             state.board[position] = ""
     return state.board
-    # return the state of the board
-    # CHRISTINA: wouldn't the thing within the clause be state.board[position]?
-    # because piece as a variable does not communicate back to GameState in any way
-    # also it wouldn't be double ==
 
 
 def randomize(state):
