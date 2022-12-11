@@ -136,7 +136,7 @@ class BoardState:
 
             self.board[(choice, counter)] = ("x" if isinstance(player,
                                                                HumanPlayer)
-                                                else "o")
+                                             else "o")
         # CHRISTINA
         # This is a dictionary that sets the coordinates for each board position
         # (x,y): x=column(1-7), y=row(1-6)
@@ -188,8 +188,6 @@ class BoardState:
         # CHRISTINA: honestly have no idea what i'm doing rn but hopefully this
         # gives me a launch point for tomorrow
 
-        
-
     def __str__(self):
         """Returns a string representation of the board."""
         return f"The current board:\n\
@@ -218,14 +216,14 @@ class Board:
     """
     # This needs an Attributes section later?
 
-    def __init__(self, players): #CHRISTINA: i changed this but honestly need to think more
+    def __init__(self, players):  # CHRISTINA: i changed this but honestly need to think more
         """Initializes the Board class.
 
         Args:
             board (str) = represents the board the game is played on
             turn_counter (str) = represents the number of turns played in the game
         """
-        self.board = BoardState.board # this as well
+        self.board = BoardState.board  # this as well
         self.turn_counter = 0
 
         # PARKER
@@ -282,15 +280,15 @@ class Board:
                 print(
                     "You do not have any powerups. Enter a new column between 1 and 7.")
                 player.turn()
-                
-            elif not column.isdigits(): #if the column isn't even a number
+
+            elif not column.isdigits():  # if the column isn't even a number
                 print(
-                    "This is not a number. You must choose a number between 1 and 7 OR use your power-up.")                
+                    "This is not a number. You must choose a number between 1 and 7 OR use your power-up.")
                 player.turn()
-                
+
             else:
                 # user gave a valid column
-            
+
                 continue
 
         # Christina says to fix the way we choose a random power-up – from my previous code on it when it was in my method
@@ -330,7 +328,7 @@ class Board:
             else:
                 player = self.player[1]
             self.turn(player)
-            
+
         outcome = self.check_four(state.board)
         if outcome == "tie":
             print("The game ended in a tie!")
