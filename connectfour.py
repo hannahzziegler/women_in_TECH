@@ -418,13 +418,14 @@ class Board:
             loser = Player.name
         # Here is a demonstration of a with statement
         # Open a file for writing to
-        with open("finishedgame.txt", "w") as f:
+        game_file = input("What do you want to call your save file?")
+        with open(game_file, "w") as f:
             # Write the string representation of the board state to the file
             f.write(str(state.board))
             # Write an f string of the game's outcome to the file
             f.write(f"""{loser} suffered a humiliating 
                     defeat at the hands of {winner}. 
-                    It took them {turn_counter} turns.""")
+                    The game lasted {turn_counter} turns.""")
 
 
 def invert(state):
