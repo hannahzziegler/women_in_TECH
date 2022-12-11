@@ -91,7 +91,6 @@ class ComputerPlayer(Player):
         """
         # CHRISTINA: write a docstring for this
         print(state)
-
         computer_piece = 'o'
         powerup_count = 2
         column_list = [1, 2, 3, 4, 5, 6, 7]
