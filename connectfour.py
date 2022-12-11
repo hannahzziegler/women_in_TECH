@@ -93,7 +93,7 @@ class ComputerPlayer(Player):
         print(state)
 
         computer_piece = 'o'
-        powerup_count = 1
+        powerup_count = 2
         column_list = [1, 2, 3, 4, 5, 6, 7]
         if self.turn_counter <= 10:
             computer_player_choice = random.choice(column_list)
@@ -250,6 +250,8 @@ class Board:
 
         Side effects:
             prints to stdout
+            calls player.turn
+            uses self.state attribute 
         """
         # TASFIA
         state = self.state()
