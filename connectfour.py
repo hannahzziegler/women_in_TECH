@@ -52,6 +52,9 @@ class HumanPlayer(Player):
 
         Args:
             state (BoardState): the current state of the game
+            
+        Side effects:
+            prints to stdout
 
         Returns:
             human_choice (str): the human player's choice of what to do with
@@ -81,11 +84,15 @@ class ComputerPlayer(Player):
         Args:
             state (_type_): _description_
 
+        Side effects:
+            prints to stdout
+
         Returns:
             _type_: _description_
         """
         # CHRISTINA: write a docstring for this 
         print(state)
+        
         computer_piece = 'o'
         powerup_count = 1
         column_list = [1, 2, 3, 4, 5, 6, 7]
