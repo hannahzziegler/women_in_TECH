@@ -253,7 +253,7 @@ class Board:
         while True:
             column = player.turn(state)
             if column < 1 or 7 < column:
-                # user did not give an integer OR user gave invalid integer
+                # user did not give a invalid integer
                 print("You must choose a number between 1 and 7 OR use your "
                       "power-up.")
                 player.turn()
@@ -278,6 +278,12 @@ class Board:
                 print(
                     "You do not have any powerups. Enter a new column between 1 and 7.")
                 player.turn()
+                
+            elif not column.isdigits(): #if the column isn't even a number
+                print(
+                    "This is not a number. You must choose a number between 1 and 7 OR use your power-up.")                
+                player.turn()
+                
             else:
                 # user gave a valid column
                 continue
