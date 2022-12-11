@@ -216,7 +216,7 @@ class Board:
     """
     # This needs an Attributes section later?
 
-    def __init__(self, board, turn_counter):
+    def __init__(self, players):
         """Initializes the Board class.
 
         Args:
