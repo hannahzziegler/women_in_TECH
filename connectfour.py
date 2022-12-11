@@ -251,8 +251,8 @@ class Board:
         # TASFIA
         state = self.state()
         while True:
-            column = int(player.turn(state))
-            if not column.isdigit() or (column < 1 or 7 < column):
+            column = player.turn(state)
+            if column < 1 or 7 < column:
                 # user did not give an integer OR user gave invalid integer
                 print("You must choose a number between 1 and 7 OR use your "
                       "power-up.")
