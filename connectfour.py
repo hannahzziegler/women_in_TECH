@@ -317,6 +317,13 @@ class Board:
                 player = self.player[0]
             else:
                 player = self.player[1]
+            self.turn(player)
+        self.check_four(state.board)
+        if self.check_four(state) == "tie":
+            print("The game ended in a tie!")
+        elif self.check_four(state) == "win":
+            print(f"{player} won! The game lasted {self.turn_counter} turns.")
+            
             
             # note: i took out player_human = False because i initialized it as None
             
