@@ -28,13 +28,14 @@ class Player:
         """Creates a player name attribute.
 
         Args:
-            name (str) = the player's name
+            name (str): the player's name
         """
 
         def turn(self, state):
             raise NotImplementedError
         # CHRISTINA: i'm confused about what this method does and why it's
         # nested under the init??
+        
 
 
 class HumanPlayer(Player):
@@ -43,11 +44,11 @@ class HumanPlayer(Player):
         column. Takes a turn.
 
         Args:
-            state (BoardState) = the current state of the game
+            state (BoardState): the current state of the game
 
         Returns:
-            (int) the column in which the Player will place a piece
-            #CHECK TO SEE IF THIS IS CLEAR WITH ARIC
+            human_choice (str): the human player's choice of what to do with
+                their turn (a number (1-7) or 'power-up')
         """
         print(state)
         #self.piece = input(f"Hello {self.name}. Would you like to use 'x' as your token or 'o'? ")
@@ -57,13 +58,13 @@ class HumanPlayer(Player):
         # coding in a choice is nice but superfluous in terms of functionality
 
         powerup_count = 2
-        choice = input(
+        human_choice = input(
             f"{self.name}, please enter a valid column to place your "
             "piece (valid columns: 1-7) or use a power-up by typing "
             "'power-up':")
-        if choice == 'power-up':
+        if human_choice == 'power-up':
             powerup_count = powerup_count - 1
-        return choice, human_piece #we can erase human_piece if human will be x every time
+        return human_choice, human_piece #we can erase human_piece if human will be x every time
 
 
 class ComputerPlayer(Player):
@@ -74,6 +75,7 @@ class ComputerPlayer(Player):
     """
 
     def turn(self, state):
+        # CHRISTINA: write a docstring for this 
         print(state)
         computer_piece = 'o'
         powerup_count = 2
@@ -103,6 +105,20 @@ class BoardState:
 
     def __init__(self):
         """Sets attributes."""
+        def piece_or_blank(player):
+            """Return an 'x', 'o', or an empty string, depending on if a piece
+            has been played and by whom.
+
+            Args:
+                'x' if the turn was played by a HumanPlayer, 'o' if played by a
+                    ComputerPlayer, '' if no turn was played
+            """
+            if isinstance(player, HumanPlayer):
+                return "x"
+            elif isinstance(player, ComputerPlayer):
+                return "o"
+            else:
+                return ""
         # CHRISTINA
         # This is a dictionary that sets the coordinates for each board position
         # (x,y): x=column(1-7), y=row(1-6)
@@ -150,8 +166,10 @@ class BoardState:
             (7, 5): "",
             (7, 6): ""
         }
-        # I think i might need another function in here that decides the value
-        # of each key. unsure if that goes under another method
+        
+        # CHRISTINA: honestly have no idea what i'm doing rn but hopefully this
+        # gives me a launch point for tomorrow
+        self.board = {position: piece_or_blank(player) for position in self.board}
 
     def __str__(self):
         """Returns a string representation of the board."""
@@ -200,6 +218,7 @@ class Board:
         # TASFIA
         # Aric said it won't count towards points in the project
         # If more complexity is needed, we'll add another power up
+        # CHRISTINA: i have a feeling this might need to be more complicated. revisit later
 
     # optional parameter, when powerup is available.
     def turn(self, player, powerup=None):
@@ -220,11 +239,11 @@ class Board:
                 # user did not give an integer OR user gave invalid integer
                 print("You must choose a number between 1 and 7 OR use your "
                       "power-up.")
-                Player.turn()
+                player.turn()
 
             elif column == None:  # if the column selected is already full
                 print(f"{column} is currently full. Please choose another column.")
-                Player.turn()
+                player.turn()
 
             elif column == 'power-up' and powerup != None:  # this is to check if the player actually has powerups
                 # these are the powerups that could be chosen
@@ -236,7 +255,9 @@ class Board:
             elif column == 'power-up' and powerup == None:
                 print(
                     "You do not have any powerups. Enter a new column between 1 and 7.")
-                Player.turn()
+                player.turn()
+                # CHRISTINA: changed every Player to player. you don't need to call
+                # the class because player is your Player object
             else:
                 # user gave a valid column
                 self.turn_counter += 1
@@ -251,33 +272,42 @@ class Board:
         # Also account for the player wanting to save progress at any time
         # Power up is an optional parameter so remember that
 
-    def play(self, state, turn_counter):
+    def play(self):
         """Play Connect Four (group note: while self.check_four is None, 
         play continues)
 
         Args:
             state (BoardState) = the current state of the game
 
-        Returns:
-
-            Passes new information to board state.
+        Side effects:
+            Writes to stdout.
+            See also turn().
         """
         # EMILY
-        # Initializes turn counter
-        turn_counter = 0
+        # Initializes turn counter, player
+        self.turn_counter = 0
+        player_human = None
         # Checks to make sure the game hasn't been won yet
         while ((self.check_four(self.state) == None) &
                ("" in self.state.values())):
             # Increments the turn counter by one
-            turn_counter = turn_counter + 1
-        # Assuming that the human player always goes first:
-        # If the turn counter is even, the player species is the human player
-        if turn_counter % 2 == 0:
-            player_human = True
-        # If the turn counter is odd, the player species is the computer
-        else:
-            player_human = False
-            return state.board, turn_counter, player_human
+            self.turn_counter += 1
+            # CHRISTINA: what in the while loop is actually causing the back and forth of turns?
+            # Assuming that the human player always goes first:
+            # If the turn counter is even, the player species is the human player
+            # If the turn counter is odd, the player species is the computer
+            if self.turn_counter % 2 == 0:
+                player_human = True
+            
+            # now that you know which player's turn it is, you should trigger
+            # self.turn(player)! there might also be other conditions that must
+            # be satisfied before .turn() can be activated, idk
+            # play() is also responsible for printing the board at every turn
+            # also, once you exit the while loop, play() should call check_four()
+            # using the return from check four, print to stdout and declare the winner and loser
+            # no need to return anything!! because once play ends, the game is over
+            
+
 
     def check_four(self, state):
         """Determines if the game is over, i.e. if a player has four connected
