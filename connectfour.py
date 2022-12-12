@@ -8,16 +8,19 @@ computer."""
 # HANNAH: magic method besides init, argparse
 # EMILY: with statements (file), inheritance
 # TASFIA: optional parameter, f-string
-# PARKER: 
+# PARKER:
 
 # LAST DEBUGGING
 # Tasfia -- fixing the str method
-# Hannah -- update documentation/docstrings based on new board
-# Other stuff (hannah also can help w/ this but just documenting)
-#   Critical: figure out why vertical win in check_four() doesn't work
+# Emily -- update documentation/docstrings based on new board
+# Other stuff:
+#   Critical: figure out why vertical win in check_four() doesn't work - hannah working
 #   Better distinguish between turns (ask Christina for more detail)
-#   Check to see if the write file function works
-#   Power ups
+#   Emily - Check to see if the write file function works
+
+# DONE DEBUGGING
+#   fix str method
+#   Hannah - Power ups
 
 import argparse
 import sys
