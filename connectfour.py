@@ -10,6 +10,15 @@ computer."""
 # TASFIA: optional parameter, f-string
 # PARKER: magic method besides init, argparse
 
+#LAST DEBUGGING
+# Tasfia -- fixing the str method
+# Hannah -- update documentation/docstrings based on new board
+# Other stuff (hannah also can help w/ this but just documenting)
+#   Critical: figure out why vertical win in check_four() doesn't work
+#   Better distinguish between turns (ask Christina for more detail)
+#   Check to see if the write file function works
+#   Power ups
+
 import argparse
 import sys
 import random
