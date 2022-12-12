@@ -28,12 +28,13 @@ class Player:
     """
 
     def __init__(self, name):
-        self.name = name
         """Creates a player name attribute.
 
         Args:
             name (str): the player's name
         """
+        self.name = name
+        
 
     def turn(self, state):
         """Take a turn.
@@ -104,7 +105,7 @@ class ComputerPlayer(Player):
             hangman's computer letter choice.
     """
 
-    def turn(self, state):
+    def turn(self, state, turn_counter):
         """Allows the computer player to take a turn 
 
         Args:
@@ -125,9 +126,9 @@ class ComputerPlayer(Player):
         computer_piece = 'o'
         powerup_count = 2
         column_list = [1, 2, 3, 4, 5, 6, 7]
-        if self.turn_counter <= 10:
+        if turn_counter <= 10:
             computer_player_choice = random.choice(column_list)
-        elif self.turn_counter > 10 and powerup_count > 0:
+        elif turn_counter > 10 and powerup_count > 0:
             computer_player_choice = random.choice(column_list, "power-up")
         if computer_player_choice == "power-up":
             powerup_count -= 1
@@ -222,20 +223,20 @@ class BoardState:
     def __str__(self):
         """Returns a string representation of the board."""
         return f"The current board:\n\
-        (| {self.board[36]}| {self.board[37]} | {self.board[38]} |\
-        {self.board[39]} | {self.board[40]} | {self.board[41]} |)\n \
-        (| {self.board[30]}| {self.board[31]} | {self.board[32]} |\
-        {self.board[33]} | {self.board[34]} | {self.board[35]} |)\n\
-        (| {self.board[24]}| {self.board[25]} | {self.board[26]} \
-        | {self.board[27]} | {self.board[28]} | {self.board[29]} |)\n\
-        (| {self.board[18]}| {self.board[19]} | {self.board[20]} |\
-        {self.board[21]} | {self.board[22]} | {self.board[23]} |)\n\
-        (| {self.board[12]}| {self.board[13]} | {self.board[14]} |\
-        {self.board[15]} | {self.board[16]} | {self.board[17]} |)\n\
-        (| {self.board[6]} | {self.board[7]} | {self.board[8]} |\
-        {self.board[9]} | {self.board[10]} | {self.board[11]} |)\n\
-        (| {self.board[0]} | {self.board[1]} | {self.board[2]} |\
-        {self.board[3]} | {self.board[4]} | {self.board[5]} |)\n"
+        (| {self.board[(6, 5)]}| {self.board[(6, 6)]} | {self.board[(7, 1)]} |\
+        {self.board[(7, 2)]} | {self.board[(7, 3)]} | {self.board[(7, 4)]} |)\n \
+        (| {self.board[(5, 5)]}| {self.board[(5, 6)]} | {self.board[(6, 1)]} |\
+        {self.board[(6, 2)]} | {self.board[(6, 3)]} | {self.board[(6, 4)]} |)\n\
+        (| {self.board[(4, 5)]}| {self.board[(4, 6)]} | {self.board[(5, 1)]} \
+        | {self.board[(5, 2)]} | {self.board[(5, 3)]} | {self.board[(5, 4)]} |)\n\
+        (| {self.board[(3, 5)]}| {self.board[(3, 6)]} | {self.board[(4, 1)]} |\
+        {self.board[(4, 2)]} | {self.board[(4, 3)]} | {self.board[(4, 4)]} |)\n\
+        (| {self.board[(2, 5)]}| {self.board[(2, 6)]} | {self.board[(3, 1)]} |\
+        {self.board[(3, 2)]} | {self.board[(3, 3)]} | {self.board[(3, 4)]} |)\n\
+        (| {self.board[(1, 5)]} | {self.board[(1, 6)]} | {self.board[(2, 1)]} |\
+        {self.board[(2, 2)]} | {self.board[(2, 3)]} | {self.board[(2, 4)]} |)\n\
+        (| {self.board[(1, 1)]} | {self.board[(1, 2)]} | {self.board[(1, 3)]} |\
+        {self.board[(1, 2)]} | {self.board[(1, 3)]} | {self.board[(1, 5)]} |)\n"
         # PARKER
 
 
@@ -256,7 +257,7 @@ class Board:
         """
         self.players = players
         self.turn_counter = 0
-        self.state = BoardState
+        self.state = BoardState()
 
         # PARKER
 
@@ -283,9 +284,8 @@ class Board:
             uses self.state attribute 
         """
         # TASFIA
-        state = self.state()
         while True:
-            column = player.turn(state)
+            column = player.turn(self.state, self.turn_counter)
             if column < 1 or 7 < column:
                 # user did not give a invalid integer
                 print("You must choose a number between 1 and 7 OR use your "
@@ -302,9 +302,9 @@ class Board:
                 # going to account for if we get other powerups
                 print(f"You have used {powerup}")
                 if powerup == invert:
-                    self.board = invert(self.board)
+                    self.state.board = invert(self.state.board)
                 elif powerup == randomize:
-                    self.board = randomize(self.board)
+                    self.state.board = randomize(self.state.board)
                 else:
                     continue
 
@@ -341,7 +341,7 @@ class Board:
 
         player = None
         # Checks to make sure the game hasn't been won yet
-        while self.check_four() == None:
+        while self.check_four() is None:
             # Increments the turn counter by one
             print(f"the while loop for play runs")
             self.turn_counter += 1
@@ -350,9 +350,9 @@ class Board:
             # If the turn counter is even, the player species is the human player
             # If the turn counter is odd, the player species is the computer
             if self.turn_counter % 2 == 0:
-                player = self.player[0]
+                player = self.players[0]
             else:
-                player = self.player[1]
+                player = self.players[1]
             self.turn(player)
 
         outcome = self.check_four(self.state)
@@ -395,9 +395,9 @@ class Board:
         played_positions = 0
 
         # Iterate through every position in the board
-        for position in state.board:
+        for position in self.state.board:
             # piece is equivalent to 'x' or 'o'
-            piece = state.board[position]
+            piece = self.state.board[position]
             # Isolate out the coordinates of position
             x, y = position
 
@@ -410,24 +410,26 @@ class Board:
                 while (vert_count or horiz_count or
                        pdiag_count or ndiag_count) < 4:
                     # Check for a vertical win
-                    while (state.board.get((x, y+vert_count)) or
-                           state.board.get((x, y-vert_count))) == piece:
+                    while (self.state.board.get((x, y+vert_count)) or
+                           self.state.board.get((x, y-vert_count))) == piece:
                         vert_count += 1
 
                     # Check for a horizontal win
-                    while (state.board.get((x+horiz_count, y)) or
-                           state.board.get((x-horiz_count, y))) == piece:
+                    while (self.state.board.get((x+horiz_count, y)) or
+                           self.state.board.get((x-horiz_count, y))) == piece:
                         horiz_count += 1
 
                     # Check for a diagonal win in the positive direction
-                    while ((state.board.get((x+pdiag_count, y+pdiag_count)) or
-                           state.board.get((x-pdiag_count, y-pdiag_count)))
+                    while ((self.state.board.get((x+pdiag_count, y+pdiag_count))
+                            or
+                           self.state.board.get((x-pdiag_count, y-pdiag_count)))
                            == piece):
                         pdiag_count += 1
 
                     # Check for a diagonal win in the negative direction
-                    while ((state.board.get((x+ndiag_count, y-ndiag_count)) or
-                           state.board.get((x-ndiag_count, y+ndiag_count)))
+                    while ((self.state.board.get((x+ndiag_count, y-ndiag_count))
+                            or
+                           self.state.board.get((x-ndiag_count, y+ndiag_count)))
                            == piece):
                         ndiag_count += 1
 
