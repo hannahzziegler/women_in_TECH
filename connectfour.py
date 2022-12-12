@@ -401,7 +401,7 @@ class Board:
             else:
                 player = self.players[0]
             self.turn(player)
-            print(f"the player that just went is {player.name}")
+            print(f"{player.name}, great move!")
         # Checks the outcome of the game, prints the outcome, and calls
         # game_details to save the details of the game in a text file
         outcome = self.check_four()
@@ -435,7 +435,7 @@ class Board:
             horiz_count = 1
             pdiag_count = 1
             ndiag_count = 1
-            
+
             # Initializing some variables to increment with
             vert_inc = 1
             horiz_inc = 1
@@ -477,7 +477,7 @@ class Board:
                     pdiag_inc += 1
                 pdiag_inc = 1
                 while (self.state.board.get((x-pdiag_inc, y-pdiag_inc))
-                         == piece):
+                       == piece):
                     pdiag_count += 1
                     pdiag_inc += 1
 
@@ -488,7 +488,7 @@ class Board:
                     ndiag_inc += 1
                 ndiag_inc = 1
                 while (self.state.board.get((x-ndiag_inc, y+ndiag_inc))
-                         == piece):
+                       == piece):
                     ndiag_count += 1
                     ndiag_inc += 1
 
@@ -500,7 +500,7 @@ class Board:
                     return "tie"
                 else:
                     pass
-        
+
         return None
 
     def game_details(self, state, turn_counter, player):  # EMILY
