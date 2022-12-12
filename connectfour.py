@@ -10,7 +10,7 @@ computer."""
 # TASFIA: optional parameter, f-string
 # PARKER: magic method besides init, argparse
 
-#LAST DEBUGGING
+# LAST DEBUGGING
 # Tasfia -- fixing the str method
 # Hannah -- update documentation/docstrings based on new board
 # Other stuff (hannah also can help w/ this but just documenting)
@@ -211,13 +211,12 @@ class BoardState:
     def __str__(self):
         """Returns a string representation of the board."""
         return f"The current board:\n\
-        (| {self.board[(7, 1)]}| {self.board[(7, 2)]} | {self.board[(7, 3)]} | {self.board[(7, 4)]} | {self.board[(7, 5)]} | {self.board[(7, 6)]} |)\n\
-        (| {self.board[(6, 1)]}| {self.board[(6, 2)]} | {self.board[(6, 3)]} | {self.board[(6, 4)]} | {self.board[(6, 5)]} | {self.board[(6, 6)]} |)\n\
-        (| {self.board[(5, 1)]}| {self.board[(5, 2)]} | {self.board[(5, 3)]} | {self.board[(5, 4)]} | {self.board[(5, 5)]} | {self.board[(5, 6)]} |)\n\
-        (| {self.board[(4, 1)]}| {self.board[(4, 2)]} | {self.board[(4, 3)]} | {self.board[(4, 4)]} | {self.board[(4, 5)]} | {self.board[(4, 6)]} |)\n\
-        (| {self.board[(3, 1)]}| {self.board[(3, 2)]} | {self.board[(3, 3)]} | {self.board[(3, 4)]} | {self.board[(3, 5)]} | {self.board[(3, 6)]} |)\n\
-        (| {self.board[(2, 1)]}| {self.board[(2, 2)]} | {self.board[(2, 3)]} | {self.board[(2, 4)]} | {self.board[(2, 5)]} | {self.board[(2, 6)]} |)\n\
-        (| {self.board[(1, 1)]}| {self.board[(1, 2)]} | {self.board[(1, 3)]} | {self.board[(1, 4)]} | {self.board[(1, 5)]} | {self.board[(1, 6)]} |)\n"
+        (| {self.board[(1, 6)]}| {self.board[(2, 6)]} | {self.board[(3, 6)]} | {self.board[(4, 6)]} | {self.board[(5, 6)]} | {self.board[(6, 6)]} | {self.board[7, 6]} |)\n\
+        (| {self.board[(1, 5)]}| {self.board[(2, 5)]} | {self.board[(3, 5)]} | {self.board[(4, 5)]} | {self.board[(5, 5)]} | {self.board[(6, 5)]} | {self.board[7, 5]} |)\n\
+        (| {self.board[(1, 4)]}| {self.board[(2, 4)]} | {self.board[(3, 4)]} | {self.board[(4, 4)]} | {self.board[(5, 4)]} | {self.board[(6, 4)]} | {self.board[7, 4]} |)\n\
+        (| {self.board[(1, 3)]}| {self.board[(2, 3)]} | {self.board[(3, 3)]} | {self.board[(4, 3)]} | {self.board[(5, 3)]} | {self.board[(6, 3)]} | {self.board[7, 3]} |)\n\
+        (| {self.board[(1, 2)]}| {self.board[(2, 2)]} | {self.board[(3, 2)]} | {self.board[(4, 2)]} | {self.board[(5, 2)]} | {self.board[(6, 2)]} | {self.board[7, 2]} |)\n\
+        (| {self.board[(1, 1)]}| {self.board[(2, 1)]} | {self.board[(3, 1)]} | {self.board[(4, 1)]} | {self.board[(5, 1)]} | {self.board[(6, 1)]} | {self.board[7, 1]} |)\n"
         # PARKER
 
 
@@ -268,21 +267,24 @@ class Board:
             column = player.turn(self.state)
         else:
             column = player.turn(self.state, self.turn_counter)
-            
+
         if column.isdigit():
             column = int(column)
             if column < 1 or 7 < column:
                 # user did not give a invalid integer
                 print("You must choose a number between 1 and 7 OR use your"
-                    " power-up.")
+                      " power-up.")
                 player.turn(self.state, self.turn_counter)
-            elif self.state.board[(column, 6)] != "":  # if the column selected is already full
-                print(f"Column {column} is currently full. Please choose another column.")
+            # if the column selected is already full
+            elif self.state.board[(column, 6)] != "":
+                print(
+                    f"Column {column} is currently full. Please choose another column.")
                 player.turn(self.state, self.turn_counter)
             else:
                 self.drop_piece(column, player)
         else:
-            if column == 'power-up' and player.powerup is None:  # this is to check if the player actually has powerups
+            # this is to check if the player actually has powerups
+            if column == 'power-up' and player.powerup is None:
                 # these are the powerups that could be chosen
                 player.powerup = random.choice(["invert", "randomize"])
                 # going to account for if we get other powerups
@@ -316,8 +318,9 @@ class Board:
             counter += 1
 
         self.state.board[(choice, counter)] = ("x" if isinstance(player,
-                                                            HumanPlayer)
-                                            else "o")
+                                                                 HumanPlayer)
+                                               else "o")
+
     def play(self):
         """Play Connect Four (group note: while self.check_four is None, 
         play continues)
@@ -408,7 +411,7 @@ class Board:
                         == piece)
                         or
                         (self.state.board.get((x-pdiag_count, y-pdiag_count))
-                        == piece)):
+                         == piece)):
                     pdiag_count += 1
 
                 # Check for a diagonal win in the negative direction
@@ -416,16 +419,18 @@ class Board:
                         == piece)
                         or
                         (self.state.board.get((x-ndiag_count, y+ndiag_count))
-                        == piece)):
+                         == piece)):
                     ndiag_count += 1
 
                 print("================================================")
-                print(f"vert_count is {vert_count}. horiz_count is {horiz_count}.")
-                print(f"pdiag_count is {pdiag_count}. ndiag_count is {ndiag_count}.")
+                print(
+                    f"vert_count is {vert_count}. horiz_count is {horiz_count}.")
+                print(
+                    f"pdiag_count is {pdiag_count}. ndiag_count is {ndiag_count}.")
                 print("================================================")
                 # Figuring out what to return based on the iterations through the board
                 if ((vert_count >= 4) or (horiz_count >= 4) or
-                    (pdiag_count >= 4) or (ndiag_count >= 4)):
+                        (pdiag_count >= 4) or (ndiag_count >= 4)):
                     return "win"
                 elif played_positions == 42:
                     return "tie"
@@ -489,8 +494,7 @@ def invert(state):
             state.board[position] = ""
     return state.board
 
-
-def randomize(state):
+# def randomize(state):
     """Randomizes the positions of all pieces on the game board.
 
     Args:
@@ -500,29 +504,31 @@ def randomize(state):
         passes new information to BoardState
     """
     # HANNAH
-    value_list = ([(v) for v in state.board.values() if v != ""])
+    for position in state.board:
+        piece = state.board[position]
+        value_list = ([(v) for v in piece if v != ""])
     # getting a list of all pieces on the board that have an "X" or "O" in them
-    random.shuffle(value_list)
+        random.shuffle(value_list)
     # shuffling the order of the "X" and "O" values
-    key_list = ([(k) for k, v in state.board.items() if v != ""])
+        key_list = ([(k) for k, v in state.board.items() if v != ""])
     # gettng a list of all spots on the board where pieces have been placed
-    dict_with_pieces = {key_list[i]: value_list[i]
-                        for i in range(len(key_list))}
+        dict_with_pieces = {key_list[i]: value_list[i]
+                            for i in range(len(key_list))}
     # concatenating the lists into a new dictionary
-    board_filtered_dict = {}
+        board_filtered_dict = {}
     # creating an empty dictionary that will have a list of all the spaces
     # on the board without pieces
-    for (key, value) in state.board.items():
-        if value == "":
-            board_filtered_dict[key] = value
+        for (key, value) in state.board.items():
+            if value == "":
+                board_filtered_dict[key] = value
             # loop is basically saying 'if there is not a piece in this spot
             # on the board, make it a key value pair in the empty dict
-    union_dicts = dict(dict_with_pieces.items() |
-                       board_filtered_dict.items())
+        union_dicts = dict(dict_with_pieces.items() |
+                           board_filtered_dict.items())
     # creating a union where all of the shuffled keys/values that have
     # pieces on them are joined to the ones that remain empty
-    state.board.update(union_dicts)
-    return state.board
+        state.board.update(union_dicts)
+        return state.board
     # updates state.board with each key's corresponding values
     # returns state.board
 
