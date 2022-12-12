@@ -305,6 +305,9 @@ class Board:
                     elif player.powerup == "randomize":
                         self.state.board = randomize(self.state)
                         print(str(self.state.board))
+                    elif player.powerup == "elimination":
+                        self.state.board = elimination(self.state)
+                        print(str(self.state.board))
 
                 elif column == 'power-up' and player.powerup is not None:
                     print(
