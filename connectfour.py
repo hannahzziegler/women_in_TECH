@@ -293,7 +293,7 @@ class Board:
                     self.state.board = invert(self.state)
                     print(self.state.board)
                 elif player.powerup == "randomize":
-                    self.state.board = randomize(self.state.board)
+                    self.state.board = randomize(self.state)
                     print(self.state.board)
 
             elif column == 'power-up' and player.powerup is not None:
