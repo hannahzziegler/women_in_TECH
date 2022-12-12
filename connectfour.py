@@ -44,7 +44,7 @@ class Player:
 
         Args:
             name (str): the player's name
-            
+
         Side effects:
             Initializes the name and powerup attributes
         """
@@ -110,9 +110,9 @@ class HumanPlayer(Player):
 
 class ComputerPlayer(Player):
     """Represents a computer playing connect four. 
-    
+
     Attributes: 
-    
+
         name (str): the name of the player
         powerup (str): a powerup that can be played during the game
 
@@ -512,7 +512,7 @@ class Board:
         game_file = input("What do you want to call your save file?")
         with open(game_file, "w") as f:
             # Write the string representation of the board state to the file
-            f.write(str(state.board))
+            f.write(str(self.state.board))
             # Write an f string of the game's outcome to the file
             f.write(f"""{loser} suffered a humiliating 
                     defeat at the hands of {winner}. 
