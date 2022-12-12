@@ -492,12 +492,6 @@ class Board:
                     ndiag_count += 1
                     ndiag_inc += 1
 
-                print("================================================")
-                print(
-                    f"vert_count is {vert_count}. horiz_count is {horiz_count}.")
-                print(
-                    f"pdiag_count is {pdiag_count}. ndiag_count is {ndiag_count}.")
-                print("================================================")
                 # Figuring out what to return based on the iterations through the board
                 if ((vert_count >= 4) or (horiz_count >= 4) or
                         (pdiag_count >= 4) or (ndiag_count >= 4)):
