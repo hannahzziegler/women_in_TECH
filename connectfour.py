@@ -75,13 +75,14 @@ class HumanPlayer(Player):
 
         Args:
             state (BoardState): the current state of the game
+            turn_counter (int): a counter that counts the number of turns taken
 
         Side effects:
             prints the state of the game to stdout
 
         Returns:
             human_choice (str): the human player's choice of what to do with
-                their turn (a number (1-7) or 'power-up')
+            their turn (a number (1-7) or 'power-up')
 
             human_piece (str): the piece (x or o) that the player will 
             participate as. Human players are always 'x'.
@@ -109,9 +110,11 @@ class HumanPlayer(Player):
 
 class ComputerPlayer(Player):
     """Represents a computer playing connect four. 
-
-    Attributes:
-        piece (str): a piece on the board
+    
+    Attributes: 
+    
+        name (str): the name of the player
+        powerup (str): a powerup that can be played during the game
 
     Citation:
         https://umd.instructure.com/courses/1330825/pages/hangman hangman.py by
@@ -129,6 +132,7 @@ class ComputerPlayer(Player):
 
         Args:
             state (BoardState): the current state of the game
+            turn_counter (int): a counter that counts the number of turns taken
 
         Side effects:
             prints the state of the game to stdout
@@ -137,9 +141,6 @@ class ComputerPlayer(Player):
             Returns:
                 computer_choice (str): the computer player's choice of what to do 
                 with their turn (a number (1-7) or 'power-up')
-
-                computer_piece (str): the piece (x or o) that the player will 
-                participate as. Computer players are always 'o'.
         """
         print(state)
 
@@ -152,7 +153,6 @@ class ComputerPlayer(Player):
             computer_choice = random.choice(column_list)
         if computer_choice == "power-up":
             powerup_count -= 1
-
         return computer_choice
 
 
