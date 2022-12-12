@@ -24,7 +24,6 @@ import argparse
 import sys
 import random
 import re
-import pandas as pd
 
 
 class Player:
@@ -194,59 +193,59 @@ class BoardState:
         # This is a dictionary that sets the coordinates for each board position
         # (x,y): x=column(1-7), y=row(1-6)
         self.board = {
-            (1, 1): "",
-            (1, 2): "",
-            (1, 3): "",
-            (1, 4): "",
-            (1, 5): "",
-            (1, 6): "",
-            (2, 1): "",
-            (2, 2): "",
-            (2, 3): "",
-            (2, 4): "",
-            (2, 5): "",
-            (2, 6): "",
-            (3, 1): "",
-            (3, 2): "",
-            (3, 3): "",
-            (3, 4): "",
-            (3, 5): "",
-            (3, 6): "",
-            (4, 1): "",
-            (4, 2): "",
-            (4, 3): "",
-            (4, 4): "",
-            (4, 5): "",
-            (4, 6): "",
-            (5, 1): "",
-            (5, 2): "",
-            (5, 3): "",
-            (5, 4): "",
-            (5, 5): "",
-            (5, 6): "",
-            (6, 1): "",
-            (6, 2): "",
-            (6, 3): "",
-            (6, 4): "",
-            (6, 5): "",
-            (6, 6): "",
-            (7, 1): "",
-            (7, 2): "",
-            (7, 3): "",
-            (7, 4): "",
-            (7, 5): "",
-            (7, 6): ""
+            (1, 1): " ",
+            (1, 2): " ",
+            (1, 3): " ",
+            (1, 4): " ",
+            (1, 5): " ",
+            (1, 6): " ",
+            (2, 1): " ",
+            (2, 2): " ",
+            (2, 3): " ",
+            (2, 4): " ",
+            (2, 5): " ",
+            (2, 6): " ",
+            (3, 1): " ",
+            (3, 2): " ",
+            (3, 3): " ",
+            (3, 4): " ",
+            (3, 5): " ",
+            (3, 6): " ",
+            (4, 1): " ",
+            (4, 2): " ",
+            (4, 3): " ",
+            (4, 4): " ",
+            (4, 5): " ",
+            (4, 6): " ",
+            (5, 1): " ",
+            (5, 2): " ",
+            (5, 3): " ",
+            (5, 4): " ",
+            (5, 5): " ",
+            (5, 6): " ",
+            (6, 1): " ",
+            (6, 2): " ",
+            (6, 3): " ",
+            (6, 4): " ",
+            (6, 5): " ",
+            (6, 6): " ",
+            (7, 1): " ",
+            (7, 2): " ",
+            (7, 3): " ",
+            (7, 4): " ",
+            (7, 5): " ",
+            (7, 6): " "
         }
 
     def __str__(self):
         """Returns a string representation of the board."""
         return f"The current board:\n\
-        (| {self.board[(1, 6)]}| {self.board[(2, 6)]} | {self.board[(3, 6)]} | {self.board[(4, 6)]} | {self.board[(5, 6)]} | {self.board[(6, 6)]} | {self.board[7, 6]} |)\n\
-        (| {self.board[(1, 5)]}| {self.board[(2, 5)]} | {self.board[(3, 5)]} | {self.board[(4, 5)]} | {self.board[(5, 5)]} | {self.board[(6, 5)]} | {self.board[7, 5]} |)\n\
-        (| {self.board[(1, 4)]}| {self.board[(2, 4)]} | {self.board[(3, 4)]} | {self.board[(4, 4)]} | {self.board[(5, 4)]} | {self.board[(6, 4)]} | {self.board[7, 4]} |)\n\
-        (| {self.board[(1, 3)]}| {self.board[(2, 3)]} | {self.board[(3, 3)]} | {self.board[(4, 3)]} | {self.board[(5, 3)]} | {self.board[(6, 3)]} | {self.board[7, 3]} |)\n\
-        (| {self.board[(1, 2)]}| {self.board[(2, 2)]} | {self.board[(3, 2)]} | {self.board[(4, 2)]} | {self.board[(5, 2)]} | {self.board[(6, 2)]} | {self.board[7, 2]} |)\n\
-        (| {self.board[(1, 1)]}| {self.board[(2, 1)]} | {self.board[(3, 1)]} | {self.board[(4, 1)]} | {self.board[(5, 1)]} | {self.board[(6, 1)]} | {self.board[7, 1]} |)\n"
+        ( |  {self.board[(1, 6)]}  |  {self.board[(2, 6)]}  |  {self.board[(3, 6)]}  |  {self.board[(4, 6)]}  |  {self.board[(5, 6)]}  |  {self.board[(6, 6)]}  |  {self.board[7, 6]}  |)\n\
+        ( |  {self.board[(1, 5)]}  |  {self.board[(2, 5)]}  |  {self.board[(3, 5)]}  |  {self.board[(4, 5)]}  |  {self.board[(5, 5)]}  |  {self.board[(6, 5)]}  |  {self.board[7, 5]}  |)\n\
+        ( |  {self.board[(1, 4)]}  |  {self.board[(2, 4)]}  |  {self.board[(3, 4)]}  |  {self.board[(4, 4)]}  |  {self.board[(5, 4)]}  |  {self.board[(6, 4)]}  |  {self.board[7, 4]}  |)\n\
+        ( |  {self.board[(1, 3)]}  |  {self.board[(2, 3)]}  |  {self.board[(3, 3)]}  |  {self.board[(4, 3)]}  |  {self.board[(5, 3)]}  |  {self.board[(6, 3)]}  |  {self.board[7, 3]}  |)\n\
+        ( |  {self.board[(1, 2)]}  |  {self.board[(2, 2)]}  |  {self.board[(3, 2)]}  |  {self.board[(4, 2)]}  |  {self.board[(5, 2)]}  |  {self.board[(6, 2)]}  |  {self.board[7, 2]}  |)\n\
+        ( |  {self.board[(1, 1)]}  |  {self.board[(2, 1)]}  |  {self.board[(3, 1)]}  |  {self.board[(4, 1)]}  |  {self.board[(5, 1)]}  |  {self.board[(6, 1)]}  |  {self.board[7, 1]}  |)\n"
         # HANNAH
 
 
@@ -308,7 +307,7 @@ class Board:
                           " power-up. Enter /quit/ to quit the program")
                     player.turn(self.state, self.turn_counter)
                 # if the column selected is already full
-                elif self.state.board[(column, 6)] != "":
+                elif self.state.board[(column, 6)] != " ":
                     print(
                         f"Column {column} is currently full. Please choose another column.")
                     player.turn(self.state, self.turn_counter)
@@ -355,8 +354,6 @@ class Board:
                   " "
                   "Visual/Audio : Tasfia,"
                   " "
-                  "Captions: Parker,"
-                  " "
                   f"Special Thanks To: Players Like You!")
             sys.exit()
 
@@ -377,7 +374,7 @@ class Board:
         """
         counter = 1
 
-        while self.state.board[(choice, counter)] != "":
+        while self.state.board[(choice, counter)] != " ":
             counter += 1
 
         self.state.board[(choice, counter)] = ("x" if isinstance(player,
@@ -450,7 +447,7 @@ class Board:
             x, y = position
 
             # Skipping over empty spots on the board
-            if piece != "":
+            if piece != " ":
                 # Counting to see if there's a tie
                 played_positions += 1
 
@@ -487,13 +484,13 @@ class Board:
                     f"pdiag_count is {pdiag_count}. ndiag_count is {ndiag_count}.")
                 print("================================================")
                 # Figuring out what to return based on the iterations through the board
-        if ((vert_count >= 4) or (horiz_count >= 4) or
-                (pdiag_count >= 4) or (ndiag_count >= 4)):
-            return "win"
-        elif played_positions == 42:
-            return "tie"
-        else:
-            return None
+            if ((vert_count >= 4) or (horiz_count >= 4) or
+                    (pdiag_count >= 4) or (ndiag_count >= 4)):
+                return "win"
+            elif played_positions == 42:
+                return "tie"
+            else:
+                return None
 
     def game_details(self, state, turn_counter, player):
         """Writes the details of a finished game to a text file. 
@@ -529,10 +526,6 @@ class Board:
             f.write(f"""{loser} suffered a humiliating 
                     defeat at the hands of {winner}. 
                     The game lasted {turn_counter} turns.""")
-        # here is a pandas dataframe example
-        df = pd.read_fwf(
-            "/Users/parkerleipzig/Desktop/GitHub/women_in_TECH/game_save.rtf")
-        filter = df
 
 
 def invert(state):
@@ -555,7 +548,7 @@ def invert(state):
         elif piece == "o":
             state.board[position] = "x"
         else:
-            state.board[position] = ""
+            state.board[position] = " "
     return state.board
 
 
@@ -580,7 +573,7 @@ def randomize(state):
         elif piece == "o":
             state.board[position] = random.choice(['x', 'o'])
         else:
-            state.board[position] = ""
+            state.board[position] = " "
     return state.board
 
 
@@ -603,9 +596,9 @@ def elimination(state):
     for piece in state.board:
         piece = state.board[randomposition]
         if piece == "x":
-            state.board[randomposition] = ""
+            state.board[randomposition] = " "
         elif piece == "o":
-            state.board[randomposition] = ""
+            state.board[randomposition] = " "
     return state.board
 
 
