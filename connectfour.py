@@ -7,7 +7,7 @@ computer."""
 # CHRISTINA: conditional expressions, sequence unpacking (tentative)
 # HANNAH: magic method besides init, argparse
 # EMILY: with statements (file), inheritance
-# TASFIA: optional parameter, f-string
+# TASFIA: f-string, regex
 # PARKER:
 
 # LAST DEBUGGING
