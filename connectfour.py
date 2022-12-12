@@ -77,7 +77,7 @@ class HumanPlayer(Player):
             human letter choice.
         """
         print(state)
-        human_piece = 'x'
+
         powerup_count = 2
         human_choice = input(
             f"{self.name}, please enter a valid column to place your "
@@ -85,7 +85,7 @@ class HumanPlayer(Player):
             "'power-up':")
         if human_choice == 'power-up':
             powerup_count -= 1
-        return human_choice, human_piece
+        return human_choice
 
 
 class ComputerPlayer(Player):
@@ -254,8 +254,12 @@ class Board:
             uses self.state attribute 
         """
         # TASFIA
-        
-        column = player.turn(self.state, self.turn_counter)
+        print(f"is the turn method of Board running?")
+        if isinstance(player, HumanPlayer):
+            column = player.turn(self.state)
+        else:
+            column = player.turn(self.state, self.turn_counter)
+            
         if column.isdigit():
             column = int(column)
             if column < 1 or 7 < column:
@@ -375,44 +379,46 @@ class Board:
             x, y = position
 
             # Skipping over empty spots on the board
-            if piece:
+            if piece != "":
                 # Counting to see if there's a tie
                 played_positions += 1
 
-                # While loop that will end when we have 4 in a row
-                while (vert_count or horiz_count or
-                       pdiag_count or ndiag_count) < 4:
-                    # Check for a vertical win
-                    while (self.state.board.get((x, y+vert_count)) or
-                           self.state.board.get((x, y-vert_count))) == piece:
-                        vert_count += 1
+                # Check for a vertical win
+                while ((self.state.board.get((x, y+vert_count)) == piece) or
+                        (self.state.board.get((x, y-vert_count)) == piece)):
+                    vert_count += 1
 
-                    # Check for a horizontal win
-                    while (self.state.board.get((x+horiz_count, y)) or
-                           self.state.board.get((x-horiz_count, y))) == piece:
-                        horiz_count += 1
+                # Check for a horizontal win
+                while ((self.state.board.get((x+horiz_count, y)) == piece) or
+                        (self.state.board.get((x-horiz_count, y)) == piece)):
+                    horiz_count += 1
 
-                    # Check for a diagonal win in the positive direction
-                    while ((self.state.board.get((x+pdiag_count, y+pdiag_count))
-                            or
-                           self.state.board.get((x-pdiag_count, y-pdiag_count)))
-                           == piece):
-                        pdiag_count += 1
+                # Check for a diagonal win in the positive direction
+                while ((self.state.board.get((x+pdiag_count, y+pdiag_count))
+                        == piece)
+                        or
+                        (self.state.board.get((x-pdiag_count, y-pdiag_count))
+                        == piece)):
+                    pdiag_count += 1
 
-                    # Check for a diagonal win in the negative direction
-                    while ((self.state.board.get((x+ndiag_count, y-ndiag_count))
-                            or
-                           self.state.board.get((x-ndiag_count, y+ndiag_count)))
-                           == piece):
-                        ndiag_count += 1
+                # Check for a diagonal win in the negative direction
+                while ((self.state.board.get((x+ndiag_count, y-ndiag_count))
+                        == piece)
+                        or
+                        (self.state.board.get((x-ndiag_count, y+ndiag_count))
+                        == piece)):
+                    ndiag_count += 1
 
-        # Figuring out what to return based on the iterations through the board
-        if (vert_count or horiz_count or pdiag_count or ndiag_count) == 4:
-            return "win"
-        elif played_positions == 42:
-            return "tie"
-        else:
-            return None
+                print(f"vert_count is {vert_count}. horiz_count is {horiz_count}.")
+                print(f"pdiag_count is {pdiag_count}. ndiag_count is {ndiag_count}.")
+                # Figuring out what to return based on the iterations through the board
+                if ((vert_count >= 4) or (horiz_count >= 4) or
+                    (pdiag_count >= 4) or (ndiag_count >= 4)):
+                    return "win"
+                elif played_positions == 42:
+                    return "tie"
+                else:
+                    return None
 
     def game_details(self, state, turn_counter, player_human):
         """Writes the details of a finished game to a text file. 
