@@ -11,14 +11,15 @@ computer."""
 # PARKER:
 
 # LAST DEBUGGING
-# Emily -- update documentation/docstrings based on new board
 # Other stuff:
-#   Better distinguish between turns (ask Christina for more detail)
-#   Emily - Check to see if the write file function works
+#   Check four
 
 # DONE DEBUGGING
 #   fix str method
 #   Hannah - Power ups
+#   Emily - Check to see if the write file function works
+#   Emily -- update documentation/docstrings based on new board
+
 
 import argparse
 import sys
@@ -39,7 +40,7 @@ class Player:
             Player class is modeled off of the parent player class from hangman.
     """
 
-    def __init__(self, name):
+    def __init__(self, name):  # CHRISTINA/HANNAH/EMILY
         """Creates a player name attribute.
 
         Args:
@@ -68,8 +69,8 @@ class Player:
         raise NotImplementedError
 
 
-class HumanPlayer(Player):
-    def turn(self, state, turn_counter):
+class HumanPlayer(Player):  # HANNAH
+    def turn(self, state, turn_counter):  # HANNAH
         """Prompts a player to take their turn and place their piece in a 
         column. Takes a turn.
 
@@ -111,7 +112,7 @@ class HumanPlayer(Player):
         return human_choice
 
 
-class ComputerPlayer(Player):
+class ComputerPlayer(Player):  # EMILY
     """Represents a computer playing connect four. 
 
     Attributes: 
@@ -130,7 +131,7 @@ class ComputerPlayer(Player):
             hangman's computer letter choice.
     """
 
-    def turn(self, state, turn_counter):
+    def turn(self, state, turn_counter):  # EMILY
         """Allows the computer player to take a turn 
 
         Args:
@@ -180,7 +181,7 @@ class BoardState:
             (int, int), with the bottom left spot as (1,1)
     """
 
-    def __init__(self):
+    def __init__(self):  # CHRISTINA
         """Sets attributes.
 
         Side effects:
@@ -188,8 +189,6 @@ class BoardState:
             Initializes the connect four board. 
 
         """
-
-        # CHRISTINA
         # This is a dictionary that sets the coordinates for each board position
         # (x,y): x=column(1-7), y=row(1-6)
         self.board = {
@@ -237,7 +236,7 @@ class BoardState:
             (7, 6): " "
         }
 
-    def __str__(self):
+    def __str__(self):  # HANNAH
         """Returns a string representation of the board."""
         return f"The current board:\n\
         ( |  {self.board[(1, 6)]}  |  {self.board[(2, 6)]}  |  {self.board[(3, 6)]}  |  {self.board[(4, 6)]}  |  {self.board[(5, 6)]}  |  {self.board[(6, 6)]}  |  {self.board[7, 6]}  |)\n\
@@ -246,7 +245,6 @@ class BoardState:
         ( |  {self.board[(1, 3)]}  |  {self.board[(2, 3)]}  |  {self.board[(3, 3)]}  |  {self.board[(4, 3)]}  |  {self.board[(5, 3)]}  |  {self.board[(6, 3)]}  |  {self.board[7, 3]}  |)\n\
         ( |  {self.board[(1, 2)]}  |  {self.board[(2, 2)]}  |  {self.board[(3, 2)]}  |  {self.board[(4, 2)]}  |  {self.board[(5, 2)]}  |  {self.board[(6, 2)]}  |  {self.board[7, 2]}  |)\n\
         ( |  {self.board[(1, 1)]}  |  {self.board[(2, 1)]}  |  {self.board[(3, 1)]}  |  {self.board[(4, 1)]}  |  {self.board[(5, 1)]}  |  {self.board[(6, 1)]}  |  {self.board[7, 1]}  |)\n"
-        # HANNAH
 
 
 class Board:
@@ -260,7 +258,7 @@ class Board:
 
     """
 
-    def __init__(self, players):
+    def __init__(self, players):  # CHRISTINA
         """Initializes the Board class.
 
         Args:
@@ -275,9 +273,7 @@ class Board:
         self.turn_counter = 0
         self.state = BoardState()
 
-        # PARKER
-
-    def turn(self, player):
+    def turn(self, player):  # TASFIA
         """Ensures that the player's turn is valid, implements any powerups. 
 
         Args:
@@ -361,7 +357,7 @@ class Board:
             print("This is an invalid input. Try again.")
             player.turn(self.state)
 
-    def drop_piece(self, choice, player):
+    def drop_piece(self, choice, player):  # CHRISTINA
         """Assigns 'x' or 'o' to a key (determined by choice) in self.board.
 
         Args:
@@ -381,7 +377,7 @@ class Board:
                                                                  HumanPlayer)
                                                else "o")
 
-    def play(self):
+    def play(self):  # EMILY
         """Plays Connect Four until winning conditions have been met. Tells 
         the user how the game ended. 
 
@@ -391,7 +387,6 @@ class Board:
             Calls game_details 
             See also turn().
         """
-        # EMILY
         # This is an example of using with statements to write to a file
         player = None
         # Checks to make sure the game hasn't been won yet
@@ -417,7 +412,7 @@ class Board:
             print(f"{str(player)} won! The game lasted {self.turn_counter} turns.")
             self.game_details(self.state.board, self.turn_counter, player)
 
-    def check_four(self):
+    def check_four(self):  # CHRISTINA
         """Determines if the game is over, i.e. if a player has four connected
         four pieces in a row vertically, horizontally, or diagonally.
 
@@ -428,7 +423,6 @@ class Board:
             "win" if a player has won, "tie" if there are no winners/no possible
             moves, None if the game is not over
         """
-        # CHRISTINA
 
         # Initializing a counter for calculating if there's a tie
         played_positions = 0
@@ -492,7 +486,7 @@ class Board:
             else:
                 return None
 
-    def game_details(self, state, turn_counter, player):
+    def game_details(self, state, turn_counter, player):  # EMILY
         """Writes the details of a finished game to a text file. 
 
         Args:
@@ -528,7 +522,7 @@ class Board:
                     The game lasted {turn_counter} turns.""")
 
 
-def invert(state):
+def invert(state):  # EMILY
     """Transforms all X's on the game board to O's, and vice versa.
 
     Args:
@@ -552,7 +546,7 @@ def invert(state):
     return state.board
 
 
-def randomize(state):
+def randomize(state):  # HANNAH
     """Looks at all x's and o's on the board, randomly changes them to an x or 
     an o. 
 
@@ -577,7 +571,7 @@ def randomize(state):
     return state.board
 
 
-def elimination(state):
+def elimination(state):  # TASFIA
     """Deletes the x's and o's from a random column on the board. 
 
     Args:
@@ -602,7 +596,7 @@ def elimination(state):
     return state.board
 
 
-def main(human_name):
+def main(human_name):  # HANNAH
     """Sets up and plays a game of Connect Four.
 
     Args:
@@ -614,10 +608,9 @@ def main(human_name):
     players = [HumanPlayer(human_name), ComputerPlayer("Computer")]
     game = Board(players)
     game.play()
-    # PARKER
 
 
-def parse_args(arglist):
+def parse_args(arglist):  # HANNAH
     """Parse command-line arguments.
 
     Expects one mandatory arguments: 
@@ -632,7 +625,6 @@ def parse_args(arglist):
 
         namespace: the parsed arguments, as a namespace.
     """
-    # PARKER
     parser = argparse.ArgumentParser()
     parser.add_argument("name", type=str, help="the name of the person")
     return parser.parse_args(arglist)
