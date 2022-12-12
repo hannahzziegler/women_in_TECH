@@ -129,7 +129,8 @@ class ComputerPlayer(Player):
         if turn_counter <= 10:
             computer_choice = random.choice(column_list)
         elif turn_counter > 10 and powerup_count > 0:
-            computer_choice = random.choice(column_list, "power-up")
+            column_list.append("power-up")
+            computer_choice = random.choice(column_list)
         if computer_choice == "power-up":
             powerup_count -= 1
 
@@ -254,7 +255,6 @@ class Board:
             uses self.state attribute 
         """
         # TASFIA
-        print(f"is the turn method of Board running?")
         if isinstance(player, HumanPlayer):
             column = player.turn(self.state)
         else:
@@ -275,11 +275,11 @@ class Board:
         else:
             if column == 'power-up' and player.powerup is None:  # this is to check if the player actually has powerups
                 # these are the powerups that could be chosen
-                player.powerup = random.choice("invert", "randomize")
+                player.powerup = random.choice(["invert", "randomize"])
                 # going to account for if we get other powerups
                 print(f"You have used {player.powerup}")
                 if player.powerup == "invert":
-                    self.state.board = invert(self.state.board)
+                    self.state.board = invert(self.state)
                     print(self.state.board)
                 elif player.powerup == "randomize":
                     self.state.board = randomize(self.state.board)
@@ -329,12 +329,13 @@ class Board:
             # If the turn counter is even, the player species is the human player
             # If the turn counter is odd, the player species is the computer
             if self.turn_counter % 2 == 0:
-                player = self.players[0]
-            else:
                 player = self.players[1]
+            else:
+                player = self.players[0]
             self.turn(player)
+            print(f"the player that just went is {player.name}")
 
-        outcome = self.check_four(self.state)
+        outcome = self.check_four()
         if outcome == "tie":
             print("The game ended in a tie!")
         elif outcome == "win":
@@ -409,8 +410,10 @@ class Board:
                         == piece)):
                     ndiag_count += 1
 
+                print("================================================")
                 print(f"vert_count is {vert_count}. horiz_count is {horiz_count}.")
                 print(f"pdiag_count is {pdiag_count}. ndiag_count is {ndiag_count}.")
+                print("================================================")
                 # Figuring out what to return based on the iterations through the board
                 if ((vert_count >= 4) or (horiz_count >= 4) or
                     (pdiag_count >= 4) or (ndiag_count >= 4)):
