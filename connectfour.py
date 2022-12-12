@@ -531,12 +531,14 @@ def randomize(state):
     return state.board
 
 def elimination(state):
-    for position in state.board:
-        piece = state.board[position]
+    dictionarycomprehension = {position1 for position1, position2 in state.board}
+    randomposition = random.choice(tuple(dictionarycomprehension))
+    for piece in state.board:
+        piece = state.board[randomposition]
         if piece == "x":
-            state.board[position] = ""
+            state.board[randomposition] = ""
         elif piece == "o":
-            state.board[position] = ""
+            state.board[randomposition] = ""
     return state.board
 
 #another powerup idea = blocking
