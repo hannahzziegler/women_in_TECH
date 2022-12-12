@@ -34,6 +34,7 @@ class Player:
             name (str): the player's name
         """
         self.name = name
+        self.powerup = None
 
     def turn(self, state):
         """Take a turn.
@@ -124,7 +125,7 @@ class ComputerPlayer(Player):
         print(state)
 
         powerup_count = 2
-        column_list = [1, 2, 3, 4, 5, 6, 7]
+        column_list = ["1", "2", "3", "4", "5", "6", "7"]
         if turn_counter <= 10:
             computer_choice = random.choice(column_list)
         elif turn_counter > 10 and powerup_count > 0:
@@ -148,25 +149,6 @@ class BoardState:
 
     def __init__(self):
         """Sets attributes."""
-        # def piece_or_blank(choice, player):
-        #     """Assigns 'x' or 'o' to a key (determined by choice) in self.board.
-
-        #     Args:
-        #         choice (str): the column of choice, validated by Board.turn()
-        #         player (HumanPlayer, ComputerPlayer): an object of a Player
-        #             child class
-        #     Returns:
-        #         'x' if the turn was played by a HumanPlayer, 'o' if played by a
-        #             ComputerPlayer, '' if no turn was played
-        #     """
-        #     counter = 1
-
-        #     while self.board[(choice, counter)] != "":
-        #         counter += 1
-
-        #     self.board[(choice, counter)] = ("x" if isinstance(player,
-        #                                                        HumanPlayer)
-        #                                      else "o")
 
         # CHRISTINA
         # This is a dictionary that sets the coordinates for each board position
@@ -260,12 +242,11 @@ class Board:
         # CHRISTINA: i have a feeling this might need to be more complicated. revisit later
 
     # optional parameter, when powerup is available.
-    def turn(self, player, powerup=None):
+    def turn(self, player):
         """Manages the player's turn.
 
         Args:
             player (Player): the player whose turn it is
-            powerup (string, optional): the potential powerup used
 
         Side effects:
             prints to stdout
@@ -273,51 +254,57 @@ class Board:
             uses self.state attribute 
         """
         # TASFIA
-        while True:
-            column = player.turn(self.state, self.turn_counter)
+        
+        column = player.turn(self.state, self.turn_counter)
+        if column.isdigit():
+            column = int(column)
             if column < 1 or 7 < column:
                 # user did not give a invalid integer
-                print("You must choose a number between 1 and 7 OR use your "
-                      "power-up.")
-                player.turn()
-
-            elif column == None:  # if the column selected is already full
-                print(f"{column} is currently full. Please choose another column.")
-                player.turn()
-
-            elif column == 'power-up' and powerup != None:  # this is to check if the player actually has powerups
+                print("You must choose a number between 1 and 7 OR use your"
+                    " power-up.")
+                player.turn(self.state, self.turn_counter)
+            elif self.state.board[(column, 6)] != "":  # if the column selected is already full
+                print(f"Column {column} is currently full. Please choose another column.")
+                player.turn(self.state, self.turn_counter)
+            else:
+                self.drop_piece(column, player)
+        else:
+            if column == 'power-up' and player.powerup is None:  # this is to check if the player actually has powerups
                 # these are the powerups that could be chosen
-                powerup = random.choice(invert, randomize)
+                player.powerup = random.choice("invert", "randomize")
                 # going to account for if we get other powerups
-                print(f"You have used {powerup}")
-                if powerup == invert:
+                print(f"You have used {player.powerup}")
+                if player.powerup == "invert":
                     self.state.board = invert(self.state.board)
-                elif powerup == randomize:
+                    print(self.state.board)
+                elif player.powerup == "randomize":
                     self.state.board = randomize(self.state.board)
-                else:
-                    continue
+                    print(self.state.board)
 
-            elif column == 'power-up' and powerup == None:
+            elif column == 'power-up' and player.powerup is not None:
                 print(
                     "You do not have any powerups. Enter a new column between 1 and 7.")
-                player.turn()
+                player.turn(self.state, self.turn_counter)
 
-            elif not column.isdigits():  # if the column isn't even a number
-                print(
-                    "This is not a number. You must choose a number between 1 and 7 OR use your power-up.")
-                player.turn()
+    def drop_piece(self, choice, player):
+        """Assigns 'x' or 'o' to a key (determined by choice) in self.board.
 
-            else:
-                # user gave a valid column
+        Args:
+            choice (str): the column of choice, validated by Board.turn()
+            player (HumanPlayer, ComputerPlayer): an object of a Player
+                child class
+        Returns:
+            'x' if the turn was played by a HumanPlayer, 'o' if played by a
+                ComputerPlayer, '' if no turn was played
+        """
+        counter = 1
 
-                continue
+        while self.state.board[(choice, counter)] != "":
+            counter += 1
 
-        # Christina says to fix the way we choose a random power-up – from my previous code on it when it was in my method
-        # Alerts the user when they attempt to make an invalid move
-            # Column number does not exist
-            # Column selected is already full
-            # Other nonsense responses
-
+        self.state.board[(choice, counter)] = ("x" if isinstance(player,
+                                                            HumanPlayer)
+                                            else "o")
     def play(self):
         """Play Connect Four (group note: while self.check_four is None, 
         play continues)
@@ -332,7 +319,6 @@ class Board:
         # Checks to make sure the game hasn't been won yet
         while self.check_four() is None:
             # Increments the turn counter by one
-            print(f"the while loop for play runs")
             self.turn_counter += 1
             # CHRISTINA: what in the while loop is actually causing the back and forth of turns?
             # Assuming that the human player always goes first:
@@ -371,8 +357,6 @@ class Board:
             "win" if a player has won, "tie" if there are no winners/no possible
             moves, None if the game is not over
         """
-        print(f"THIS IS THE STATE: {self.state}")
-        print(f"THIS IS THE BOARD OF STATE: {self.state.board}")
         # CHRISTINA
         # Initializing some counters for number of pieces in a line
         vert_count = 1
