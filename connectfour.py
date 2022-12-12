@@ -321,13 +321,18 @@ class Board:
 
         elif column == "quit":
             print("Thank you for playing our game!"
-                  
-                  "Game Credits:"
-                  
-                  "Producer : Christina "
-                  "Director : Hannah"
-                  "Graphic Designer : Emily"
-                  "Visual/Audio : Tasfia")
+                  " "
+                  "(Game Credits)"
+                  " "
+                  "Producer : Christina,"
+                  " "
+                  "Director : Hannah,"
+                  " "
+                  "Graphic Designer : Emily,"
+                  " "
+                  "Visual/Audio : Tasfia,"
+                  " "
+                  f"Special Thanks To: Players Like You!")
             sys.exit()
 
         else:
