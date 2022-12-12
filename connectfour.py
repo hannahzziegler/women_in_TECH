@@ -283,7 +283,7 @@ class Board:
                 if column < 1 or 7 < column:
                     # user did not give a invalid integer
                     print("You must choose a number between 1 and 7 OR use your"
-                          " power-up.")
+                          " power-up. Enter /quit/ to quit the program")
                     player.turn(self.state)
                 # if the column selected is already full
                 elif self.state.board[(column, 6)] != "":
