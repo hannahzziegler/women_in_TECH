@@ -6,7 +6,7 @@ computer."""
 # List of things everyone is doing:
 # CHRISTINA: conditional expressions, sequence unpacking (tentative)
 # HANNAH: magic method besides init, argparse
-# EMILY: with statements ( writing to a file), inheritance
+# EMILY: with statements ( writing to a text file), inheritance
 # TASFIA: comprehension, regex
 # PARKER:
 
