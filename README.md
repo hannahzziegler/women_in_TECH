@@ -17,13 +17,26 @@ Our program takes one command line argument to run: a string that is the human p
 <br>
 <b>Using the Program and Interpreting Output</b>
 
-Our program is moderated through the play() method within the overarching Board class. This method involves a while loop that 
+Our program is moderated through the play() method within the overarching Board class. This method involves a while loop that calls all of the necessary classes and methods that are needed to allow a player to take their turn, add that turn to the board and continuously check if a player has won, a column on the board has filled up or if the game has ended in a tie. 
+<br>
+<br>
+When the program begins running, the human player will get prompted to determine a location to set their ‘x’ piece on the Connect Four board. The user input must be a valid column in the range of 1-7. When the user picks a valid column, the Board.turn() class will check to make sure there is room in that given column and then allow the program to continue if the input is valid.
+<br>
+<br>
+If the player does not play a valid column, or their chosen column is full, they will be looped back into the HumanPlayer.turn() method over and over until they give a valid input that allows the program to continue. 
+<br>
+<br>
+Each player in the game is allowed to use up to two power ups to help them throughout the competition. In addition to column values, a player can also type the words ‘power-up’ during their turn to initiate a randomly chosen power-up from the two that we have: invert and randomize. This power-up usage counts as the player’s turn. When a power-up is used, one of the power-up functions gets called, changes the board and returns the new board. 
+<br>
+<br>
+After each turn or each use of a power-up, the player in the game should be able to see the current state of the board. If one player wins as a result of the Board.check_four() method confirming that they have four pieces in a row either vertically, horizontally or diagonally, a statement declaring the winner will print and the game will be over. 
 
 <br>
 <b>Project Attribution</b>
-
-<b>Classes/Methods/Function each group member is responsible for:</b>
-
+<br>
+<br>
+<em>Classes/Methods/Function each group member is responsible for:</em>
+<br>
 <br>
 Christina Yang:
 <li>BoardState __init__() method</li>
@@ -55,8 +68,8 @@ Parker Leipzig
 
 <br>
 <br>
-<b>Guideline 6.D Requirements </b>
-
+<em>Guideline 6.D Requirements: </em>
+<br>
 <br>
 Christina Yang:
 <li>conditional expressions</li>
