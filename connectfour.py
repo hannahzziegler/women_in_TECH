@@ -24,6 +24,7 @@ import argparse
 import sys
 import random
 import re
+import pandas as pd
 
 
 class Player:
@@ -134,28 +135,28 @@ class ComputerPlayer(Player):
         """Allows the computer player to take a turn 
 
         Args:
-        
+
             state (BoardState): the current state of the game
             turn_counter (int): a counter that counts the number of turns taken
 
         Side effects:
-        
+
             prints the state of the game to stdout
 
         Returns:
-        
+
             computer_choice (str): the computer player's choice of what to do 
             with their turn (a number (1-7) or 'power-up')
         """
-        # This is an example of inheritence, as the ComputerPlayer inherits the 
+        # This is an example of inheritence, as the ComputerPlayer inherits the
         # init method from Player
-        #Prints the state of the board
+        # Prints the state of the board
         print(state)
         # Sets a powerup counter
         powerup_count = 2
         # Defines the list of choices that the computer can make
         column_list = ["1", "2", "3", "4", "5", "6", "7"]
-        #If there are less than 10 pieces on the board, only place a piece
+        # If there are less than 10 pieces on the board, only place a piece
         if turn_counter <= 10:
             computer_choice = random.choice(column_list)
         # If there are more than 10 pieces on the board, you can also play
@@ -173,7 +174,7 @@ class BoardState:
     Player.turn() method.
 
     Attributes:
-    
+
         board (dict of (int, int):str): a representation of the board, with
             columns represented as pipes (|s) and empty spots represented with
             spaces. Positions on the board are represented via coordinates of
@@ -182,11 +183,11 @@ class BoardState:
 
     def __init__(self):
         """Sets attributes.
-        
+
         Side effects:
-        
+
             Initializes the connect four board. 
-            
+
         """
 
         # CHRISTINA
@@ -253,22 +254,22 @@ class Board:
     """A Connect Four game.
 
     Attributes:
-    
+
         players (list): the names of the human and computer player
         turn_counter (int): a counter that counts how many turns have been taken
         state (BoardState): the current state of the board
-        
+
     """
 
     def __init__(self, players):
         """Initializes the Board class.
 
         Args:
-        
+
             players (list of HumanPlayer, ComputerPlayer): the players
-            
+
         Side effects:
-        
+
             initializes the players, turn_counter, and state attributes
         """
         self.players = players
@@ -284,7 +285,7 @@ class Board:
             player (Player): the player whose turn it is
 
         Side effects:
-        
+
             prints to stdout
             changes the state of the board
         """
@@ -340,7 +341,7 @@ class Board:
                         "We recognized you want to use a powerup. Please use the following syntax: power-up")
                     player.turn(self.state, self.turn_counter)
 
-        # If the user wants to quit the game 
+        # If the user wants to quit the game
         elif column == "quit":
             print("Thank you for playing our game!"
                   " "
@@ -353,6 +354,8 @@ class Board:
                   "Graphic Designer : Emily,"
                   " "
                   "Visual/Audio : Tasfia,"
+                  " "
+                  "Captions: Parker,"
                   " "
                   f"Special Thanks To: Players Like You!")
             sys.exit()
@@ -386,13 +389,13 @@ class Board:
         the user how the game ended. 
 
         Side effects:
-        
+
             Writes to stdout.
             Calls game_details 
             See also turn().
         """
         # EMILY
-        # This is an example of using with statements to write to a file 
+        # This is an example of using with statements to write to a file
         player = None
         # Checks to make sure the game hasn't been won yet
         while self.check_four() is None:
@@ -407,8 +410,8 @@ class Board:
                 player = self.players[0]
             self.turn(player)
             print(f"the player that just went is {player.name}")
-        # Checks the outcome of the game, prints the outcome, and calls 
-        # game_details to save the details of the game in a text file 
+        # Checks the outcome of the game, prints the outcome, and calls
+        # game_details to save the details of the game in a text file
         outcome = self.check_four()
         if outcome == "tie":
             print("The game ended in a tie!")
@@ -429,7 +432,7 @@ class Board:
             moves, None if the game is not over
         """
         # CHRISTINA
-        
+
         # Initializing a counter for calculating if there's a tie
         played_positions = 0
 
@@ -526,17 +529,21 @@ class Board:
             f.write(f"""{loser} suffered a humiliating 
                     defeat at the hands of {winner}. 
                     The game lasted {turn_counter} turns.""")
+        # here is a pandas dataframe example
+        df = pd.read_fwf(
+            "/Users/parkerleipzig/Desktop/GitHub/women_in_TECH/game_save.rtf")
+        filter = df
 
 
 def invert(state):
     """Transforms all X's on the game board to O's, and vice versa.
 
     Args:
-    
+
         state (BoardState): the state of the board
 
     Side effects:
-    
+
         passes new information to BoardState
     """
     for position in state.board:
@@ -555,17 +562,17 @@ def invert(state):
 def randomize(state):
     """Looks at all x's and o's on the board, randomly changes them to an x or 
     an o. 
-    
+
     Args:
-    
+
         state (BoardState): the state of the board
-        
+
     Side effects:
-    
+
         Passes new information to BoardState
     """
-    # For each piece on the board that is x or o, randomly choose whether to 
-    # make it x or o 
+    # For each piece on the board that is x or o, randomly choose whether to
+    # make it x or o
     for position in state.board:
         piece = state.board[position]
         if piece == "x":
@@ -579,13 +586,13 @@ def randomize(state):
 
 def elimination(state):
     """Deletes the x's and o's from a random column on the board. 
-    
+
     Args:
-    
+
         state (BoardState): the state of the board
-        
+
     Side effects:
-    
+
         Passes new information to BoardState
     """
     dictionarycomprehension = {
@@ -621,15 +628,15 @@ def parse_args(arglist):
     """Parse command-line arguments.
 
     Expects one mandatory arguments: 
-    
+
         name (str): name of human player
 
     Args:
-    
+
         arglist (list of str): arguments from the command line.
 
     Returns:
-    
+
         namespace: the parsed arguments, as a namespace.
     """
     # PARKER
