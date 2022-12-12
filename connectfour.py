@@ -320,7 +320,14 @@ class Board:
                     player.turn(self.state)
 
         elif column == "quit":
-            print("Thank you for playing our game!")
+            print("Thank you for playing our game!"
+                  
+                  "Game Credits:"
+                  
+                  "Producer : Christina "
+                  "Director : Hannah"
+                  "Graphic Designer : Emily"
+                  "Visual/Audio : Tasfia")
             sys.exit()
 
         else:
