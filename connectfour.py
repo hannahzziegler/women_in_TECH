@@ -122,17 +122,17 @@ class ComputerPlayer(Player):
                 participate as. Computer players are always 'o'.
         """
         print(state)
-        computer_piece = 'o'
+
         powerup_count = 2
         column_list = [1, 2, 3, 4, 5, 6, 7]
         if turn_counter <= 10:
-            computer_player_choice = random.choice(column_list)
+            computer_choice = random.choice(column_list)
         elif turn_counter > 10 and powerup_count > 0:
-            computer_player_choice = random.choice(column_list, "power-up")
-        if computer_player_choice == "power-up":
+            computer_choice = random.choice(column_list, "power-up")
+        if computer_choice == "power-up":
             powerup_count -= 1
 
-        return computer_player_choice, computer_piece
+        return computer_choice
 
 
 class BoardState:
