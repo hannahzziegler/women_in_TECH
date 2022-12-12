@@ -405,6 +405,7 @@ class Board:
         # Checks the outcome of the game, prints the outcome, and calls
         # game_details to save the details of the game in a text file
         outcome = self.check_four()
+        print(str(self.state.board))
         if outcome == "tie":
             print("The game ended in a tie!")
             self.game_details(self.state.board, self.turn_counter, player)
@@ -498,13 +499,15 @@ class Board:
                     f"pdiag_count is {pdiag_count}. ndiag_count is {ndiag_count}.")
                 print("================================================")
                 # Figuring out what to return based on the iterations through the board
-        if ((vert_count >= 4) or (horiz_count >= 4) or
-                (pdiag_count >= 4) or (ndiag_count >= 4)):
-            return "win"
-        elif played_positions == 42:
-            return "tie"
-        else:
-            return None
+                if ((vert_count >= 4) or (horiz_count >= 4) or
+                        (pdiag_count >= 4) or (ndiag_count >= 4)):
+                    return "win"
+                elif played_positions == 42:
+                    return "tie"
+                else:
+                    pass
+        
+        return None
 
     def game_details(self, state, turn_counter, player):  # EMILY
         """Writes the details of a finished game to a text file. 
