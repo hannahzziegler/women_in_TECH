@@ -55,6 +55,8 @@ Hannah Ziegler
 <li>Player parent class</li>
 <li>HumanPlayer child class</li>
 <li>main() function</li>
+<li>BoardState __str__() method</li>
+<li>Parse_ags function</li>
 
 <br>
 Tasfia Haque
@@ -63,8 +65,9 @@ Tasfia Haque
 
 <br>
 Parker Leipzig
-<li>BoardState __str__() method</li>
-<li>Parse_ags function</li>
+<li></li>
+<li>xxx</li>
+<li>xxx</li>
 
 <br>
 <br>
