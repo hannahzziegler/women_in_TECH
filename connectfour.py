@@ -5,10 +5,10 @@ computer."""
 
 # List of things everyone is doing:
 # CHRISTINA: conditional expressions, sequence unpacking (tentative)
-# HANNAH: set stuff, list/dict comprehensions
+# HANNAH: magic method besides init, argparse
 # EMILY: with statements (file), inheritance
 # TASFIA: optional parameter, f-string
-# PARKER: magic method besides init, argparse
+# PARKER: 
 
 # LAST DEBUGGING
 # Tasfia -- fixing the str method
