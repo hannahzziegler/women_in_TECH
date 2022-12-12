@@ -497,41 +497,58 @@ def invert(state):
             state.board[position] = ""
     return state.board
 
-# def randomize(state):
-    """Randomizes the positions of all pieces on the game board.
 
-    Args:
-        state (BoardState): the state of the board
-
-    Returns:
-        passes new information to BoardState
-    """
-    # HANNAH
+def randomize(state):
     for position in state.board:
         piece = state.board[position]
-        value_list = ([(v) for v in piece if v != ""])
+        if piece == "x":
+            state.board[position] = random.choice(['x', 'o'])
+        elif piece == "o":
+            state.board[position] = random.choice(['x', 'o'])
+        else:
+            state.board[position] = ""
+    return state.board
+
+
+# BROKEN RANDOMIZE -- IGNORE
+# {state.board[position]: random.choice('x', 'o') for position in state.board if position = 'x'}
+    # {state.board[position] == random.choice('x', 'o'): state.board[position] for position in state.board if position = 'x'}
+
+# def randomize(state):
+    # """Randomizes the positions of all pieces on the game board.
+
+    # Args:
+    # state (BoardState): the state of the board
+
+    # Returns:
+    # passes new information to BoardState
+
+    # HANNAH
+    # for position in state.board:
+    # piece = state.board[position]
+    #  value_list = ([(v) for v in piece if v != ""])
     # getting a list of all pieces on the board that have an "X" or "O" in them
-        random.shuffle(value_list)
+    # random.shuffle(value_list)
     # shuffling the order of the "X" and "O" values
-        key_list = ([(k) for k, v in state.board.items() if v != ""])
+    # key_list = ([(k) for k, v in state.board.items() if v != ""])
     # gettng a list of all spots on the board where pieces have been placed
-        dict_with_pieces = {key_list[i]: value_list[i]
-                            for i in range(len(key_list))}
+    # dict_with_pieces = {key_list[i]: value_list[i]
+    #   for i in range(len(key_list))}
     # concatenating the lists into a new dictionary
-        board_filtered_dict = {}
+    # board_filtered_dict = {}
     # creating an empty dictionary that will have a list of all the spaces
     # on the board without pieces
-        for (key, value) in state.board.items():
-            if value == "":
-                board_filtered_dict[key] = value
-            # loop is basically saying 'if there is not a piece in this spot
-            # on the board, make it a key value pair in the empty dict
-        union_dicts = dict(dict_with_pieces.items() |
-                           board_filtered_dict.items())
+    # for (key, value) in state.board.items():
+    # if value == "":
+    # board_filtered_dict[key] = value
+    # loop is basically saying 'if there is not a piece in this spot
+    # on the board, make it a key value pair in the empty dict
+    # union_dicts = dict(dict_with_pieces.items() |
+    # board_filtered_dict.items())
     # creating a union where all of the shuffled keys/values that have
     # pieces on them are joined to the ones that remain empty
-        state.board.update(union_dicts)
-        return state.board
+    # state.board.update(union_dicts)
+    # return state.board
     # updates state.board with each key's corresponding values
     # returns state.board
 
