@@ -309,6 +309,11 @@ class Board:
                         "You do not have any powerups. Enter a new column between 1 and 7.")
                     player.turn(self.state)
                     
+                else:
+                    print(
+                        "We recognized you want to use a powerup. Please use the following syntax: power-up")                    
+                    player.turn(self.state)
+                    
         elif column == "quit":
             print("Thank you for playing our game!")
             sys.exit()
