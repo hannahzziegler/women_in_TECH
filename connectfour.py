@@ -429,17 +429,18 @@ class Board:
             moves, None if the game is not over
         """
         # CHRISTINA
-        # Initializing some counters for number of pieces in a line
-        vert_count = 1
-        horiz_count = 1
-        pdiag_count = 1
-        ndiag_count = 1
-
+        
         # Initializing a counter for calculating if there's a tie
         played_positions = 0
 
         # Iterate through every position in the board
         for position in self.state.board:
+            # Initializing some counters for number of pieces in a line
+            vert_count = 1
+            horiz_count = 1
+            pdiag_count = 1
+            ndiag_count = 1
+
             # piece is equivalent to 'x' or 'o'
             piece = self.state.board[position]
             # Isolate out the coordinates of position
@@ -483,13 +484,13 @@ class Board:
                     f"pdiag_count is {pdiag_count}. ndiag_count is {ndiag_count}.")
                 print("================================================")
                 # Figuring out what to return based on the iterations through the board
-                if ((vert_count >= 4) or (horiz_count >= 4) or
-                        (pdiag_count >= 4) or (ndiag_count >= 4)):
-                    return "win"
-                elif played_positions == 42:
-                    return "tie"
-                else:
-                    return None
+            if ((vert_count >= 4) or (horiz_count >= 4) or
+                    (pdiag_count >= 4) or (ndiag_count >= 4)):
+                return "win"
+            elif played_positions == 42:
+                return "tie"
+            else:
+                return None
 
     def game_details(self, state, turn_counter, player):
         """Writes the details of a finished game to a text file. 
