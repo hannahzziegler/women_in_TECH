@@ -529,11 +529,6 @@ class Board:
             f.write(f"""{loser} suffered a humiliating 
                     defeat at the hands of {winner}. 
                     The game lasted {turn_counter} turns.""")
-        # here is a pandas dataframe example
-        df = pd.read_fwf(
-            "/Users/parkerleipzig/Desktop/GitHub/women_in_TECH/game_save.rtf")
-        filter = df
-
 
 def invert(state):
     """Transforms all X's on the game board to O's, and vice versa.
