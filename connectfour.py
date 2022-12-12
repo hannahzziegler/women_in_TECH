@@ -293,7 +293,8 @@ class Board:
         correctcolumn = re.search(
             r"\d|\b((p|P)(ower?)).?((u|U)(p?))\b", column)
 
-        if correctcolumn is not None:  # if the correct column is actually a match
+        if correctcolumn is not None:
+            # if the correct column is actually a match
 
             if column.isdigit():
                 column = int(column)
@@ -305,7 +306,8 @@ class Board:
                 # if the column selected is already full
                 elif self.state.board[(column, 6)] != " ":
                     print(
-                        f"Column {column} is currently full. Please choose another column.")
+                        f"Column {column} is currently full. Please choose "
+                        "another column.")
                     player.turn(self.state, self.turn_counter)
                 else:
                     self.drop_piece(column, player)
@@ -328,12 +330,14 @@ class Board:
 
                 elif column == 'power-up' and player.powerup is not None:
                     print(
-                        "You do not have any powerups. Enter a new column between 1 and 7.")
+                        "You do not have any powerups. Enter a new column "
+                        "between 1 and 7.")
                     player.turn(self.state, self.turn_counter)
 
                 else:
                     print(
-                        "We recognized you want to use a powerup. Please use the following syntax: power-up")
+                        "We recognized you want to use a powerup. "
+                        "Please use the following syntax: power-up")
                     player.turn(self.state, self.turn_counter)
 
         # If the user wants to quit the game
@@ -394,7 +398,8 @@ class Board:
             # Increments the turn counter by one
             self.turn_counter += 1
             # Assuming that the human player always goes first:
-            # If the turn counter is even, the player species is the human player
+            # If the turn counter is even, the player species is the human
+            # player
             # If the turn counter is odd, the player species is the computer
             if self.turn_counter % 2 == 0:
                 player = self.players[1]
@@ -410,7 +415,8 @@ class Board:
             print("The game ended in a tie!")
             self.game_details(self.state.board, self.turn_counter, player)
         elif outcome == "win":
-            print(f"{str(player)} won! The game lasted {self.turn_counter} turns.")
+            print(f"{str(player)} won! The game lasted {self.turn_counter} "
+                  "turns.")
             self.game_details(self.state.board, self.turn_counter, player)
 
     def check_four(self):  # CHRISTINA
@@ -492,7 +498,6 @@ class Board:
                     ndiag_count += 1
                     ndiag_inc += 1
 
-                # Figuring out what to return based on the iterations through the board
                 if ((vert_count >= 4) or (horiz_count >= 4) or
                         (pdiag_count >= 4) or (ndiag_count >= 4)):
                     return "win"
@@ -520,13 +525,13 @@ class Board:
         """
         # If player_human is true, the winner is the player's name and the
         # loser is the computer
-        if player == True:
-            winner = player.name
+        if player == self.players[0]:
+            winner = self.players[0]
             loser = "Computer"
         # And vice versa for the else statement
         else:
             winner = "Computer"
-            loser = player.name
+            loser = self.players[0]
         # Here is a demonstration of a with statement
         # Open a file for writing to
         game_file = input("What do you want to call your save file?")
@@ -622,9 +627,8 @@ def main(human_name):  # HANNAH
     Side effects:
         writes to stdout
     """
-    computer_names = ["Mika", "IBM Watson", "Spot", "Computer"]
     players = [HumanPlayer(human_name),
-               ComputerPlayer(random.choice(computer_names))]
+               ComputerPlayer("Computer")]
     game = Board(players)
     game.play()
 
