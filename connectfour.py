@@ -622,7 +622,9 @@ def main(human_name):  # HANNAH
     Side effects:
         writes to stdout
     """
-    players = [HumanPlayer(human_name), ComputerPlayer("Computer")]
+    computer_names = ["Mika", "IBM Watson", "Spot", "Computer"]
+    players = [HumanPlayer(human_name),
+               ComputerPlayer(random.choice(computer_names))]
     game = Board(players)
     game.play()
 
