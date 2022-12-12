@@ -347,6 +347,7 @@ class Board:
             self.turn(player)
             print(f"the player that just went is {player.name}")
 
+        # we need to call the game details method somewhere in this play method to get it going
         outcome = self.check_four()
         if outcome == "tie":
             print("The game ended in a tie!")
