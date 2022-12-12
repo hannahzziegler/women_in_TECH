@@ -308,6 +308,11 @@ class Board:
                     print(
                         "You do not have any powerups. Enter a new column between 1 and 7.")
                     player.turn(self.state)
+                    
+        elif column == "quit":
+            print("Thank you for playing our game!")
+            sys.exit()
+                   
         else:
             print("This is an invalid input. Try again.")
             player.turn(self.state)
@@ -517,6 +522,15 @@ def randomize(state):
         elif piece == "o":
             state.board[position] = random.choice(['x', 'o'])
         else:
+            state.board[position] = ""
+    return state.board
+
+def elimination(state):
+    for position in state.board:
+        piece = state.board[position]
+        if piece == "x":
+            state.board[position] = ""
+        elif piece == "o":
             state.board[position] = ""
     return state.board
 
