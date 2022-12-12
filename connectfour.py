@@ -96,13 +96,16 @@ class HumanPlayer(Player):
             mirrored off of returning human piece choice, similar to hangman's
             human letter choice.
         """
+        # Prints the current state of the board
         print(state)
-
+        # Sets a counter of available powerups
         powerup_count = 2
+        # Prompts the player to choose a column in which to place a piece
         human_choice = input(
             f"{self.name}, please enter a valid column to place your "
             "piece (valid columns: 1-7) or use a power-up by typing "
             "'power-up':")
+        # Decrements the powerup counter if a powerup is played
         if human_choice == 'power-up':
             powerup_count -= 1
         return human_choice
@@ -144,12 +147,19 @@ class ComputerPlayer(Player):
             computer_choice (str): the computer player's choice of what to do 
             with their turn (a number (1-7) or 'power-up')
         """
+        # This is an example of inheritence, as the ComputerPlayer inherits the 
+        # init method from Player
+        #Prints the state of the board
         print(state)
-
+        # Sets a powerup counter
         powerup_count = 2
+        # Defines the list of choices that the computer can make
         column_list = ["1", "2", "3", "4", "5", "6", "7"]
+        #If there are less than 10 pieces on the board, only place a piece
         if turn_counter <= 10:
             computer_choice = random.choice(column_list)
+        # If there are more than 10 pieces on the board, you can also play
+        # a powerup
         elif turn_counter > 10 and powerup_count > 0:
             column_list.append("power-up")
             computer_choice = random.choice(column_list)
@@ -330,6 +340,7 @@ class Board:
                         "We recognized you want to use a powerup. Please use the following syntax: power-up")
                     player.turn(self.state, self.turn_counter)
 
+        # If the user wants to quit the game 
         elif column == "quit":
             print("Thank you for playing our game!"
                   " "
@@ -381,7 +392,7 @@ class Board:
             See also turn().
         """
         # EMILY
-
+        # This is an example of using with statements to write to a file 
         player = None
         # Checks to make sure the game hasn't been won yet
         while self.check_four() is None:
@@ -396,6 +407,8 @@ class Board:
                 player = self.players[0]
             self.turn(player)
             print(f"the player that just went is {player.name}")
+        # Checks the outcome of the game, prints the outcome, and calls 
+        # game_details to save the details of the game in a text file 
         outcome = self.check_four()
         if outcome == "tie":
             print("The game ended in a tie!")
@@ -550,6 +563,8 @@ def randomize(state):
     
         Passes new information to BoardState
     """
+    # For each piece on the board that is x or o, randomly choose whether to 
+    # make it x or o 
     for position in state.board:
         piece = state.board[position]
         if piece == "x":
@@ -574,7 +589,9 @@ def elimination(state):
     """
     dictionarycomprehension = {
         position1 for position1, position2 in state.board}
+    # Chooses a random column
     randomposition = random.choice(tuple(dictionarycomprehension))
+    # Checks for x's and o's and removes them
     for piece in state.board:
         piece = state.board[randomposition]
         if piece == "x":
