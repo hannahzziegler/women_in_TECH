@@ -11,10 +11,8 @@ computer."""
 # PARKER:
 
 # LAST DEBUGGING
-# Tasfia -- fixing the str method
 # Emily -- update documentation/docstrings based on new board
 # Other stuff:
-#   Critical: figure out why vertical win in check_four() doesn't work - hannah working
 #   Better distinguish between turns (ask Christina for more detail)
 #   Emily - Check to see if the write file function works
 
@@ -48,6 +46,9 @@ class Player:
         """
         self.name = name
         self.powerup = None
+
+    def __str__(self):
+        return f"{self.name}"
 
     def turn(self, state):
         """Take a turn.
@@ -272,16 +273,17 @@ class Board:
         else:
             column = player.turn(self.state, self.turn_counter)
 
-        correctcolumn = re.search(r"\d|\b((p|P)(ower?)).?((u|U)(p?))\b", column)
+        correctcolumn = re.search(
+            r"\d|\b((p|P)(ower?)).?((u|U)(p?))\b", column)
 
-        if correctcolumn is not None: #if the correct column is actually a match
-            
+        if correctcolumn is not None:  # if the correct column is actually a match
+
             if column.isdigit():
                 column = int(column)
                 if column < 1 or 7 < column:
                     # user did not give a invalid integer
                     print("You must choose a number between 1 and 7 OR use your"
-                        " power-up.")
+                          " power-up.")
                     player.turn(self.state)
                 # if the column selected is already full
                 elif self.state.board[(column, 6)] != "":
@@ -308,16 +310,16 @@ class Board:
                     print(
                         "You do not have any powerups. Enter a new column between 1 and 7.")
                     player.turn(self.state)
-                    
+
                 else:
                     print(
-                        "We recognized you want to use a powerup. Please use the following syntax: power-up")                    
+                        "We recognized you want to use a powerup. Please use the following syntax: power-up")
                     player.turn(self.state)
-                    
+
         elif column == "quit":
             print("Thank you for playing our game!")
             sys.exit()
-                   
+
         else:
             print("This is an invalid input. Try again.")
             player.turn(self.state)
@@ -374,7 +376,7 @@ class Board:
             print("The game ended in a tie!")
             self.game_details()
         elif outcome == "win":
-            print(f"{player} won! The game lasted {self.turn_counter} turns.")
+            print(f"{str(player)} won! The game lasted {self.turn_counter} turns.")
             self.game_details()
 
             # note: i took out player_human = False because i initialized it as None
@@ -530,6 +532,7 @@ def randomize(state):
             state.board[position] = ""
     return state.board
 
+
 def elimination(state):
     for position in state.board:
         piece = state.board[position]
@@ -539,10 +542,10 @@ def elimination(state):
             state.board[position] = ""
     return state.board
 
-#another powerup idea = blocking
-#it replaces EVERY x and o into a B
-#this "blocks" the board, meaning that you cant use those pieces to win
-#you have to work over the pieces instead
+# another powerup idea = blocking
+# it replaces EVERY x and o into a B
+# this "blocks" the board, meaning that you cant use those pieces to win
+# you have to work over the pieces instead
 
 
 # BROKEN RANDOMIZE -- IGNORE
