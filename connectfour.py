@@ -377,10 +377,10 @@ class Board:
         outcome = self.check_four()
         if outcome == "tie":
             print("The game ended in a tie!")
-            self.game_details()
+            self.game_details(self.state.board, self.turn_counter, player)
         elif outcome == "win":
             print(f"{str(player)} won! The game lasted {self.turn_counter} turns.")
-            self.game_details()
+            self.game_details(self.state.board, self.turn_counter, player)
 
             # note: i took out player_human = False because i initialized it as None
 
@@ -466,7 +466,7 @@ class Board:
                 else:
                     return None
 
-    def game_details(self, state, turn_counter, player_human):
+    def game_details(self, state, turn_counter, player):
         """Writes the details of a finished game to a text file. 
 
         Args:
@@ -483,13 +483,13 @@ class Board:
         """
         # If player_human is true, the winner is the player's name and the
         # loser is the computer
-        if player_human == True:
-            winner = Player.name
+        if player == True:
+            winner = player.name
             loser = "Computer"
         # And vice versa for the else statement
         else:
             winner = "Computer"
-            loser = Player.name
+            loser = player.name
         # Here is a demonstration of a with statement
         # Open a file for writing to
         game_file = input("What do you want to call your save file?")
