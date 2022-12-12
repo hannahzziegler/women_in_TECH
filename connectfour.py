@@ -34,7 +34,6 @@ class Player:
             name (str): the player's name
         """
         self.name = name
-        
 
     def turn(self, state):
         """Take a turn.
@@ -168,9 +167,7 @@ class BoardState:
         #     self.board[(choice, counter)] = ("x" if isinstance(player,
         #                                                        HumanPlayer)
         #                                      else "o")
-        
-        
-        
+
         # CHRISTINA
         # This is a dictionary that sets the coordinates for each board position
         # (x,y): x=column(1-7), y=row(1-6)
@@ -219,24 +216,16 @@ class BoardState:
             (7, 6): ""
         }
 
-
     def __str__(self):
         """Returns a string representation of the board."""
         return f"The current board:\n\
-        (| {self.board[(6, 5)]}| {self.board[(6, 6)]} | {self.board[(7, 1)]} |\
-        {self.board[(7, 2)]} | {self.board[(7, 3)]} | {self.board[(7, 4)]} |)\n \
-        (| {self.board[(5, 5)]}| {self.board[(5, 6)]} | {self.board[(6, 1)]} |\
-        {self.board[(6, 2)]} | {self.board[(6, 3)]} | {self.board[(6, 4)]} |)\n\
-        (| {self.board[(4, 5)]}| {self.board[(4, 6)]} | {self.board[(5, 1)]} \
-        | {self.board[(5, 2)]} | {self.board[(5, 3)]} | {self.board[(5, 4)]} |)\n\
-        (| {self.board[(3, 5)]}| {self.board[(3, 6)]} | {self.board[(4, 1)]} |\
-        {self.board[(4, 2)]} | {self.board[(4, 3)]} | {self.board[(4, 4)]} |)\n\
-        (| {self.board[(2, 5)]}| {self.board[(2, 6)]} | {self.board[(3, 1)]} |\
-        {self.board[(3, 2)]} | {self.board[(3, 3)]} | {self.board[(3, 4)]} |)\n\
-        (| {self.board[(1, 5)]} | {self.board[(1, 6)]} | {self.board[(2, 1)]} |\
-        {self.board[(2, 2)]} | {self.board[(2, 3)]} | {self.board[(2, 4)]} |)\n\
-        (| {self.board[(1, 1)]} | {self.board[(1, 2)]} | {self.board[(1, 3)]} |\
-        {self.board[(1, 2)]} | {self.board[(1, 3)]} | {self.board[(1, 5)]} |)\n"
+        (| {self.board[(7, 1)]}| {self.board[(7, 2)]} | {self.board[(7, 3)]} | {self.board[(7, 4)]} | {self.board[(7, 5)]} | {self.board[(7, 6)]} |)\n\
+        (| {self.board[(6, 1)]}| {self.board[(6, 2)]} | {self.board[(6, 3)]} | {self.board[(6, 4)]} | {self.board[(6, 5)]} | {self.board[(6, 6)]} |)\n\
+        (| {self.board[(5, 1)]}| {self.board[(5, 2)]} | {self.board[(5, 3)]} | {self.board[(5, 4)]} | {self.board[(5, 5)]} | {self.board[(5, 6)]} |)\n\
+        (| {self.board[(4, 1)]}| {self.board[(4, 2)]} | {self.board[(4, 3)]} | {self.board[(4, 4)]} | {self.board[(4, 5)]} | {self.board[(4, 6)]} |)\n\
+        (| {self.board[(3, 1)]}| {self.board[(3, 2)]} | {self.board[(3, 3)]} | {self.board[(3, 4)]} | {self.board[(3, 5)]} | {self.board[(3, 6)]} |)\n\
+        (| {self.board[(2, 1)]}| {self.board[(2, 2)]} | {self.board[(2, 3)]} | {self.board[(2, 4)]} | {self.board[(2, 5)]} | {self.board[(2, 6)]} |)\n\
+        (| {self.board[(1, 1)]}| {self.board[(1, 2)]} | {self.board[(1, 3)]} | {self.board[(1, 4)]} | {self.board[(1, 5)]} | {self.board[(1, 6)]} |)\n"
         # PARKER
 
 
@@ -248,7 +237,7 @@ class Board:
     """
     # This needs an Attributes section later?
 
-    def __init__(self, players):  
+    def __init__(self, players):
         """Initializes the Board class.
 
         Args:
