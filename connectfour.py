@@ -131,16 +131,18 @@ class ComputerPlayer(Player):
         """Allows the computer player to take a turn 
 
         Args:
+        
             state (BoardState): the current state of the game
             turn_counter (int): a counter that counts the number of turns taken
 
         Side effects:
+        
             prints the state of the game to stdout
 
         Returns:
-            Returns:
-                computer_choice (str): the computer player's choice of what to do 
-                with their turn (a number (1-7) or 'power-up')
+        
+            computer_choice (str): the computer player's choice of what to do 
+            with their turn (a number (1-7) or 'power-up')
         """
         print(state)
 
@@ -161,6 +163,7 @@ class BoardState:
     Player.turn() method.
 
     Attributes:
+    
         board (dict of (int, int):str): a representation of the board, with
             columns represented as pipes (|s) and empty spots represented with
             spaces. Positions on the board are represented via coordinates of
@@ -168,7 +171,13 @@ class BoardState:
     """
 
     def __init__(self):
-        """Sets attributes."""
+        """Sets attributes.
+        
+        Side effects:
+        
+            Initializes the connect four board. 
+            
+        """
 
         # CHRISTINA
         # This is a dictionary that sets the coordinates for each board position
@@ -227,23 +236,30 @@ class BoardState:
         (| {self.board[(1, 3)]}| {self.board[(2, 3)]} | {self.board[(3, 3)]} | {self.board[(4, 3)]} | {self.board[(5, 3)]} | {self.board[(6, 3)]} | {self.board[7, 3]} |)\n\
         (| {self.board[(1, 2)]}| {self.board[(2, 2)]} | {self.board[(3, 2)]} | {self.board[(4, 2)]} | {self.board[(5, 2)]} | {self.board[(6, 2)]} | {self.board[7, 2]} |)\n\
         (| {self.board[(1, 1)]}| {self.board[(2, 1)]} | {self.board[(3, 1)]} | {self.board[(4, 1)]} | {self.board[(5, 1)]} | {self.board[(6, 1)]} | {self.board[7, 1]} |)\n"
-        # PARKER
+        # HANNAH
 
 
 class Board:
     """A Connect Four game.
 
     Attributes:
-
+    
+        players (list): the names of the human and computer player
+        turn_counter (int): a counter that counts how many turns have been taken
+        state (BoardState): the current state of the board
+        
     """
-    # This needs an Attributes section later?
 
     def __init__(self, players):
         """Initializes the Board class.
 
         Args:
-            board (str): represents the board the game is played on
+        
             players (list of HumanPlayer, ComputerPlayer): the players
+            
+        Side effects:
+        
+            initializes the players, turn_counter, and state attributes
         """
         self.players = players
         self.turn_counter = 0
@@ -251,16 +267,6 @@ class Board:
 
         # PARKER
 
-    # def generate_board(self):
-    #     """Returns the current state of the Connect Four board as a BoardState
-    #     object."""
-    #     return BoardState
-        # TASFIA
-        # Aric said it won't count towards points in the project
-        # If more complexity is needed, we'll add another power up
-        # CHRISTINA: i have a feeling this might need to be more complicated. revisit later
-
-    # optional parameter, when powerup is available.
     def turn(self, player):
         """Manages the player's turn.
 
@@ -569,50 +575,6 @@ def elimination(state):
 # it replaces EVERY x and o into a B
 # this "blocks" the board, meaning that you cant use those pieces to win
 # you have to work over the pieces instead
-
-
-# BROKEN RANDOMIZE -- IGNORE
-# {state.board[position]: random.choice('x', 'o') for position in state.board if position = 'x'}
-    # {state.board[position] == random.choice('x', 'o'): state.board[position] for position in state.board if position = 'x'}
-
-# def randomize(state):
-    # """Randomizes the positions of all pieces on the game board.
-
-    # Args:
-    # state (BoardState): the state of the board
-
-    # Returns:
-    # passes new information to BoardState
-
-    # HANNAH
-    # for position in state.board:
-    # piece = state.board[position]
-    #  value_list = ([(v) for v in piece if v != ""])
-    # getting a list of all pieces on the board that have an "X" or "O" in them
-    # random.shuffle(value_list)
-    # shuffling the order of the "X" and "O" values
-    # key_list = ([(k) for k, v in state.board.items() if v != ""])
-    # gettng a list of all spots on the board where pieces have been placed
-    # dict_with_pieces = {key_list[i]: value_list[i]
-    #   for i in range(len(key_list))}
-    # concatenating the lists into a new dictionary
-    # board_filtered_dict = {}
-    # creating an empty dictionary that will have a list of all the spaces
-    # on the board without pieces
-    # for (key, value) in state.board.items():
-    # if value == "":
-    # board_filtered_dict[key] = value
-    # loop is basically saying 'if there is not a piece in this spot
-    # on the board, make it a key value pair in the empty dict
-    # union_dicts = dict(dict_with_pieces.items() |
-    # board_filtered_dict.items())
-    # creating a union where all of the shuffled keys/values that have
-    # pieces on them are joined to the ones that remain empty
-    # state.board.update(union_dicts)
-    # return state.board
-    # updates state.board with each key's corresponding values
-    # returns state.board
-
 
 def main(human_name):
     """Sets up and plays a game of Connect Four.
