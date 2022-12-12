@@ -434,6 +434,12 @@ class Board:
             horiz_count = 1
             pdiag_count = 1
             ndiag_count = 1
+            
+            # Initializing some variables to increment with
+            vert_inc = 1
+            horiz_inc = 1
+            pdiag_inc = 1
+            ndiag_inc = 1
 
             # piece is equivalent to 'x' or 'o'
             piece = self.state.board[position]
@@ -446,29 +452,35 @@ class Board:
                 played_positions += 1
 
                 # Check for a vertical win
-                while ((self.state.board.get((x, y+vert_count)) == piece) or
-                        (self.state.board.get((x, y-vert_count)) == piece)):
+                while self.state.board.get((x, y+vert_inc)) == piece:
+                    vert_count += 1
+                vert_inc = 1
+                while self.state.board.get((x, y-vert_inc)) == piece:
                     vert_count += 1
 
                 # Check for a horizontal win
-                while ((self.state.board.get((x+horiz_count, y)) == piece) or
-                        (self.state.board.get((x-horiz_count, y)) == piece)):
+                while self.state.board.get((x+horiz_inc, y)) == piece:
+                    horiz_count += 1
+                horiz_inc = 1
+                while self.state.board.get((x-horiz_inc, y)) == piece:
                     horiz_count += 1
 
                 # Check for a diagonal win in the positive direction
-                while ((self.state.board.get((x+pdiag_count, y+pdiag_count))
-                        == piece)
-                        or
-                        (self.state.board.get((x-pdiag_count, y-pdiag_count))
-                         == piece)):
+                while (self.state.board.get((x+pdiag_inc, y+pdiag_inc))
+                        == piece):
+                    pdiag_count += 1
+                pdiag_inc = 1
+                while (self.state.board.get((x-pdiag_inc, y-pdiag_inc))
+                         == piece):
                     pdiag_count += 1
 
                 # Check for a diagonal win in the negative direction
-                while ((self.state.board.get((x+ndiag_count, y-ndiag_count))
-                        == piece)
-                        or
-                        (self.state.board.get((x-ndiag_count, y+ndiag_count))
-                         == piece)):
+                while (self.state.board.get((x+ndiag_inc, y-ndiag_inc))
+                        == piece):
+                    ndiag_count += 1
+                ndiag_inc = 1
+                while (self.state.board.get((x-ndiag_inc, y+ndiag_inc))
+                         == piece):
                     ndiag_count += 1
 
                 print("================================================")
