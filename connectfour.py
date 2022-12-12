@@ -537,7 +537,8 @@ def randomize(state):
 
 
 def elimination(state):
-    dictionarycomprehension = {position1 for position1, position2 in state.board} 
+    dictionarycomprehension = {
+        position1 for position1, position2 in state.board}
     randomposition = random.choice(tuple(dictionarycomprehension))
     for piece in state.board:
         piece = state.board[randomposition]
