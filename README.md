@@ -82,8 +82,8 @@ Emily Isaacson
 
 <br>
 Hannah Ziegler
-<li>set operations on sets or frozensets</li>
-<li>comprehensions or generator expressions</li>
+<li>the ArgumentParser class</li>
+<li>magic methods other than __init__()</li>
 
 <br>
 Tasfia Haque
@@ -92,8 +92,8 @@ Tasfia Haque
 
 <br>
 Parker Leipzig
-<li>the ArgumentParser class</li>
-<li>magic methods other than __init__()</li>
+<li>xxx</li>
+<li>xxx</li>
 
 <br>
 
