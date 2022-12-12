@@ -351,8 +351,10 @@ class Board:
         outcome = self.check_four()
         if outcome == "tie":
             print("The game ended in a tie!")
+            self.game_details()
         elif outcome == "win":
             print(f"{player} won! The game lasted {self.turn_counter} turns.")
+            self.game_details()
 
             # note: i took out player_human = False because i initialized it as None
 
