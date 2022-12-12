@@ -25,6 +25,7 @@ computer."""
 import argparse
 import sys
 import random
+import re
 
 
 class Player:
@@ -271,38 +272,45 @@ class Board:
         else:
             column = player.turn(self.state, self.turn_counter)
 
-        if column.isdigit():
-            column = int(column)
-            if column < 1 or 7 < column:
-                # user did not give a invalid integer
-                print("You must choose a number between 1 and 7 OR use your"
-                      " power-up.")
-                player.turn(self.state)
-            # if the column selected is already full
-            elif self.state.board[(column, 6)] != "":
-                print(
-                    f"Column {column} is currently full. Please choose another column.")
-                player.turn(self.state)
-            else:
-                self.drop_piece(column, player)
-        else:
-            # this is to check if the player actually has powerups
-            if column == 'power-up' and player.powerup is None:
-                # these are the powerups that could be chosen
-                player.powerup = random.choice(["invert", "randomize"])
-                # going to account for if we get other powerups
-                print(f"You have used {player.powerup}")
-                if player.powerup == "invert":
-                    self.state.board = invert(self.state)
-                    print(str(self.state.board))
-                elif player.powerup == "randomize":
-                    self.state.board = randomize(self.state)
-                    print(str(self.state.board))
+        correctcolumn = re.search(r"\d|\b((p|P)(ower?)).?((u|U)(p?))\b", column)
 
-            elif column == 'power-up' and player.powerup is not None:
-                print(
-                    "You do not have any powerups. Enter a new column between 1 and 7.")
-                player.turn(self.state)
+        if correctcolumn is not None: #if the correct column is actually a match
+            
+            if column.isdigit():
+                column = int(column)
+                if column < 1 or 7 < column:
+                    # user did not give a invalid integer
+                    print("You must choose a number between 1 and 7 OR use your"
+                        " power-up.")
+                    player.turn(self.state)
+                # if the column selected is already full
+                elif self.state.board[(column, 6)] != "":
+                    print(
+                        f"Column {column} is currently full. Please choose another column.")
+                    player.turn(self.state)
+                else:
+                    self.drop_piece(column, player)
+            else:
+                # this is to check if the player actually has powerups
+                if column == 'power-up' and player.powerup is None:
+                    # these are the powerups that could be chosen
+                    player.powerup = random.choice(["invert", "randomize"])
+                    # going to account for if we get other powerups
+                    print(f"You have used {player.powerup}")
+                    if player.powerup == "invert":
+                        self.state.board = invert(self.state)
+                        print(str(self.state.board))
+                    elif player.powerup == "randomize":
+                        self.state.board = randomize(self.state)
+                        print(str(self.state.board))
+
+                elif column == 'power-up' and player.powerup is not None:
+                    print(
+                        "You do not have any powerups. Enter a new column between 1 and 7.")
+                    player.turn(self.state)
+        else:
+            print("This is an invalid input. Try again.")
+            player.turn(self.state)
 
     def drop_piece(self, choice, player):
         """Assigns 'x' or 'o' to a key (determined by choice) in self.board.
