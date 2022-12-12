@@ -291,10 +291,10 @@ class Board:
                 print(f"You have used {player.powerup}")
                 if player.powerup == "invert":
                     self.state.board = invert(self.state)
-                    print(self.state.board)
+                    print(str(self.state.board))
                 elif player.powerup == "randomize":
                     self.state.board = randomize(self.state)
-                    print(self.state.board)
+                    print(str(self.state.board))
 
             elif column == 'power-up' and player.powerup is not None:
                 print(
