@@ -539,6 +539,11 @@ def elimination(state):
             state.board[position] = ""
     return state.board
 
+#another powerup idea = blocking
+#it replaces EVERY x and o into a B
+#this "blocks" the board, meaning that you cant use those pieces to win
+#you have to work over the pieces instead
+
 
 # BROKEN RANDOMIZE -- IGNORE
 # {state.board[position]: random.choice('x', 'o') for position in state.board if position = 'x'}
