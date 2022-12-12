@@ -277,12 +277,12 @@ class Board:
                 # user did not give a invalid integer
                 print("You must choose a number between 1 and 7 OR use your"
                       " power-up.")
-                player.turn(self.state, self.turn_counter)
+                player.turn(self.state)
             # if the column selected is already full
             elif self.state.board[(column, 6)] != "":
                 print(
                     f"Column {column} is currently full. Please choose another column.")
-                player.turn(self.state, self.turn_counter)
+                player.turn(self.state)
             else:
                 self.drop_piece(column, player)
         else:
@@ -302,7 +302,7 @@ class Board:
             elif column == 'power-up' and player.powerup is not None:
                 print(
                     "You do not have any powerups. Enter a new column between 1 and 7.")
-                player.turn(self.state, self.turn_counter)
+                player.turn(self.state)
 
     def drop_piece(self, choice, player):
         """Assigns 'x' or 'o' to a key (determined by choice) in self.board.
