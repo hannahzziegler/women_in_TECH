@@ -518,9 +518,11 @@ def invert(state):
     """Transforms all X's on the game board to O's, and vice versa.
 
     Args:
+    
         state (BoardState): the state of the board
 
     Side effects:
+    
         passes new information to BoardState
     """
     for position in state.board:
@@ -537,6 +539,17 @@ def invert(state):
 
 
 def randomize(state):
+    """Looks at all x's and o's on the board, randomly changes them to an x or 
+    an o. 
+    
+    Args:
+    
+        state (BoardState): the state of the board
+        
+    Side effects:
+    
+        Passes new information to BoardState
+    """
     for position in state.board:
         piece = state.board[position]
         if piece == "x":
@@ -549,6 +562,16 @@ def randomize(state):
 
 
 def elimination(state):
+    """Deletes the x's and o's from a random column on the board. 
+    
+    Args:
+    
+        state (BoardState): the state of the board
+        
+    Side effects:
+    
+        Passes new information to BoardState
+    """
     dictionarycomprehension = {
         position1 for position1, position2 in state.board}
     randomposition = random.choice(tuple(dictionarycomprehension))
@@ -560,10 +583,6 @@ def elimination(state):
             state.board[randomposition] = ""
     return state.board
 
-# another powerup idea = blocking
-# it replaces EVERY x and o into a B
-# this "blocks" the board, meaning that you cant use those pieces to win
-# you have to work over the pieces instead
 
 def main(human_name):
     """Sets up and plays a game of Connect Four.
@@ -583,13 +602,16 @@ def main(human_name):
 def parse_args(arglist):
     """Parse command-line arguments.
 
-    Expects two mandatory arguments: 
-        name (str) = name of human player
+    Expects one mandatory arguments: 
+    
+        name (str): name of human player
 
     Args:
+    
         arglist (list of str): arguments from the command line.
 
     Returns:
+    
         namespace: the parsed arguments, as a namespace.
     """
     # PARKER
