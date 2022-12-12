@@ -30,7 +30,8 @@ class Player:
     """Represents a player in a Connect Four game.
 
     Attributes: 
-        piece (str): a piece on the board
+        name (str): the name of the player
+        powerup (str): a powerup that can be played during the game
 
     Citation:
         https://umd.instructure.com/courses/1330825/pages/hangman hangman.py by
@@ -43,15 +44,19 @@ class Player:
 
         Args:
             name (str): the player's name
+            
+        Side effects:
+            Initializes the name and powerup attributes
         """
         self.name = name
         self.powerup = None
 
     def __str__(self):
+        """Returns a string representation of the player's name."""
         return f"{self.name}"
 
     def turn(self, state):
-        """Take a turn.
+        """Takes a turn.
 
         Args:
             state (BoardState): a snapshot of the current game
