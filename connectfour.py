@@ -64,7 +64,7 @@ class Player:
 
 
 class HumanPlayer(Player):
-    def turn(self, state):
+    def turn(self, state, turn_counter):
         """Prompts a player to take their turn and place their piece in a 
         column. Takes a turn.
 
@@ -269,7 +269,7 @@ class Board:
         """
         # TASFIA
         if isinstance(player, HumanPlayer):
-            column = player.turn(self.state)
+            column = player.turn(self.state, self.turn_counter)
         else:
             column = player.turn(self.state, self.turn_counter)
 
@@ -284,12 +284,12 @@ class Board:
                     # user did not give a invalid integer
                     print("You must choose a number between 1 and 7 OR use your"
                           " power-up. Enter /quit/ to quit the program")
-                    player.turn(self.state)
+                    player.turn(self.state, self.turn_counter)
                 # if the column selected is already full
                 elif self.state.board[(column, 6)] != "":
                     print(
                         f"Column {column} is currently full. Please choose another column.")
-                    player.turn(self.state)
+                    player.turn(self.state, self.turn_counter)
                 else:
                     self.drop_piece(column, player)
             else:
@@ -312,12 +312,12 @@ class Board:
                 elif column == 'power-up' and player.powerup is not None:
                     print(
                         "You do not have any powerups. Enter a new column between 1 and 7.")
-                    player.turn(self.state)
+                    player.turn(self.state, self.turn_counter)
 
                 else:
                     print(
                         "We recognized you want to use a powerup. Please use the following syntax: power-up")
-                    player.turn(self.state)
+                    player.turn(self.state, self.turn_counter)
 
         elif column == "quit":
             print("Thank you for playing our game!"
@@ -384,10 +384,10 @@ class Board:
         outcome = self.check_four()
         if outcome == "tie":
             print("The game ended in a tie!")
-            self.game_details()
+            self.game_details(self.state.board, self.turn_counter, player)
         elif outcome == "win":
             print(f"{str(player)} won! The game lasted {self.turn_counter} turns.")
-            self.game_details()
+            self.game_details(self.state.board, self.turn_counter, player)
 
             # note: i took out player_human = False because i initialized it as None
 
@@ -473,7 +473,7 @@ class Board:
                 else:
                     return None
 
-    def game_details(self, state, turn_counter, player_human):
+    def game_details(self, state, turn_counter, player):
         """Writes the details of a finished game to a text file. 
 
         Args:
@@ -490,13 +490,13 @@ class Board:
         """
         # If player_human is true, the winner is the player's name and the
         # loser is the computer
-        if player_human == True:
-            winner = Player.name
+        if player == True:
+            winner = player.name
             loser = "Computer"
         # And vice versa for the else statement
         else:
             winner = "Computer"
-            loser = Player.name
+            loser = player.name
         # Here is a demonstration of a with statement
         # Open a file for writing to
         game_file = input("What do you want to call your save file?")
