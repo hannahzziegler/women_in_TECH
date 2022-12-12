@@ -268,15 +268,15 @@ class Board:
         # PARKER
 
     def turn(self, player):
-        """Manages the player's turn.
+        """Ensures that the player's turn is valid, implements any powerups. 
 
         Args:
             player (Player): the player whose turn it is
 
         Side effects:
+        
             prints to stdout
-            calls player.turn
-            uses self.state attribute 
+            changes the state of the board
         """
         # TASFIA
         if isinstance(player, HumanPlayer):
@@ -371,11 +371,13 @@ class Board:
                                                else "o")
 
     def play(self):
-        """Play Connect Four (group note: while self.check_four is None, 
-        play continues)
+        """Plays Connect Four until winning conditions have been met. Tells 
+        the user how the game ended. 
 
         Side effects:
+        
             Writes to stdout.
+            Calls game_details 
             See also turn().
         """
         # EMILY
@@ -385,7 +387,6 @@ class Board:
         while self.check_four() is None:
             # Increments the turn counter by one
             self.turn_counter += 1
-            # CHRISTINA: what in the while loop is actually causing the back and forth of turns?
             # Assuming that the human player always goes first:
             # If the turn counter is even, the player species is the human player
             # If the turn counter is odd, the player species is the computer
@@ -395,8 +396,6 @@ class Board:
                 player = self.players[0]
             self.turn(player)
             print(f"the player that just went is {player.name}")
-
-        # we need to call the game details method somewhere in this play method to get it going
         outcome = self.check_four()
         if outcome == "tie":
             print("The game ended in a tie!")
@@ -404,16 +403,6 @@ class Board:
         elif outcome == "win":
             print(f"{str(player)} won! The game lasted {self.turn_counter} turns.")
             self.game_details(self.state.board, self.turn_counter, player)
-
-            # note: i took out player_human = False because i initialized it as None
-
-            # now that you know which player's turn it is, you should trigger
-            # self.turn(player)! there might also be other conditions that must
-            # be satisfied before .turn() can be activated, idk
-            # play() is also responsible for printing the board at every turn
-            # also, once you exit the while loop, play() should call check_four()
-            # using the return from check four, print to stdout and declare the winner and loser
-            # no need to return anything!! because once play ends, the game is over
 
     def check_four(self):
         """Determines if the game is over, i.e. if a player has four connected
