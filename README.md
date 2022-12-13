@@ -60,7 +60,7 @@ Hannah Ziegler
 
 <br>
 Tasfia Haque
-<li>Board generate_board() method</li>
+<li>Eliminate function</li>
 <li>Board turn() method</li>
 
 <br>
@@ -90,7 +90,8 @@ Hannah Ziegler
 
 <br>
 Tasfia Haque
-<li>optional parameters</li>
+<li>regex</li>
+<li>dictionary comprehensions</li>
 <li>f-strings</li>
 
 <br>
