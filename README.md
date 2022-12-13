@@ -9,6 +9,8 @@ Our final project this semester is to create a Connect Four game. The game invol
 
 In our GitHub repository for the Women in TECH group, we have one primary file for our program to run. That file is “connectfour.py.” We also have one file named “test.txt,” which we created when we had an assignment to make sure that we could all commit and pull to make changes to the repository. Our repository also has a README.md that also contains the documentation that we have in this document. 
 
+As an aside, when a player completes the game, they are prompted to provide a name of a file that they want to write the game details to, so depending on where a user is running the game from, that content could also appear in their repository or any other working directory based on where the connectfour.py file is running from. This is tangentially related, but we did just want to include in the event that a game player ends up with this additional file in their documentation of the game saved on their machine.
+
 <br>
 <b>Running the Program From the Command Line</b>
 
@@ -29,7 +31,7 @@ If the player does not play a valid column, or their chosen column is full, they
 Each player in the game is allowed to use up to two power ups to help them throughout the competition. In addition to column values, a player can also type the words ‘power-up’ during their turn to initiate a randomly chosen power-up from the two that we have: invert and randomize. This power-up usage counts as the player’s turn. When a power-up is used, one of the power-up functions gets called, changes the board and returns the new board. 
 <br>
 <br>
-After each turn or each use of a power-up, the player in the game should be able to see the current state of the board. If one player wins as a result of the Board.check_four() method confirming that they have four pieces in a row either vertically, horizontally or diagonally, a statement declaring the winner will print and the game will be over. 
+After each turn or each use of a power-up, the player in the game should be able to see the current state of the board. If one player wins as a result of the Board.check_four() method confirming that they have four pieces in a row either vertically, horizontally or diagonally, a statement declaring the winner will print and the game will be over. After the winner gets declared, the user will get prompted to write to a file that stores the winning state of the board and a statement about the winner and loser for bragging rights and to exhibit with file statements. That file that is written will get saved into the directory where the user is playing the game, and then the game will end by showing credits. 
 
 <br>
 <b>Project Attribution</b>
@@ -65,7 +67,6 @@ Tasfia Haque
 
 <br>
 Parker Leipzig
-<li></li>
 <li>xxx</li>
 <li>xxx</li>
 
