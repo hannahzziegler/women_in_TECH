@@ -9,6 +9,8 @@ Our final project this semester is to create a Connect Four game. The game invol
 
 In our GitHub repository for the Women in TECH group, we have one primary file for our program to run. That file is “connectfour.py.” We also have one file named “test.txt,” which we created when we had an assignment to make sure that we could all commit and pull to make changes to the repository. Our repository also has a README.md that also contains the documentation that we have in this document. 
 
+We have one item in our repository that allows Git to ignore certain personal copies of files that individual project members have used to debug their individual code portions. There is also a file that saves the game state called "game_save.rtf".
+
 As an aside, when a player completes the game, they are prompted to provide a name of a file that they want to write the game details to, so depending on where a user is running the game from, that content could also appear in their repository or any other working directory based on where the connectfour.py file is running from. This is tangentially related, but we did just want to include in the event that a game player ends up with this additional file in their documentation of the game saved on their machine.
 
 <br>
