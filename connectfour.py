@@ -25,6 +25,7 @@ import argparse
 import sys
 import random
 import re
+from matplotlib import pyplot as plt
 
 
 class Player:
@@ -385,6 +386,9 @@ class Board:
         """Plays Connect Four until winning conditions have been met. Tells 
         the user how the game ended. 
 
+        Returns:
+            list of Player: a list of the Player object that indicates the winner(s) of the game.
+
         Side effects:
 
             Writes to stdout.
@@ -414,10 +418,12 @@ class Board:
         if outcome == "tie":
             print("The game ended in a tie!")
             self.game_details(self.state.board, self.turn_counter, player)
+            return self.players[:]
         elif outcome == "win":
             print(f"{str(player)} won! The game lasted {self.turn_counter} "
                   "turns.")
             self.game_details(self.state.board, self.turn_counter, player)
+            return [player]
 
     def check_four(self):  # CHRISTINA
         """Determines if the game is over, i.e. if a player has four connected
@@ -618,7 +624,25 @@ def elimination(state):  # TASFIA
     return state.board
 
 
-def main(human_name):  # HANNAH
+def winners(score):  # PARKER
+    """Creates a data visualization for the number of times each player won a game of Connect Four.
+
+    Args:
+        score (dict) = a dictionary with keys of players of the game and values that count the number of wins each player has
+
+    Side effects:
+        creates a graph of the number of wins each player has once the user is done playing
+    """
+    x = range(len(score))
+    labels = [str(player) for player in score]
+    plt.bar(x, score.values(), tick_label=labels)
+    plt.xlabel("Players")
+    plt.ylabel("No. of Wins")
+    plt.title("Number of Game Wins Per Player")
+    plt.show()
+
+
+def main(human_name):  # HANNAH & PARKER
     """Sets up and plays a game of Connect Four.
 
     Args:
@@ -629,8 +653,16 @@ def main(human_name):  # HANNAH
     """
     players = [HumanPlayer(human_name),
                ComputerPlayer("Computer")]
-    game = Board(players)
-    game.play()
+    score = {player: 0 for player in players}
+    while True:
+        game = Board(players)
+        outcome = game.play()
+        for player in outcome:
+            score[player] += 1
+        results = input("Do you want to play another game? ")
+        if results.lower() == "no":
+            break
+    winners(score)
 
 
 def parse_args(arglist):  # HANNAH
