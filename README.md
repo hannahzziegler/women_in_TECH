@@ -69,8 +69,8 @@ Tasfia Haque
 
 <br>
 Parker Leipzig
-<li>xxx</li>
-<li>xxx</li>
+<li>winners function</li>
+<li>main (created a loop to continue the game in as many rounds the user wants and a dict comprehension to keep track of the players' scores</li>
 
 <br>
 <br>
@@ -94,13 +94,12 @@ Hannah Ziegler
 <br>
 Tasfia Haque
 <li>regex</li>
-<li>dictionary comprehensions</li>
 <li>f-strings</li>
 
 <br>
 Parker Leipzig
-<li>xxx</li>
-<li>xxx</li>
+<li>pyplot visualization</li>
+<li>dictionary comprehensions</li>
 
 <br>
 
