@@ -33,7 +33,7 @@ If the player does not play a valid column, or their chosen column is full, they
 Each player in the game is allowed to use up to two power ups to help them throughout the competition. In addition to column values, a player can also type the words ‘power-up’ during their turn to initiate a randomly chosen power-up from the two that we have: invert and randomize. This power-up usage counts as the player’s turn. When a power-up is used, one of the power-up functions gets called, changes the board and returns the new board. 
 <br>
 <br>
-After each turn or each use of a power-up, the player in the game should be able to see the current state of the board. If one player wins as a result of the Board.check_four() method confirming that they have four pieces in a row either vertically, horizontally or diagonally, a statement declaring the winner will print and the game will be over. After the winner gets declared, the user will get prompted to write to a file that stores the winning state of the board and a statement about the winner and loser for bragging rights and to exhibit with file statements. That file that is written will get saved into the directory where the user is playing the game, and then the game will end by showing credits. 
+After each turn or each use of a power-up, the player in the game should be able to see the current state of the board. If one player wins as a result of the Board.check_four() method confirming that they have four pieces in a row either vertically, horizontally or diagonally, a statement declaring the winner will print and the game will be over. After the winner gets declared, the user will get prompted to write to a file that stores the winning state of the board and a statement about the winner and loser for bragging rights and to exhibit with file statements. That file that is written will get saved into the directory where the user is playing the game, and then the game will end after the user decides they are done playing that will populate a bar graph showing how many times the player won versus how many times the computer won. Finally, the game will show credits for the game. 
 
 <br>
 <b>Project Attribution</b>
@@ -70,7 +70,7 @@ Tasfia Haque
 <br>
 Parker Leipzig
 <li>winners function</li>
-<li>main (created a loop to continue the game in as many rounds the user wants and a dict comprehension to keep track of the players' scores</li>
+<li>main (created a loop to continue the game in as many rounds the user wants and a dict comprehension to keep track of the players' scores)</li>
 
 <br>
 <br>
