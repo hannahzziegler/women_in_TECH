@@ -7,8 +7,8 @@ computer."""
 # CHRISTINA: conditional expressions, sequence unpacking (tentative)
 # HANNAH: magic method besides init, argparse
 # EMILY: with statements ( writing to a text file), inheritance
-# TASFIA: comprehension, regex
-# PARKER:
+# TASFIA: f-strings, regex
+# PARKER: dictionary comprehension, pyplot visualization
 
 # LAST DEBUGGING
 # Other stuff:
@@ -354,6 +354,8 @@ class Board:
                   "Graphic Designer : Emily,"
                   " "
                   "Visual/Audio : Tasfia,"
+                  " "
+                  "Bar Chart : Parker"
                   " "
                   f"Special Thanks To: Players Like You!")
             sys.exit()
